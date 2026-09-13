@@ -1,0 +1,37 @@
+{
+  "brand": {
+    "name": "Murafiq",
+    "tagline": "Case Resolution Platform for Education in Egypt"
+  },
+  "nav": {
+    "home": "Home",
+    "directory": "Institutions Directory",
+    "newCase": "Submit Case",
+    "dashboard": "Dashboard",
+    "login": "Sign In",
+    "logout": "Sign Out"
+  },
+  "lifecycle": {
+    "DRAFT": "Draft",
+    "SUBMITTED": "Submitted",
+    "PRIVATE_GRACE": "Private Grace Period",
+    "ACTION_PLAN_PENDING": "Action Plan Pending",
+    "IN_PROGRESS": "In Progress",
+    "AWAITING_EVALUATION": "Awaiting Evaluation",
+    "CLOSED": "Closed & Documented",
+    "ARCHIVED": "Archived"
+  },
+  "attribution": {
+    "userReported": "User Reported",
+    "institutionStated": "Institution Stated",
+    "aiAnalysis": "AI Analysis",
+    "verified": "Verified"
+  },
+  "common": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "brand": {
+    "name": "مُرافِق",
+    "tagline": "منصة حل القضايا والشكاوى التعليمية في مصر"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "directory": "دليل المؤسسات",
+    "newCase": "تقديم قضية",
+    "dashboard": "لوحة المتابعة",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج"
+  },
+  "lifecycle": {
+    "DRAFT": "مسودة",
+    "SUBMITTED": "تم التقديم",
+    "PRIVATE_GRACE": "مهلة المراجعة الخاصة",
+    "ACTION_PLAN_PENDING": "بانتظار خطة العمل",
+    "IN_PROGRESS": "قيد التنفيذ",
+    "AWAITING_EVALUATION": "بانتظار التقييم النهائي",
+    "CLOSED": "مغلقة وموثقة",
+    "ARCHIVED": "مؤرشفة"
+  },
+  "attribution": {
+    "userReported": "تقرير ولي الأمر",
+    "institutionStated": "بيان المؤسسة",
+    "aiAnalysis": "تحليل ذكي",
+    "verified": "موثق"
+  },
+  "common": {
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما"
+  }
+}
