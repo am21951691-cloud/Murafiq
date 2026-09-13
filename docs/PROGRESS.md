@@ -1,7 +1,7 @@
 # Murafiq (مُرافِق) — Progress & Milestone Tracker (V2.2.1)
 
 > **North Star Metric:** Completed, User-Evaluated Resolution Loops  
-> **Current Phase:** Ready for Execution (Slice 0: System Foundation)  
+> **Current Phase:** Slice 1 Completed — Ready for Slice 2  
 > **Last Updated:** 2026-09-13
 
 ---
@@ -26,11 +26,11 @@
 - [x] Write and pass unit tests (`tests/unit/utils.test.ts`) and RLS tests (`tests/integration/rls.test.ts`).
 
 ### Slice 1: Private Intake & Institutional Triage Loop
-- [ ] Build guided intake wizard capturing initial impact rating ($R_{exp}$ 1–5).
-- [ ] Implement `/api/cases/submit` routing sensitive narrative to `case_sensitive_data`.
-- [ ] Implement configurable 7-day private grace period engine.
-- [ ] Build institution portal triage dashboard showing active grace countdowns.
-- [ ] Write and pass intake and triage integration tests.
+- [x] Build guided intake wizard capturing initial impact rating ($R_{exp}$ 1–5).
+- [x] Implement `/api/cases/submit` routing sensitive narrative to `case_sensitive_data`.
+- [x] Implement configurable 7-day private grace period engine.
+- [x] Build institution portal triage dashboard showing active grace countdowns.
+- [x] Write and pass intake and triage integration tests.
 
 ### Slice 2: Structured Action Plan & Milestone Builder
 - [ ] Build interactive action plan constructor with department role and due date inputs.
