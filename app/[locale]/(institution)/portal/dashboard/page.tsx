@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { CaseTriageCard, type CaseTriageItem } from "@/components/institution/CaseTriageCard";
+import { Case } from "@/types/database";
 
 export default function InstitutionTriageDashboard() {
   const [role, setRole] = useState<string>("OPS_LEAD");
@@ -39,8 +40,16 @@ export default function InstitutionTriageDashboard() {
     (c) => c.lifecycle_status === "PRIVATE_GRACE"
   ).length;
 
+  const isUrgent = (c: Case) => {
+    if (!c.grace_expires_at) return false;
+    const daysLeft = Math.ceil(
+      (new Date(c.grace_expires_at).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
+    );
+    return daysLeft <= 2;
+  };
+
   const urgentCount = cases.filter(
-    (c) => c.lifecycle_status === "PRIVATE_GRACE" && (c.remaining_days ?? 0) <= 2
+    (c) => c.lifecycle_status === "PRIVATE_GRACE" && isUrgent(c)
   ).length;
 
   const filteredCases = cases.filter((c) => {

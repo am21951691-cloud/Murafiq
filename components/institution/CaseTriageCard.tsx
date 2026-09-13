@@ -1,25 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { Case } from "@/types/database";
 
-export interface CaseTriageItem {
-  id: string;
-  reference_number: string;
-  category: string;
-  subcategory: string;
-  lifecycle_status: string;
-  visibility: string;
-  sanitized_description: string;
-  initial_experience_rating: number;
-  grace_expires_at?: string | null;
-  created_at: string;
-  remaining_days?: number;
-  remaining_hours?: number;
-  is_urgent?: boolean;
-}
+export type CaseTriageItem = Case;
 
 interface CaseTriageCardProps {
-  caseData: CaseTriageItem;
+  caseData: Case;
   userRole?: string;
   onAcknowledged?: (caseId: string) => void;
 }
