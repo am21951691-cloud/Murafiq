@@ -1,7 +1,7 @@
 # Murafiq (مُرافِق) — Progress & Milestone Tracker (V2.2.1)
 
 > **North Star Metric:** Completed, User-Evaluated Resolution Loops  
-> **Current Phase:** Slice 5 Completed — Ready for Slice 6  
+> **Current Phase:** Slice 6 Completed — Ready for Slice 7  
 > **Last Updated:** 2026-09-21
 
 ---
@@ -57,10 +57,10 @@
 - [x] Write and pass PDF generation and snapshot integrity tests.
 
 ### Slice 6: WhatsApp Cloud API Automation
-- [ ] Build Meta Cloud API client for pre-approved transactional utility templates.
-- [ ] Implement Trigger.dev idempotent dispatch task with signed 72h download URLs.
-- [ ] Implement delivery webhook receiver and 30-day phone hashing retention policy.
-- [ ] Write and pass WhatsApp dispatch and webhook tests.
+- [x] Build Meta Cloud API client for pre-approved transactional utility templates.
+- [x] Implement Trigger.dev idempotent dispatch task with signed 72h download URLs.
+- [x] Implement delivery webhook receiver and 30-day phone hashing retention policy.
+- [x] Write and pass WhatsApp dispatch and webhook tests.
 
 ### Slice 7: Public Platform & Bayesian Benchmark Metrics
 - [ ] Implement searchable school directory (governorate threshold gated).
