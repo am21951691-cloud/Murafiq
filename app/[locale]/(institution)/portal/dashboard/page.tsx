@@ -6,6 +6,7 @@ import { CaseTriageCard, type CaseTriageItem } from "@/components/institution/Ca
 import { Case, SectorType } from "@/types/database";
 import { SAMPLE_ENTITIES, type SampleEntityRecord } from "@/lib/services/entities";
 import { getSectorTaxonomy } from "@/lib/config/taxonomies";
+import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
 
 const SECTOR_LABELS: Record<SectorType, { title: string; icon: string; applicantTerm: string }> = {
   EDUCATION_SCHOOLS: {
@@ -118,6 +119,12 @@ export default function InstitutionTriageDashboard() {
 
   // Sector statutory badge details
   const getStatutoryBadge = (entity?: SampleEntityRecord) => {
+    if (selectedEntityId === "OTHER") {
+      return {
+        label: "الحالات والجهات المضافة يدوياً من المواطنين والمستفيدين",
+        badge: "قيد التعيين والتحقق الإداري الرسمي",
+      };
+    }
     if (!entity) {
       return {
         label: "المنظومة الوطنية الشاملة (جميع القطاعات)",
@@ -159,10 +166,11 @@ export default function InstitutionTriageDashboard() {
     <main className="min-h-screen bg-civic-canvas py-8 px-4 sm:px-6 lg:px-8 font-arabic text-right">
       <div className="mx-auto max-w-5xl space-y-6">
         {/* Global Navigation Bar */}
-        <div className="flex items-center justify-between bg-white px-4 py-3 rounded-xl border border-slate-200 text-xs shadow-2xs">
+        <div className="flex items-center justify-between bg-white px-4 py-2.5 rounded-xl border border-slate-200 text-xs shadow-2xs">
           <div className="flex items-center gap-3 font-bold text-slate-700">
-            <Link href="/" className="hover:text-sky-800 transition flex items-center gap-1">
-              🏠 <span>الرئيسية</span>
+            <Link href="/" className="hover:opacity-90 transition flex items-center gap-1.5">
+              <MurafiqLogo size="sm" showText={false} />
+              <span className="text-sky-950 font-black">مُرافِق</span>
             </Link>
             <span className="text-slate-300">|</span>
             <Link href="/directory" className="hover:text-sky-800 transition">
@@ -191,45 +199,49 @@ export default function InstitutionTriageDashboard() {
               className="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-800 focus:border-sky-800 focus:outline-none"
             >
               <option value="ALL">🌐 عرض جميع الجهات (المنظور الوطني الشامل)</option>
-              <optgroup label="المدارس والتعليم قبل الجامعي">
-                <option value="00000000-0000-0000-0000-000000000010">
-                  🏫 مدرسة القاهرة التجريبية الرسمية للغات (القاهرة)
-                </option>
-                <option value="sch-stgeorge-002">
-                  🏫 مدرسة سانت جورج للغات (مصر الجديدة)
-                </option>
+              <optgroup label="🎓 الجامعات والتعليم العالي (القاهرة - الجيزة - الإسكندرية)">
+                <option value="uni-cairo-001">🎓 جامعة القاهرة (Cairo University - الجيزة)</option>
+                <option value="uni-ainshams-003">🎓 جامعة عين شمس (العباسية - القاهرة)</option>
+                <option value="uni-guc-002">🎓 الجامعة الألمانية بالقاهرة (GUC - القاهرة الجديدة)</option>
+                <option value="uni-auc-004">🎓 الجامعة الأمريكية بالقاهرة (AUC - التجمع الخامس)</option>
+                <option value="uni-october-005">🎓 جامعة 6 أكتوبر (الجيزة)</option>
+                <option value="uni-must-006">🎓 جامعة مصر للعلوم والتكنولوجيا (MUST - 6 أكتوبر)</option>
+                <option value="uni-alex-008">🎓 جامعة الإسكندرية (Alexandria University - الشاطبي)</option>
+                <option value="uni-aast-009">🎓 الأكاديمية العربية للعلوم والتكنولوجيا (AASTMT - أبو قير)</option>
               </optgroup>
-              <optgroup label="الجامعات والتعليم العالي">
-                <option value="uni-cairo-001">
-                  🎓 جامعة القاهرة (Cairo University - الجيزة)
-                </option>
-                <option value="uni-guc-002">
-                  🎓 الجامعة الألمانية بالقاهرة (GUC)
-                </option>
+              <optgroup label="🏫 المدارس والتعليم قبل الجامعي (القاهرة - الجيزة - الإسكندرية)">
+                <option value="00000000-0000-0000-0000-000000000010">🏫 مدرسة القاهرة التجريبية الرسمية للغات (القاهرة)</option>
+                <option value="sch-cairo-001">🏫 مدرسة سان جورج للغات (مصر الجديدة - القاهرة)</option>
+                <option value="sch-giza-001">🏫 مدرسة السعيدية الثانوية العسكرية (الجيزة)</option>
+                <option value="sch-giza-002">🏫 مدرسة الأورمان الرسمية للغات (الدقي - الجيزة)</option>
+                <option value="sch-alex-001">🏫 كلية فيكتوريا بالإسكندرية (Victoria College)</option>
+                <option value="sch-alex-002">🏫 كلية سان مارك (Saint Marc - الشاطبي بالإسكندرية)</option>
               </optgroup>
-              <optgroup label="الخدمات الحكومية والهيئات">
-                <option value="gov-post-001">
-                  🏛️ الهيئة القومية للبريد - منطقة بريد القاهرة
-                </option>
-                <option value="gov-notary-002">
-                  🏛️ مكتب الشهر العقاري والتوثيق - مدينة نصر المميكن
-                </option>
+              <optgroup label="🏛️ الخدمات الحكومية والهيئات (القاهرة - الجيزة - الإسكندرية)">
+                <option value="gov-post-001">🏛️ الهيئة القومية للبريد - مكتب بريد العتبة الرئيسي</option>
+                <option value="gov-notary-002">🏛️ مكتب الشهر العقاري والتوثيق - مدينة نصر المميكن</option>
+                <option value="gov-passports-003">🏛️ مصلحة الجوازات والهجرة والجنسية - العباسية</option>
+                <option value="gov-traffic-giza-004">🏛️ مرور الجيزة - وحدة مرور فيصل وبين السرايات</option>
+                <option value="gov-post-alex-006">🏛️ بريد الإسكندرية - مكتب بريد محطة مصر الرئيسي</option>
+                <option value="gov-notary-smouha-007">🏛️ توثيق الشهر العقاري النموذجي - سموحة بالإسكندرية</option>
               </optgroup>
-              <optgroup label="الشركات والخدمات التجارية">
-                <option value="com-vodafone-001">
-                  🏢 شركة فودافون مصر للاتصالات (Vodafone Egypt)
-                </option>
-                <option value="com-we-002">
-                  🏢 الشركة المصرية للاتصالات (Telecom Egypt - WE)
-                </option>
+              <optgroup label="🏢 الشركات والخدمات التجارية (القاهرة - الجيزة - الإسكندرية)">
+                <option value="com-vodafone-001">🏢 شركة فودافون مصر للاتصالات (القرية الذكية والجيزة)</option>
+                <option value="com-we-003">🏢 الشركة المصرية للاتصالات WE (سنترال رمسيس - القاهرة)</option>
+                <option value="com-orange-002">🏢 شركة أورنج مصر للاتصالات (القرية الذكية)</option>
+                <option value="com-nbe-004">🏢 البنك الأهلي المصري (الفرع الرئيسي كورنيش النيل)</option>
+                <option value="com-we-alex-006">🏢 المصرية للاتصالات WE (سنترال مصطفى كامل بالإسكندرية)</option>
               </optgroup>
-              <optgroup label="المنشآت الصحية والمستشفيات">
-                <option value="med-salam-001">
-                  🏥 مستشفى السلام الدولي بالمعادي
-                </option>
-                <option value="med-cleo-002">
-                  🏥 مستشفى كليوباترا - مصر الجديدة
-                </option>
+              <optgroup label="🏥 المنشآت الصحية والمستشفيات (القاهرة - الجيزة - الإسكندرية)">
+                <option value="med-salam-001">🏥 مستشفى السلام الدولي بالمعادي (القاهرة)</option>
+                <option value="med-cleo-002">🏥 مستشفى كليوباترا - مصر الجديدة (القاهرة)</option>
+                <option value="med-kasr-003">🏥 مستشفى قصر العيني الفرنساوي (القاهرة)</option>
+                <option value="med-dar-fouad-005">🏥 مستشفى دار الفؤاد - 6 أكتوبر (الجيزة)</option>
+                <option value="med-miri-008">🏥 المستشفى الجامعي الرئيسي (الميري بالإسكندرية)</option>
+                <option value="med-andalusia-009">🏥 مستشفى أندلسية سموحة (الإسكندرية)</option>
+              </optgroup>
+              <optgroup label="✍️ الجهات والحالات اليدوية">
+                <option value="OTHER">✍️ الحالات المضافة يدوياً (الجهات غير المسجلة)</option>
               </optgroup>
             </select>
           </div>

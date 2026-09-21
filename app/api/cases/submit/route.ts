@@ -49,6 +49,8 @@ export async function POST(request: NextRequest) {
           sanitized_description: processed.caseRecord.sanitized_description,
           initial_experience_rating: processed.caseRecord.initial_experience_rating,
           grace_expires_at: processed.caseRecord.grace_expires_at,
+          custom_entity_name: (processed.caseRecord.metadata as any)?.custom_entity_name || null,
+          metadata: processed.caseRecord.metadata,
           created_at: new Date().toISOString(),
         },
       },

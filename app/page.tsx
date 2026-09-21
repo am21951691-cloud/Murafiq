@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { SAMPLE_ENTITIES } from "@/lib/services/entities";
+import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
 
 const SECTORS = [
   {
@@ -106,18 +107,8 @@ export default function HomePage() {
       <header className="border-b border-slate-200 bg-white/95 backdrop-blur sticky top-0 z-30 shadow-xs">
         <div className="mx-auto max-w-7xl px-4 py-3.5 sm:px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="h-10 w-10 rounded-xl bg-sky-800 text-white flex items-center justify-center font-black text-xl shadow-xs">
-                م
-              </div>
-              <div>
-                <span className="font-black text-lg text-sky-950 tracking-tight block">
-                  مُرافِق — Murafiq
-                </span>
-                <span className="block text-[11px] text-slate-500 font-medium">
-                  المنصة الوطنية لتسوية الشكاوى والمساءلة المؤسسية
-                </span>
-              </div>
+            <Link href="/" className="hover:opacity-95 transition">
+              <MurafiqLogo size="md" />
             </Link>
           </div>
 
@@ -420,13 +411,8 @@ export default function HomePage() {
       <footer className="border-t border-slate-200 bg-white py-12 px-4 text-xs text-slate-600">
         <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="h-8 w-8 rounded-lg bg-sky-800 text-white flex items-center justify-center font-bold text-base">
-                م
-              </div>
-              <span className="font-extrabold text-sm text-slate-900">
-                منصة مُرافِق — Murafiq
-              </span>
+            <div className="mb-3">
+              <MurafiqLogo size="sm" />
             </div>
             <p className="text-slate-500 leading-relaxed">
               المنظومة الوطنية المعتمدة لتسوية الشكاوى والنزاعات وحماية حقوق المستفيدين والمؤسسات في مصر.

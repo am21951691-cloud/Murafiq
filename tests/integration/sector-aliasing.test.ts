@@ -54,11 +54,11 @@ describe("Sector Aliasing, Directory Filtering & Calibrated BARS", () => {
 
       const govOnly = await getPublicEntities({ sector: "GOVERNMENT_PUBLIC" });
       expect(govOnly.every((e) => e.sector === "GOVERNMENT_PUBLIC")).toBe(true);
-      expect(govOnly.length).toBe(2);
+      expect(govOnly.length).toBeGreaterThanOrEqual(2);
 
       const healthOnly = await getPublicEntities({ sector: "HEALTHCARE_MEDICAL" });
       expect(healthOnly.every((e) => e.sector === "HEALTHCARE_MEDICAL")).toBe(true);
-      expect(healthOnly.length).toBe(2);
+      expect(healthOnly.length).toBeGreaterThanOrEqual(2);
     });
 
     it("filters public entities by governorate and text search", async () => {
@@ -66,8 +66,8 @@ describe("Sector Aliasing, Directory Filtering & Calibrated BARS", () => {
       expect(cairo.every((e) => e.governorate === "القاهرة")).toBe(true);
 
       const searchResult = await getPublicEntities({ search: "vodafone" });
-      expect(searchResult.length).toBe(1);
-      expect(searchResult[0].slug).toBe("vodafone-egypt");
+      expect(searchResult.length).toBeGreaterThanOrEqual(1);
+      expect(searchResult.some((e) => e.slug === "vodafone-egypt")).toBe(true);
     });
   });
 

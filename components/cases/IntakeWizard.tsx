@@ -11,6 +11,7 @@ import {
   getSectorDefaultIdentifierType,
   EGYPTIAN_NATIONAL_ID_REGEX,
 } from "@/lib/validators/sensitive-identifiers";
+import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
 
 interface IntakeWizardProps {
   initialInstitutionId?: string;
@@ -156,6 +157,11 @@ export function IntakeWizard({
   const [identifierValue, setIdentifierValue] = useState<string>("");
   const [identifierError, setIdentifierError] = useState<string | null>(null);
 
+  // Manual / Custom Entity Entry ("Add other option")
+  const [customEntityName, setCustomEntityName] = useState<string>("");
+  const [customGovernorate, setCustomGovernorate] = useState<string>("القاهرة");
+  const [customBranch, setCustomBranch] = useState<string>("");
+
   // Case Core Fields
   const [description, setDescription] = useState("");
   const [desiredOutcome, setDesiredOutcome] = useState("");
@@ -183,11 +189,22 @@ export function IntakeWizard({
     setUserRole(SECTOR_CONFIG[newSector].userRoles_ar[0]);
     setIdentifierValue("");
     setIdentifierError(null);
+    setCustomEntityName("");
   };
 
+  const isCustomEntity = selectedInstitutionId === "OTHER";
+
   // Selected Entity Record
-  const selectedEntity =
-    SAMPLE_ENTITIES.find((i) => i.id === selectedInstitutionId) || sectorEntities[0] || SAMPLE_ENTITIES[0];
+  const selectedEntity = isCustomEntity
+    ? {
+        id: "OTHER",
+        name: customEntityName.trim() || (lang === "ar" ? "جهة مضافة يدوياً" : "Custom Added Entity"),
+        slug: "custom-entity",
+        governorate: customGovernorate,
+        sector: selectedSector,
+        type: lang === "ar" ? "جهة مسجلة يدوياً" : "Custom Entry",
+      }
+    : SAMPLE_ENTITIES.find((i) => i.id === selectedInstitutionId) || sectorEntities[0] || SAMPLE_ENTITIES[0];
 
   // Active Category Object
   const activeCategoryObj = taxonomy.find((c) => c.key === category) || taxonomy[0];
@@ -209,6 +226,14 @@ export function IntakeWizard({
   const handleSubmit = async () => {
     if (!verifiedPhone) {
       setIsPhoneModalOpen(true);
+      return;
+    }
+    if (isCustomEntity && customEntityName.trim().length < 3) {
+      setError(
+        lang === "ar"
+          ? "يرجى كتابة اسم الجهة أو المؤسسة المراد تقديم الشكوى بشأنها (3 أحرف على الأقل)."
+          : "Please enter the custom entity or institution name (at least 3 characters)."
+      );
       return;
     }
     if (description.length < 50) {
@@ -250,6 +275,9 @@ export function IntakeWizard({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           institution_id: selectedInstitutionId,
+          custom_entity_name: isCustomEntity ? customEntityName.trim() : undefined,
+          governorate: isCustomEntity ? customGovernorate : undefined,
+          branch_name: isCustomEntity && customBranch.trim() ? customBranch.trim() : undefined,
           category,
           subcategory,
           raw_description: description,
@@ -302,7 +330,11 @@ export function IntakeWizard({
         <div className="rounded-xl bg-white p-5 border border-emerald-100 text-sm space-y-3 mb-6 text-slate-700 shadow-sm">
           <div className="flex items-center justify-between border-b pb-2">
             <strong>{isRtl ? "الجهة المختصة:" : "Target Entity:"}</strong>
-            <span className="font-bold text-slate-800">{selectedEntity.name}</span>
+            <span className="font-bold text-slate-800">
+              {submissionResult.custom_entity_name
+                ? `${submissionResult.custom_entity_name} (${customGovernorate}) — [جهة مضافة يدوياً]`
+                : selectedEntity.name}
+            </span>
           </div>
           <div className="flex items-center justify-between border-b pb-2">
             <strong>{isRtl ? "القطاع الوطني:" : "Sector:"}</strong>
@@ -366,6 +398,8 @@ export function IntakeWizard({
               setDescription("");
               setDesiredOutcome("");
               setIdentifierValue("");
+              setCustomEntityName("");
+              setCustomBranch("");
             }}
             className="inline-block rounded-xl border border-slate-300 px-6 py-2.5 font-semibold text-slate-700 hover:bg-white transition"
           >
@@ -386,8 +420,9 @@ export function IntakeWizard({
       {/* Top Global Return Bar */}
       <div className="mb-4 flex items-center justify-between text-xs font-bold text-slate-600 border-b border-slate-100 pb-3">
         <div className="flex items-center gap-2">
-          <Link href="/" className="hover:text-sky-800 transition flex items-center gap-1">
-            🏠 <span>الرئيسية</span>
+          <Link href="/" className="hover:opacity-90 transition flex items-center gap-1.5">
+            <MurafiqLogo size="sm" showText={false} />
+            <span className="text-sky-950 font-black">مُرافِق</span>
           </Link>
           <span className="text-slate-300">/</span>
           <Link href="/directory" className="hover:text-sky-800 transition">
@@ -515,22 +550,157 @@ export function IntakeWizard({
             </div>
           </div>
 
-          {/* 1.2 Entity Dropdown within Sector */}
+          {/* 1.2 Entity Dropdown within Sector (Cairo, Giza, Alex from Google Maps + Other Option) */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              2. {secConfig.entityLabel_ar}:
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-sm font-semibold text-slate-700">
+                2. {secConfig.entityLabel_ar}:
+              </label>
+              <button
+                type="button"
+                onClick={() => setSelectedInstitutionId("OTHER")}
+                className="text-xs font-bold text-sky-700 hover:text-sky-900 transition flex items-center gap-1"
+              >
+                <span>➕ جهة أخرى غير مدرجة؟ (إضافة يدوية)</span>
+              </button>
+            </div>
             <select
               value={selectedInstitutionId}
               onChange={(e) => setSelectedInstitutionId(e.target.value)}
               className="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-sky-800 focus:outline-none bg-white font-medium"
             >
-              {sectorEntities.map((ent) => (
-                <option key={ent.id} value={ent.id}>
-                  {ent.name} — ({ent.type} - {ent.governorate})
+              {sectorEntities.filter((e) => e.governorate === "القاهرة").length > 0 && (
+                <optgroup label="📍 محافظة القاهرة (Google Maps)">
+                  {sectorEntities
+                    .filter((e) => e.governorate === "القاهرة")
+                    .map((ent) => (
+                      <option key={ent.id} value={ent.id}>
+                        {ent.name} — ({ent.type})
+                      </option>
+                    ))}
+                </optgroup>
+              )}
+
+              {sectorEntities.filter((e) => e.governorate === "الجيزة").length > 0 && (
+                <optgroup label="📍 محافظة الجيزة (Google Maps)">
+                  {sectorEntities
+                    .filter((e) => e.governorate === "الجيزة")
+                    .map((ent) => (
+                      <option key={ent.id} value={ent.id}>
+                        {ent.name} — ({ent.type})
+                      </option>
+                    ))}
+                </optgroup>
+              )}
+
+              {sectorEntities.filter((e) => e.governorate === "الإسكندرية").length > 0 && (
+                <optgroup label="📍 محافظة الإسكندرية (Google Maps)">
+                  {sectorEntities
+                    .filter((e) => e.governorate === "الإسكندرية")
+                    .map((ent) => (
+                      <option key={ent.id} value={ent.id}>
+                        {ent.name} — ({ent.type})
+                      </option>
+                    ))}
+                </optgroup>
+              )}
+
+              {sectorEntities.some((e) => !["القاهرة", "الجيزة", "الإسكندرية"].includes(e.governorate)) && (
+                <optgroup label="محافظات أخرى">
+                  {sectorEntities
+                    .filter((e) => !["القاهرة", "الجيزة", "الإسكندرية"].includes(e.governorate))
+                    .map((ent) => (
+                      <option key={ent.id} value={ent.id}>
+                        {ent.name} — ({ent.type} - {ent.governorate})
+                      </option>
+                    ))}
+                </optgroup>
+              )}
+
+              <optgroup label="➕ خيار إضافي / جهة غير مسجلة">
+                <option value="OTHER">
+                  ➕ جهة أو مؤسسة أخرى غير مدرجة (كتابة الاسم يدوياً)...
                 </option>
-              ))}
+              </optgroup>
             </select>
+
+            {/* If OTHER is selected, show manual entry form card */}
+            {isCustomEntity && (
+              <div className="mt-3 rounded-2xl border-2 border-dashed border-sky-400 bg-sky-50/70 p-4 space-y-3 animate-in fade-in duration-200">
+                <div className="flex items-center gap-2 text-sky-900 font-bold text-xs">
+                  <span>✍️</span>
+                  <span>
+                    {isRtl
+                      ? "إدخال بيانات الجهة / المؤسسة يدوياً:"
+                      : "Enter Custom Institution / Entity Details Manually:"}
+                  </span>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {isRtl
+                      ? "اسم المدرسة أو الجامعة أو المستشفى أو الشركة أو المصلحة الحكومية *"
+                      : "Entity or Institution Name *"}
+                  </label>
+                  <input
+                    type="text"
+                    value={customEntityName}
+                    onChange={(e) => setCustomEntityName(e.target.value)}
+                    placeholder={
+                      isRtl
+                        ? "مثال: مدرسة النصر للبنات بالشاطبي، كلية الزراعة بسابا باشا، مستشفى كرموز..."
+                        : "e.g., Victoria College Alex, Saint Marc, Nile University..."
+                    }
+                    className="w-full rounded-xl border border-sky-300 p-2.5 text-sm bg-white focus:outline-none focus:border-sky-800 font-medium"
+                    required
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                      {isRtl ? "المحافظة *" : "Governorate *"}
+                    </label>
+                    <select
+                      value={customGovernorate}
+                      onChange={(e) => setCustomGovernorate(e.target.value)}
+                      className="w-full rounded-xl border border-sky-300 p-2.5 text-xs bg-white focus:outline-none focus:border-sky-800 font-medium"
+                    >
+                      <option value="القاهرة">القاهرة</option>
+                      <option value="الجيزة">الجيزة</option>
+                      <option value="الإسكندرية">الإسكندرية</option>
+                      <option value="القليوبية">القليوبية</option>
+                      <option value="الشرقية">الشرقية</option>
+                      <option value="الدقهلية">الدقهلية</option>
+                      <option value="البحيرة">البحيرة</option>
+                      <option value="الغربية">الغربية</option>
+                      <option value="بورسعيد">بورسعيد</option>
+                      <option value="السويس">السويس</option>
+                      <option value="الإسماعيلية">الإسماعيلية</option>
+                      <option value="أسيوط">أسيوط</option>
+                      <option value="سوهاج">سوهاج</option>
+                      <option value="قنا">قنا</option>
+                      <option value="الأقصر">الأقصر</option>
+                      <option value="أسوان">أسوان</option>
+                      <option value="محافظة أخرى">محافظة أخرى</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                      {isRtl ? "الفرع أو المنطقة أو الحي (اختياري)" : "Branch / District (Optional)"}
+                    </label>
+                    <input
+                      type="text"
+                      value={customBranch}
+                      onChange={(e) => setCustomBranch(e.target.value)}
+                      placeholder={isRtl ? "مثال: فرع محطة الرمل، الشاطبي، المهندسين..." : "e.g., Shatby Branch, Dokki..."}
+                      className="w-full rounded-xl border border-sky-300 p-2.5 text-xs bg-white focus:outline-none focus:border-sky-800"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* 1.3 Beneficiary Role in this Sector */}

@@ -225,6 +225,24 @@ export async function GET(request: NextRequest) {
         created_at: new Date(now - 3 * 86400000).toISOString(),
         metadata: { display_token: "POL-***882" },
       },
+
+      // 6. Custom / Manually Added Entities
+      {
+        id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+        reference_number: "MRF-2026-11849",
+        institution_id: "OTHER",
+        institution_name: "مدرسة النصر للبنات بالشاطبي (جهة مضافة يدوياً - الإسكندرية)",
+        sector: "EDUCATION_SCHOOLS" as SectorType,
+        category: "TEACHER_COMMUNICATION",
+        subcategory: "تواصل الإدارة مع أولياء الأمور",
+        lifecycle_status: "PRIVATE_GRACE",
+        visibility: "STRICTLY_PRIVATE",
+        sanitized_description: "طلب مراجعة مواعيد تسليم الكتب الدراسية والشهادات لطلاب الصف الأول الثانوي بعد تعذر التواصل الهاتفي مع إدارة الفرع.",
+        initial_experience_rating: 2,
+        grace_expires_at: new Date(now + 4.5 * 86400000).toISOString(),
+        created_at: new Date(now - 2.5 * 86400000).toISOString(),
+        metadata: { display_token: "STU-***291", custom_entity_name: "مدرسة النصر للبنات بالشاطبي", is_custom_entity: true },
+      },
     ];
 
     // Filter by institution if specified and not "ALL"
@@ -233,6 +251,7 @@ export async function GET(request: NextRequest) {
       filtered = filtered.filter(
         (c) =>
           c.institution_id === institutionId ||
+          (institutionId === "OTHER" && (c.institution_id === "OTHER" || (c.metadata as any)?.is_custom_entity)) ||
           (institutionId === "00000000-0000-0000-0000-000000000010" &&
             c.sector === "EDUCATION_SCHOOLS")
       );

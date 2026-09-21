@@ -37,6 +37,9 @@ export const CaseIntakeSchema = z.object({
   parent_phone: z.string().min(10, "Valid Egyptian phone required"),
   student_identifiers: z.record(z.unknown()).optional().nullable(),
   sensitive_identifier: SensitiveIdentifierSchema.optional().nullable(),
+  custom_entity_name: z.string().min(2, "Custom entity name must be at least 2 characters").optional().nullable(),
+  governorate: z.string().optional().nullable(),
+  branch_name: z.string().optional().nullable(),
   consent_given: z.literal(true, {
     errorMap: () => ({ message: "Consent is required" }),
   }),
@@ -101,6 +104,14 @@ export function processCaseIntake(
     metadata: {
       desired_outcome: sanitizedOutcome,
       phone_hash: phoneHash,
+      ...(validated.custom_entity_name
+        ? {
+            custom_entity_name: validated.custom_entity_name,
+            is_custom_entity: true,
+          }
+        : {}),
+      ...(validated.governorate ? { governorate: validated.governorate } : {}),
+      ...(validated.branch_name ? { branch_name: validated.branch_name } : {}),
       ...(validated.sensitive_identifier
         ? {
             display_token: maskSensitiveIdentifier(
