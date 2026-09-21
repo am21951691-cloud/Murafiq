@@ -1,8 +1,8 @@
 # Murafiq (مُرافِق) — Progress & Milestone Tracker (V2.2.1)
 
 > **North Star Metric:** Completed, User-Evaluated Resolution Loops  
-> **Current Phase:** Slice 1 Completed — Ready for Slice 2  
-> **Last Updated:** 2026-09-13
+> **Current Phase:** Slice 4 Completed — Ready for Slice 5  
+> **Last Updated:** 2026-09-21
 
 ---
 
@@ -46,9 +46,9 @@
 - [x] Write and pass evaluation closure tests.
 
 ### Slice 4: Curated Egyptian Statutory RAG Layer (Option B)
-- [ ] Seed verified Decrees 187/2023, 420/2014, and CPA directives with reviewer metadata.
-- [ ] Build vector similarity search with neutral fallback text.
-- [ ] Write and pass retrieval precision tests.
+- [x] Seed verified Decrees 187/2023, 420/2014, and CPA directives with reviewer metadata.
+- [x] Build vector similarity search with neutral fallback text.
+- [x] Write and pass retrieval precision tests.
 
 ### Slice 5: Document Engine & Snapshot Archiving
 - [ ] Build Puppeteer bilingual Arabic RTL PDF generator with Cairo font integration.
