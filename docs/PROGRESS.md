@@ -39,11 +39,11 @@
 - [x] Write and pass RQS reproducibility unit tests.
 
 ### Slice 3: Milestone Tracking, 3D Evaluation & Case Closure
-- [ ] Build milestone execution toggles and verification record creator.
-- [ ] Build 3-dimensional evaluation closure modal (capturing $R_{resp}$ and $R_{res}$ 1–5).
-- [ ] Implement inactivity timeout worker (marks `USER_INACTIVITY_TIMEOUT`, never resolved).
-- [ ] Implement dispute timer freezing logic.
-- [ ] Write and pass evaluation closure tests.
+- [x] Build milestone execution toggles and verification record creator.
+- [x] Build 3-dimensional evaluation closure modal (capturing $R_{resp}$ and $R_{res}$ 1–5).
+- [x] Implement inactivity timeout worker (marks `USER_INACTIVITY_TIMEOUT`, never resolved).
+- [x] Implement dispute timer freezing logic.
+- [x] Write and pass evaluation closure tests.
 
 ### Slice 4: Curated Egyptian Statutory RAG Layer (Option B)
 - [ ] Seed verified Decrees 187/2023, 420/2014, and CPA directives with reviewer metadata.
