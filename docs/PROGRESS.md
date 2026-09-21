@@ -1,7 +1,7 @@
 # Murafiq (مُرافِق) — Progress & Milestone Tracker (V2.2.1)
 
 > **North Star Metric:** Completed, User-Evaluated Resolution Loops  
-> **Current Phase:** Slice 4 Completed — Ready for Slice 5  
+> **Current Phase:** Slice 5 Completed — Ready for Slice 6  
 > **Last Updated:** 2026-09-21
 
 ---
@@ -51,10 +51,10 @@
 - [x] Write and pass retrieval precision tests.
 
 ### Slice 5: Document Engine & Snapshot Archiving
-- [ ] Build Puppeteer bilingual Arabic RTL PDF generator with Cairo font integration.
-- [ ] Implement frozen JSON payload snapshotting in `reports` table.
-- [ ] Generate SHA-256 integrity digest for PDF validation.
-- [ ] Write and pass PDF generation and snapshot integrity tests.
+- [x] Build Puppeteer bilingual Arabic RTL PDF generator with Cairo font integration.
+- [x] Implement frozen JSON payload snapshotting in `reports` table.
+- [x] Generate SHA-256 integrity digest for PDF validation.
+- [x] Write and pass PDF generation and snapshot integrity tests.
 
 ### Slice 6: WhatsApp Cloud API Automation
 - [ ] Build Meta Cloud API client for pre-approved transactional utility templates.
