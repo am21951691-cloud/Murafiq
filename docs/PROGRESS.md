@@ -33,10 +33,10 @@
 - [x] Write and pass intake and triage integration tests.
 
 ### Slice 2: Structured Action Plan & Milestone Builder
-- [ ] Build interactive action plan constructor with department role and due date inputs.
-- [ ] Implement deterministic RQS calculator consuming frozen assessment inputs.
-- [ ] Wire up `/api/institution/action-plan` route.
-- [ ] Write and pass RQS reproducibility unit tests.
+- [x] Build interactive action plan constructor with department role and due date inputs.
+- [x] Implement deterministic RQS calculator consuming frozen assessment inputs.
+- [x] Wire up `/api/institution/action-plan` route.
+- [x] Write and pass RQS reproducibility unit tests.
 
 ### Slice 3: Milestone Tracking, 3D Evaluation & Case Closure
 - [ ] Build milestone execution toggles and verification record creator.
