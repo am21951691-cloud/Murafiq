@@ -23,12 +23,26 @@ export default async function SchoolProfilePage({ params }: Props) {
       <header className="border-b border-slate-200 bg-white sticky top-0 z-20 shadow-xs">
         <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
+            <Link href="/" className="text-xs text-slate-700 font-bold hover:text-sky-800 transition flex items-center gap-1">
+              🏠 الرئيسية
+            </Link>
+            <span className="text-slate-300">|</span>
+            <Link href="/directory" className="text-xs text-slate-700 font-bold hover:text-sky-800 transition">
+              🌐 الدليل العام
+            </Link>
+            <span className="text-slate-300">|</span>
             <Link href="/schools" className="text-xs text-sky-700 font-bold hover:underline">
-              ← العودة لدليل المدارس
+              ← دليل المدارس
             </Link>
           </div>
 
           <div className="flex items-center gap-3 text-xs">
+            <Link
+              href="/portal/dashboard"
+              className="rounded-lg border border-slate-300 bg-white px-3 py-2 font-semibold text-slate-700 hover:bg-slate-100 transition hidden sm:inline-block"
+            >
+              بوابة المؤسسات
+            </Link>
             <Link
               href={`/cases/new?institution=${school.id}`}
               className="rounded-lg bg-sky-600 px-3.5 py-2 font-bold text-white hover:bg-sky-700 transition shadow-xs"

@@ -202,6 +202,29 @@ export function IntakeWizard({
         isRtl ? "text-right font-arabic" : "text-left"
       }`}
     >
+      {/* Top Global Return Bar */}
+      <div className="mb-4 flex items-center justify-between text-xs font-bold text-slate-600 border-b border-slate-100 pb-3">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="hover:text-sky-800 transition flex items-center gap-1">
+            🏠 <span>الرئيسية</span>
+          </Link>
+          <span className="text-slate-300">/</span>
+          <Link href="/directory" className="hover:text-sky-800 transition">
+            🌐 الدليل الوطني للجهات
+          </Link>
+          <span className="text-slate-300">/</span>
+          <Link href="/schools" className="hover:text-sky-800 transition">
+            🏫 دليل المدارس
+          </Link>
+        </div>
+        <Link
+          href="/portal/dashboard"
+          className="text-slate-500 hover:text-sky-800 transition hidden sm:inline"
+        >
+          بوابة الجهات والمؤسسات
+        </Link>
+      </div>
+
       {/* Header & Locale Switcher */}
       <div className="mb-6 flex items-start justify-between border-b border-slate-100 pb-4">
         <div>

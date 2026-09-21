@@ -40,6 +40,12 @@ export default async function SchoolsDirectoryPage({ searchParams }: Props) {
 
           <div className="flex items-center gap-3 text-xs">
             <Link
+              href="/directory"
+              className="rounded-lg border border-slate-300 bg-white px-3 py-2 font-semibold text-slate-700 hover:bg-slate-100 transition hidden sm:inline-block"
+            >
+              🌐 كافة القطاعات
+            </Link>
+            <Link
               href="/cases/new"
               className="rounded-lg bg-sky-600 px-3.5 py-2 font-bold text-white hover:bg-sky-700 transition"
             >

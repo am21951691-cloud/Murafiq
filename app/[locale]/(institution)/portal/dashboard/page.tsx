@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { CaseTriageCard, type CaseTriageItem } from "@/components/institution/CaseTriageCard";
 import { Case } from "@/types/database";
 
@@ -60,6 +61,29 @@ export default function InstitutionTriageDashboard() {
   return (
     <main className="min-h-screen bg-civic-canvas py-8 px-4 sm:px-6 lg:px-8 font-arabic text-right">
       <div className="mx-auto max-w-5xl space-y-6">
+        {/* Global Navigation Bar */}
+        <div className="flex items-center justify-between bg-white px-4 py-3 rounded-xl border border-slate-200 text-xs shadow-2xs">
+          <div className="flex items-center gap-3 font-bold text-slate-700">
+            <Link href="/" className="hover:text-sky-800 transition flex items-center gap-1">
+              🏠 <span>الرئيسية</span>
+            </Link>
+            <span className="text-slate-300">|</span>
+            <Link href="/directory" className="hover:text-sky-800 transition">
+              🌐 الدليل الوطني للجهات
+            </Link>
+            <span className="text-slate-300">|</span>
+            <Link href="/schools" className="hover:text-sky-800 transition">
+              🏫 المدارس
+            </Link>
+          </div>
+          <Link
+            href="/cases/new"
+            className="rounded-lg bg-sky-700 px-3 py-1.5 font-bold text-white hover:bg-sky-800 transition"
+          >
+            + تقديم حالة جديدة
+          </Link>
+        </div>
+
         {/* Top Institution Banner */}
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
           <div>
