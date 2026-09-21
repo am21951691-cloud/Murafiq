@@ -1,7 +1,7 @@
 # Murafiq (مُرافِق) — Progress & Milestone Tracker (V2.2.1)
 
 > **North Star Metric:** Completed, User-Evaluated Resolution Loops  
-> **Current Phase:** Slice 6 Completed — Ready for Slice 7  
+> **Current Phase:** All Slices (0 to 7) Completed — Production Launch Ready  
 > **Last Updated:** 2026-09-21
 
 ---
@@ -63,7 +63,7 @@
 - [x] Write and pass WhatsApp dispatch and webhook tests.
 
 ### Slice 7: Public Platform & Bayesian Benchmark Metrics
-- [ ] Implement searchable school directory (governorate threshold gated).
-- [ ] Build public school profiles with Bayesian Adjusted Resolution Score ($BARS$).
-- [ ] Display verified response rates, recency, and sample size indicators.
-- [ ] Write and pass BARS calculation and benchmark tests.
+- [x] Implement searchable school directory (governorate threshold gated).
+- [x] Build public school profiles with Bayesian Adjusted Resolution Score ($BARS$).
+- [x] Display verified response rates, recency, and sample size indicators.
+- [x] Write and pass BARS calculation and benchmark tests.
