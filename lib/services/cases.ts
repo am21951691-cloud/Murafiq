@@ -10,18 +10,12 @@ import {
 import { sanitizeRawInput, encryptSensitiveData } from "@/lib/ai/sanitizer";
 import { formatEgyptianPhone } from "@/lib/utils";
 
+import { SensitiveIdentifierSchema, maskSensitiveIdentifier } from "@/lib/validators/sensitive-identifiers";
+
 export const CaseIntakeSchema = z.object({
   institution_id: z.string().min(1, "Institution is required"),
   branch_id: z.string().optional().nullable(),
-  category: z.enum([
-    CaseCategoryEnum.ACADEMIC_CURRICULUM,
-    CaseCategoryEnum.TEACHER_COMMUNICATION,
-    CaseCategoryEnum.STUDENT_BEHAVIOR_BULLYING,
-    CaseCategoryEnum.FACILITIES_HEALTH_SAFETY,
-    CaseCategoryEnum.TRANSPORTATION_BUSES,
-    CaseCategoryEnum.TUITION_FEES_REFUNDS,
-    CaseCategoryEnum.ADMINISTRATION_DISCIPLINE,
-  ]),
+  category: z.string().min(1, "Category is required"),
   subcategory: z.string().min(2, "Subcategory is required"),
   raw_description: z
     .string()
@@ -42,6 +36,7 @@ export const CaseIntakeSchema = z.object({
     .default(VisibilityLevelEnum.STRICTLY_PRIVATE),
   parent_phone: z.string().min(10, "Valid Egyptian phone required"),
   student_identifiers: z.record(z.unknown()).optional().nullable(),
+  sensitive_identifier: SensitiveIdentifierSchema.optional().nullable(),
   consent_given: z.literal(true, {
     errorMap: () => ({ message: "Consent is required" }),
   }),
@@ -106,7 +101,16 @@ export function processCaseIntake(
     metadata: {
       desired_outcome: sanitizedOutcome,
       phone_hash: phoneHash,
+      ...(validated.sensitive_identifier
+        ? {
+            display_token: maskSensitiveIdentifier(
+              validated.sensitive_identifier.type,
+              validated.sensitive_identifier.value
+            ),
+          }
+        : {}),
     },
+    sector_taxonomy_version: "2026.1",
   };
 
   const sensitiveData: CaseSensitiveData = {
@@ -115,6 +119,12 @@ export function processCaseIntake(
     parent_contact_phone_encrypted: encryptSensitiveData(formattedPhone),
     student_identifiers_encrypted: validated.student_identifiers
       ? validated.student_identifiers
+      : null,
+    sensitive_identifiers_encrypted: validated.sensitive_identifier
+      ? {
+          type: validated.sensitive_identifier.type,
+          value_encrypted: encryptSensitiveData(validated.sensitive_identifier.value),
+        }
       : null,
     created_at: now.toISOString(),
   };

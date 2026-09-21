@@ -32,11 +32,14 @@ export interface StatutoryRetrievalResponse {
   statutoryContextFormatted: string;
 }
 
+import type { SectorType } from "@/types/database";
+
 export interface StatutoryRetrievalOptions {
   threshold?: number;
   limit?: number;
   decrees?: StatutoryDecreeRecord[];
   locale?: "en" | "ar";
+  sector?: SectorType;
 }
 
 let cachedCuratedDecreesWithEmbeddings: StatutoryDecreeRecord[] | null = null;
@@ -154,6 +157,7 @@ export async function retrieveStatutoryContext(
           query_embedding: queryEmbedding,
           match_threshold: threshold,
           match_count: limit,
+          filter_sector: options?.sector ?? null,
         });
 
         if (!error && Array.isArray(data) && data.length > 0) {
@@ -209,6 +213,13 @@ export async function retrieveStatutoryContext(
     // Must have verified human reviewer ID
     if (!decree.verified_by_user_id) {
       continue;
+    }
+
+    // Sector-scoped filtering if specified
+    if (options?.sector && decree.applicable_sectors && decree.applicable_sectors.length > 0) {
+      if (!decree.applicable_sectors.includes(options.sector)) {
+        continue;
+      }
     }
 
     let decreeEmbedding = decree.embedding;

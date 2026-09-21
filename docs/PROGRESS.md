@@ -67,3 +67,16 @@
 - [x] Build public school profiles with Bayesian Adjusted Resolution Score ($BARS$).
 - [x] Display verified response rates, recency, and sample size indicators.
 - [x] Write and pass BARS calculation and benchmark tests.
+
+---
+
+## 3. Generic Entity Architecture Patch (Version 2.3.0) — 5 Egyptian Sectors
+- [x] **Additive Database Migration:** Deployed `20260921000001_generic_entity_sector_patch.sql` supporting `EDUCATION_SCHOOLS`, `HIGHER_EDUCATION`, `GOVERNMENT_PUBLIC`, `COMMERCIAL_COMPANIES`, and `HEALTHCARE_MEDICAL` with zero mutation to initial Slice 0 tables.
+- [x] **Sector Metadata Validation:** Implemented strict Zod contracts in `lib/validators/sector-metadata.ts` for all 5 sectors.
+- [x] **Config-Driven Sector Taxonomy:** Established versioned category/subcategory hierarchy in `lib/config/taxonomies/index.ts`.
+- [x] **Sensitive Identifier Isolation & Law 151/2020:** Built `lib/validators/sensitive-identifiers.ts` enforcing strict client/server rejection of full 14-digit Egyptian National IDs (`/^[23]\d{13}$/`) and physical isolation into `case_sensitive_data`.
+- [x] **Sector-Calibrated BARS Priors:** Integrated empirical priors ($\mu_{sector}, m$) into `lib/services/benchmarks.ts` to eliminate cross-sector comparison bias.
+- [x] **Canonical Directory & Backward-Compatible Aliasing:** Created `/directory`, `/services`, `/services/[slug]` with sector filter pills, while preserving `/schools` and `/schools/[slug]` as 100% functional aliases.
+- [x] **Sector-Scoped Statutory RAG:** Enhanced `lib/ai/rag.ts` and `lib/ai/statutory-data.ts` to tag decrees with `applicable_sectors` and filter candidate laws by sector.
+- [x] **Verification:** 21 test files, 132 tests passing cleanly with 0 TypeScript and 0 ESLint errors.
+

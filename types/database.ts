@@ -51,6 +51,21 @@ export const SafetyStatusEnum = {
   ESCALATED: "ESCALATED",
 } as const;
 
+export type SectorType =
+  | "EDUCATION_SCHOOLS"
+  | "HIGHER_EDUCATION"
+  | "GOVERNMENT_PUBLIC"
+  | "COMMERCIAL_COMPANIES"
+  | "HEALTHCARE_MEDICAL";
+
+export const SectorEnum = {
+  EDUCATION_SCHOOLS: "EDUCATION_SCHOOLS",
+  HIGHER_EDUCATION: "HIGHER_EDUCATION",
+  GOVERNMENT_PUBLIC: "GOVERNMENT_PUBLIC",
+  COMMERCIAL_COMPANIES: "COMMERCIAL_COMPANIES",
+  HEALTHCARE_MEDICAL: "HEALTHCARE_MEDICAL",
+} as const;
+
 export type CaseCategory =
   | "ACADEMIC_CURRICULUM"
   | "TEACHER_COMMUNICATION"
@@ -58,7 +73,8 @@ export type CaseCategory =
   | "FACILITIES_HEALTH_SAFETY"
   | "TRANSPORTATION_BUSES"
   | "TUITION_FEES_REFUNDS"
-  | "ADMINISTRATION_DISCIPLINE";
+  | "ADMINISTRATION_DISCIPLINE"
+  | (string & {});
 
 export const CaseCategoryEnum = {
   ACADEMIC_CURRICULUM: "ACADEMIC_CURRICULUM",
@@ -100,6 +116,8 @@ export interface Institution {
   slug: string;
   name_ar: string;
   name_en: string;
+  sector?: SectorType;
+  sector_metadata?: Record<string, unknown>;
   registration_number?: string | null;
   identifier_type: string;
   verification_metadata: Record<string, unknown>;
@@ -107,6 +125,8 @@ export interface Institution {
   created_at: string;
   updated_at: string;
 }
+
+export type Entity = Institution;
 
 export interface Case {
   id: string;
@@ -129,6 +149,7 @@ export interface Case {
   evaluation_timeout_at?: string | null;
   closed_at?: string | null;
   closure_reason?: string | null;
+  sector_taxonomy_version?: string;
   metadata: Record<string, unknown>;
   created_at: string;
   updated_at: string;
@@ -139,6 +160,7 @@ export interface CaseSensitiveData {
   raw_description_encrypted: string;
   parent_contact_phone_encrypted?: string | null;
   student_identifiers_encrypted?: Record<string, unknown> | null;
+  sensitive_identifiers_encrypted?: Record<string, unknown> | null;
   created_at: string;
 }
 

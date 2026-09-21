@@ -1,13 +1,24 @@
+import type { SectorType } from "@/types/database";
+
 export const DEFAULT_PRIOR_MEAN = 3.0; // m
 export const DEFAULT_PRIOR_WEIGHT = 10; // C
 export const MIN_CASES_FOR_BENCHMARK = 5;
 export const GOVERNORATE_THRESHOLD_MIN_SCHOOLS = 10;
 
+export const SECTOR_BARS_PRIORS: Record<SectorType, { mean: number; weight: number }> = {
+  EDUCATION_SCHOOLS: { mean: 3.6, weight: 10 },
+  HIGHER_EDUCATION: { mean: 3.4, weight: 12 },
+  GOVERNMENT_PUBLIC: { mean: 3.0, weight: 20 },
+  COMMERCIAL_COMPANIES: { mean: 3.2, weight: 15 },
+  HEALTHCARE_MEDICAL: { mean: 3.8, weight: 10 },
+};
+
 export interface BARSInput {
   ratings: number[]; // R_res ratings (1-5) of user-evaluated closed cases
-  priorMean?: number; // m (default 3.0)
-  priorWeight?: number; // C (default 10)
+  priorMean?: number; // m (default 3.0 or sector calibrated)
+  priorWeight?: number; // C (default 10 or sector calibrated)
   minCasesForBenchmark?: number; // default 5
+  sector?: SectorType;
 }
 
 export interface BARSResult {
@@ -58,8 +69,9 @@ export interface GovernorateThresholdResult {
  *   Returns "Establishing Benchmark (N cases)" status.
  */
 export function calculateBARS(input: BARSInput): BARSResult {
-  const m = input.priorMean ?? DEFAULT_PRIOR_MEAN;
-  const C = input.priorWeight ?? DEFAULT_PRIOR_WEIGHT;
+  const sectorDefaults = input.sector ? SECTOR_BARS_PRIORS[input.sector] : null;
+  const m = input.priorMean ?? sectorDefaults?.mean ?? DEFAULT_PRIOR_MEAN;
+  const C = input.priorWeight ?? sectorDefaults?.weight ?? DEFAULT_PRIOR_WEIGHT;
   const minCases = input.minCasesForBenchmark ?? MIN_CASES_FOR_BENCHMARK;
 
   const validRatings = (input.ratings || []).filter(

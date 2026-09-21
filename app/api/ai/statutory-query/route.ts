@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
       threshold: validated.threshold,
       limit: validated.limit,
       locale: validated.locale,
+      sector: validated.sector,
     });
 
     return NextResponse.json(result, { status: 200 });

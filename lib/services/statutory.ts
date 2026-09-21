@@ -8,6 +8,15 @@ export const StatutoryQuerySchema = z.object({
   threshold: z.number().min(0).max(1).optional(),
   limit: z.number().int().min(1).max(10).optional(),
   locale: z.enum(["en", "ar"]).optional().default("en"),
+  sector: z
+    .enum([
+      "EDUCATION_SCHOOLS",
+      "HIGHER_EDUCATION",
+      "GOVERNMENT_PUBLIC",
+      "COMMERCIAL_COMPANIES",
+      "HEALTHCARE_MEDICAL",
+    ])
+    .optional(),
 });
 
 export type StatutoryQueryInput = z.infer<typeof StatutoryQuerySchema>;
