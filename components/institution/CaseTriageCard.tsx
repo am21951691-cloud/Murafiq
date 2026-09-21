@@ -1,15 +1,29 @@
 "use client";
 
 import React, { useState } from "react";
-import { Case } from "@/types/database";
+import { Case, SectorType } from "@/types/database";
 
-export type CaseTriageItem = Case;
+export type CaseTriageItem = Case & {
+  institution_name?: string;
+  sector?: SectorType;
+  remaining_days?: number;
+  remaining_hours?: number;
+  is_urgent?: boolean;
+};
 
 interface CaseTriageCardProps {
-  caseData: Case;
+  caseData: CaseTriageItem;
   userRole?: string;
   onAcknowledged?: (caseId: string) => void;
 }
+
+const SECTOR_ICONS: Record<string, string> = {
+  EDUCATION_SCHOOLS: "🏫",
+  HIGHER_EDUCATION: "🎓",
+  GOVERNMENT_PUBLIC: "🏛️",
+  COMMERCIAL_COMPANIES: "🏢",
+  HEALTHCARE_MEDICAL: "🏥",
+};
 
 export function CaseTriageCard({
   caseData,
@@ -30,9 +44,11 @@ export function CaseTriageCard({
     ? new Date(caseData.grace_expires_at).getTime()
     : now + 7 * 86400000;
   const msRemaining = Math.max(0, expiryTime - now);
-  const daysLeft = Math.ceil(msRemaining / (1000 * 60 * 60 * 24));
-  const hoursLeft = Math.ceil(msRemaining / (1000 * 60 * 60));
+  const daysLeft = typeof caseData.remaining_days === "number" ? caseData.remaining_days : Math.ceil(msRemaining / (1000 * 60 * 60 * 24));
+  const hoursLeft = typeof caseData.remaining_hours === "number" ? caseData.remaining_hours : Math.ceil(msRemaining / (1000 * 60 * 60));
   const isUrgent = daysLeft <= 2;
+
+  const displayToken = (caseData.metadata as any)?.display_token;
 
   const handleAcknowledge = async () => {
     setIsAcknowledging(true);
@@ -48,7 +64,7 @@ export function CaseTriageCard({
       });
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "فشل تأكيد استلام القضية");
+        throw new Error(data.error || "فشل تأكيد استلام الحالة");
       }
       setStatus("ACTION_PLAN_PENDING");
       setShowNotesModal(false);
@@ -64,15 +80,27 @@ export function CaseTriageCard({
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm text-right font-arabic transition hover:shadow-md">
-      {/* Top Bar: Reference & Status Badges */}
+      {/* Top Bar: Reference, Entity, Sector & Status Badges */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="font-mono text-sm font-bold text-civic-navy bg-slate-100 px-3 py-1 rounded-md">
             {caseData.reference_number}
           </span>
-          <span className="rounded-md bg-teal-50 px-2.5 py-1 text-xs font-semibold text-civic-teal">
-            {caseData.category}
-          </span>
+          {caseData.sector && (
+            <span className="rounded-md bg-sky-50 px-2.5 py-1 text-xs font-semibold text-sky-800">
+              {SECTOR_ICONS[caseData.sector] || "🏛️"} {caseData.sector}
+            </span>
+          )}
+          {caseData.institution_name && (
+            <span className="rounded-md bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 border border-slate-200">
+              {caseData.institution_name}
+            </span>
+          )}
+          {displayToken && (
+            <span className="rounded-md bg-amber-50 px-2.5 py-1 text-xs font-mono font-bold text-amber-800 border border-amber-200">
+              🔑 رمز المعاملة: {displayToken}
+            </span>
+          )}
         </div>
 
         {/* Grace Window Countdown Badge */}
@@ -91,7 +119,7 @@ export function CaseTriageCard({
           </div>
         ) : (
           <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-bold text-blue-800">
-            ✓ بانتظار خطة العمل (ACTION_PLAN_PENDING)
+            ✓ بانتظار خطة العمل الرسمية (ACTION_PLAN_PENDING)
           </span>
         )}
       </div>
@@ -139,7 +167,7 @@ export function CaseTriageCard({
               onClick={() => setShowNotesModal(true)}
               className="rounded-xl bg-civic-teal px-5 py-2 text-sm font-semibold text-white hover:bg-opacity-90 transition shadow-sm"
             >
-              تأكيد استلام القضية وبدء المعالجة
+              تأكيد استلام الحالة وبدء صياغة خطة المعالجة
             </button>
           ) : (
             <span className="text-xs font-medium text-slate-400">
@@ -148,7 +176,7 @@ export function CaseTriageCard({
           )
         ) : (
           <span className="text-xs font-bold text-civic-teal">
-            ✓ تم الاستلام وتجري صياغة خطة العمل
+            ✓ تم الاستلام وتجري صياغة خطة المعالجة الرسمية للجهة
           </span>
         )}
       </div>
@@ -158,10 +186,10 @@ export function CaseTriageCard({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl text-right">
             <h4 className="text-lg font-bold text-civic-navy mb-2">
-              تأكيد استلام القضية رسميًا
+              تأكيد استلام الحالة رسميًا
             </h4>
             <p className="text-xs text-slate-600 mb-4 leading-relaxed">
-              بالتأكيد على استلام القضية، سينتقل المسار من مهلة المراجعة الخاصة (PRIVATE_GRACE) إلى مرحلة صياغة خطة العمل الرسمية (ACTION_PLAN_PENDING).
+              بالتأكيد على استلام الحالة، سينتقل المسار من مهلة المراجعة الخاصة (PRIVATE_GRACE) إلى مرحلة صياغة خطة العمل الرسمية (ACTION_PLAN_PENDING) الموجهة للمستفيد والرقابة.
             </p>
 
             <label className="block text-xs font-semibold text-slate-700 mb-1">
@@ -171,7 +199,7 @@ export function CaseTriageCard({
               rows={3}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="مثال: تم إحالة الشكوى إلى وكيل المرحلة للمتابعة..."
+              placeholder="مثال: تم إحالة الحالة إلى الإدارة المعنية لدراسة الوقائع وإعداد خطة الحل المعتمدة..."
               className="w-full rounded-xl border border-slate-300 p-3 text-xs focus:border-civic-navy focus:outline-none mb-4"
             />
 
