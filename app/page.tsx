@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { SAMPLE_ENTITIES } from "@/lib/services/entities";
 import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
+import { NavAiTriggers } from "@/components/ai/NavAiTriggers";
+import { HomeAiCallout } from "@/components/ai/HomeAiCallout";
 
 const SECTORS = [
   {
@@ -152,8 +154,10 @@ export default function HomePage() {
             </Link>
           </nav>
 
-          {/* Action CTAs */}
+          {/* Action CTAs & AI Triggers */}
           <div className="flex items-center gap-2 text-xs">
+            <NavAiTriggers />
+
             <Link
               href="/portal/dashboard"
               className="rounded-xl border border-slate-300 bg-white px-3.5 py-2 font-bold text-slate-700 hover:bg-slate-50 transition shadow-2xs"
@@ -201,6 +205,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 2.5 Dual AI Showcase (Chatbot & Assistant) */}
+      <HomeAiCallout />
 
       {/* 3. The 5 National Sectors Gateway */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">

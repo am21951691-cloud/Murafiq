@@ -42,6 +42,12 @@ export function MurafiqConciergeChat() {
   };
 
   useEffect(() => {
+    const handleOpenChatbot = () => setIsOpen(true);
+    window.addEventListener("open-murafiq-chatbot", handleOpenChatbot);
+    return () => window.removeEventListener("open-murafiq-chatbot", handleOpenChatbot);
+  }, []);
+
+  useEffect(() => {
     if (isOpen) {
       scrollToBottom();
       setHasUnread(false);
@@ -197,7 +203,7 @@ export function MurafiqConciergeChat() {
           </div>
 
           {/* Messages Body */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 bg-slate-50/50">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 bg-slate-100">
             {messages.map((m) => {
               const isUser = m.role === "user";
               return (
@@ -206,21 +212,21 @@ export function MurafiqConciergeChat() {
                   className={`flex flex-col ${isUser ? "items-start" : "items-end"}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-2xl p-3.5 text-xs sm:text-sm leading-relaxed ${
+                    className={`max-w-[88%] rounded-2xl p-3.5 text-xs sm:text-sm leading-relaxed ${
                       isUser
-                        ? "bg-sky-850 text-white rounded-br-xs shadow-xs"
-                        : "bg-white text-slate-800 rounded-bl-xs border border-slate-200 shadow-xs"
+                        ? "bg-sky-900 text-white font-medium rounded-br-xs shadow-xs"
+                        : "bg-white text-slate-950 font-medium rounded-bl-xs border-2 border-slate-300 shadow-sm"
                     }`}
                   >
                     <div className="whitespace-pre-wrap">{m.content}</div>
 
                     {/* Direct Link Button if provided by assistant */}
                     {m.directLink && (
-                      <div className="mt-2.5 pt-2 border-t border-slate-100">
+                      <div className="mt-3 pt-2.5 border-t border-slate-200">
                         <Link
                           href={m.directLink.href}
                           onClick={() => setIsOpen(false)}
-                          className="inline-flex items-center gap-1.5 rounded-lg bg-sky-800 px-3 py-1.5 text-xs font-bold text-white hover:bg-sky-900 transition shadow-xs"
+                          className="inline-flex items-center gap-1.5 rounded-xl bg-sky-900 px-3.5 py-1.5 text-xs font-black text-white hover:bg-sky-950 transition shadow-xs"
                         >
                           {m.directLink.label_ar}
                         </Link>
@@ -230,13 +236,13 @@ export function MurafiqConciergeChat() {
 
                   {/* Suggestions Pills underneath assistant message */}
                   {!isUser && m.suggestions && m.suggestions.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-1.5 max-w-[90%]">
+                    <div className="mt-2 flex flex-wrap gap-1.5 max-w-[92%]">
                       {m.suggestions.map((s, idx) => (
                         <button
                           key={idx}
                           type="button"
                           onClick={() => handleSend(s)}
-                          className="rounded-lg border border-sky-200 bg-sky-50/70 px-2.5 py-1 text-[11px] font-semibold text-sky-900 hover:bg-sky-100 hover:border-sky-300 transition text-right"
+                          className="rounded-xl border-2 border-sky-300 bg-white px-3 py-1 text-[11px] font-bold text-sky-950 hover:bg-sky-50 hover:border-sky-500 transition text-right shadow-2xs"
                         >
                           {s}
                         </button>
@@ -249,11 +255,11 @@ export function MurafiqConciergeChat() {
 
             {/* Loading Indicator */}
             {isLoading && (
-              <div className="flex items-center gap-2 text-slate-400 text-xs py-2 px-1">
-                <span className="flex h-2 w-2 rounded-full bg-sky-800 animate-bounce" />
-                <span className="flex h-2 w-2 rounded-full bg-sky-800 animate-bounce [animation-delay:0.2s]" />
-                <span className="flex h-2 w-2 rounded-full bg-sky-800 animate-bounce [animation-delay:0.4s]" />
-                <span className="font-medium text-[11px]">مُساعد مُرافِق يبحث في القواعد والأنظمة...</span>
+              <div className="flex items-center gap-2 text-slate-800 text-xs py-2 px-1 font-bold">
+                <span className="flex h-2 w-2 rounded-full bg-sky-900 animate-bounce" />
+                <span className="flex h-2 w-2 rounded-full bg-sky-900 animate-bounce [animation-delay:0.2s]" />
+                <span className="flex h-2 w-2 rounded-full bg-sky-900 animate-bounce [animation-delay:0.4s]" />
+                <span className="font-extrabold text-[11px] text-slate-900">مُساعد مُرافِق يبحث في القواعد والأنظمة...</span>
               </div>
             )}
 
@@ -266,21 +272,21 @@ export function MurafiqConciergeChat() {
               e.preventDefault();
               handleSend(input);
             }}
-            className="p-3 border-t border-slate-200/80 bg-white flex items-center gap-2"
+            className="p-3 border-t-2 border-slate-200 bg-white flex items-center gap-2"
           >
             <input
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="اكتب سؤالك هنا (مثال: كيف أسترجع أموالي؟)..."
+              placeholder="اكتب استفسارك هنا (مثال: كيف أسترجع أموالي؟)..."
               disabled={isLoading}
-              className="flex-1 rounded-xl border border-slate-300 px-3.5 py-2.5 text-xs sm:text-sm focus:border-sky-800 focus:outline-none bg-slate-50/50"
+              className="flex-1 rounded-xl border-2 border-slate-300 px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-950 placeholder:text-slate-500 focus:border-sky-900 focus:outline-none bg-white"
             />
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-850 text-white font-bold hover:bg-sky-900 disabled:opacity-40 transition shadow-xs"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-900 text-white font-black hover:bg-sky-950 disabled:opacity-40 transition shadow-sm text-sm"
               aria-label="إرسال السؤال"
             >
               ↑
