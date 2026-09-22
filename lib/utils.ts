@@ -17,3 +17,9 @@ export function formatEgyptianPhone(phone: string): string {
   }
   return `+20${match[1]}`;
 }
+
+export function generateReferenceNumber(prefix: string = "MRF"): string {
+  const year = new Date().getFullYear();
+  const randomSuffix = Math.floor(10000 + Math.random() * 90000);
+  return `${prefix}-${year}-${randomSuffix}`;
+}

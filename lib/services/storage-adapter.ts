@@ -1,7 +1,16 @@
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
-import type { Case, SectorType, LifecycleStatus } from "@/types/database";
+import type {
+  Case,
+  SectorType,
+  LifecycleStatus,
+  CasePriority,
+  TenantBranding,
+  TenantSlaConfig,
+  InstitutionStaffMember,
+} from "@/types/database";
+import { getSectorConfig } from "@/lib/config/sectors";
 import { createClient } from "@/lib/supabase/server";
 
 export interface StoredCaseItem extends Case {
@@ -57,11 +66,39 @@ export interface StoredEvent {
   created_at: string;
 }
 
+export interface StoredDepartment {
+  id: string;
+  institution_id: string;
+  code: string;
+  name_ar: string;
+  name_en: string;
+  default_sla_hours: number;
+  head_user_id?: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface StoredInternalNote {
+  id: string;
+  case_id: string;
+  institution_id: string;
+  author_id: string;
+  author_name: string;
+  author_role: string;
+  note_text: string;
+  created_at: string;
+}
+
 interface StorageSchema {
   cases: StoredCaseItem[];
   actionPlans: StoredActionPlan[];
   evaluations: StoredEvaluation[];
   events: StoredEvent[];
+  departments: StoredDepartment[];
+  internalNotes: StoredInternalNote[];
+  tenantBranding?: Record<string, TenantBranding>;
+  tenantSlaConfigs?: Record<string, TenantSlaConfig>;
+  staffMembers?: InstitutionStaffMember[];
 }
 
 const STORE_PATH = path.join(process.cwd(), "data", "cases-store.json");
@@ -334,6 +371,11 @@ class StorageAdapter {
         const raw = fs.readFileSync(STORE_PATH, "utf-8");
         const parsed = JSON.parse(raw);
         if (parsed.cases && Array.isArray(parsed.cases)) {
+          parsed.departments = parsed.departments || [];
+          parsed.internalNotes = parsed.internalNotes || [];
+          parsed.tenantBranding = parsed.tenantBranding || {};
+          parsed.tenantSlaConfigs = parsed.tenantSlaConfigs || {};
+          parsed.staffMembers = parsed.staffMembers || [];
           return parsed;
         }
       }
@@ -346,6 +388,11 @@ class StorageAdapter {
       actionPlans: [],
       evaluations: [],
       events: [],
+      departments: [],
+      internalNotes: [],
+      tenantBranding: {},
+      tenantSlaConfigs: {},
+      staffMembers: [],
     };
     this.persistStore(initialStore);
     return initialStore;
@@ -443,6 +490,9 @@ class StorageAdapter {
     institutionId?: string;
     sector?: string;
     lifecycleStatus?: string;
+    departmentId?: string;
+    priority?: string;
+    assignedStaffId?: string;
   }): Promise<StoredCaseItem[]> {
     let cases = [...this.inMemoryStore.cases];
 
@@ -461,6 +511,18 @@ class StorageAdapter {
 
     if (filters?.lifecycleStatus) {
       cases = cases.filter((c) => c.lifecycle_status === filters.lifecycleStatus);
+    }
+
+    if (filters?.departmentId && filters.departmentId !== "ALL") {
+      cases = cases.filter((c) => c.assigned_department_id === filters.departmentId);
+    }
+
+    if (filters?.priority && filters.priority !== "ALL") {
+      cases = cases.filter((c) => c.priority === filters.priority);
+    }
+
+    if (filters?.assignedStaffId) {
+      cases = cases.filter((c) => c.assigned_staff_id === filters.assignedStaffId);
     }
 
     const now = Date.now();
@@ -618,6 +680,397 @@ class StorageAdapter {
 
   public async getCaseEvents(caseId: string): Promise<StoredEvent[]> {
     return this.inMemoryStore.events.filter((e) => e.case_id === caseId);
+  }
+
+  public async getDepartments(institutionId: string, fallbackSector?: SectorType): Promise<StoredDepartment[]> {
+    const existing = this.inMemoryStore.departments.filter((d) => d.institution_id === institutionId);
+    if (existing.length > 0) {
+      return existing;
+    }
+
+    // Auto-seed default departments if not yet initialized for this institution
+    const sectorToUse = fallbackSector || "EDUCATION_SCHOOLS";
+    const sectorConfig = getSectorConfig(sectorToUse);
+    const seededDepts: StoredDepartment[] = sectorConfig.defaultDepartments.map((d) => ({
+      id: crypto.randomUUID(),
+      institution_id: institutionId,
+      code: d.code,
+      name_ar: d.name_ar,
+      name_en: d.name_en,
+      default_sla_hours: d.default_sla_hours,
+      head_user_id: null,
+      is_active: true,
+      created_at: new Date().toISOString(),
+    }));
+
+    this.inMemoryStore.departments.push(...seededDepts);
+    this.persistStore(this.inMemoryStore);
+    return seededDepts;
+  }
+
+  public async createDepartment(
+    dept: Omit<StoredDepartment, "id" | "created_at">
+  ): Promise<StoredDepartment> {
+    const newDept: StoredDepartment = {
+      ...dept,
+      id: crypto.randomUUID(),
+      created_at: new Date().toISOString(),
+    };
+
+    this.inMemoryStore.departments.push(newDept);
+
+    if (isLiveSupabaseAvailable()) {
+      try {
+        const supabase = await createClient();
+        await supabase.from("institution_departments").insert(newDept);
+      } catch {
+        // fallback
+      }
+    }
+
+    this.persistStore(this.inMemoryStore);
+    return newDept;
+  }
+
+  public async getInternalNotes(caseId: string): Promise<StoredInternalNote[]> {
+    return this.inMemoryStore.internalNotes.filter((n) => n.case_id === caseId);
+  }
+
+  public async addInternalNote(
+    note: Omit<StoredInternalNote, "id" | "created_at">
+  ): Promise<StoredInternalNote> {
+    const newNote: StoredInternalNote = {
+      ...note,
+      id: crypto.randomUUID(),
+      created_at: new Date().toISOString(),
+    };
+
+    this.inMemoryStore.internalNotes.push(newNote);
+
+    if (isLiveSupabaseAvailable()) {
+      try {
+        const supabase = await createClient();
+        await supabase.from("case_internal_notes").insert(newNote);
+      } catch {
+        // fallback
+      }
+    }
+
+    this.persistStore(this.inMemoryStore);
+    return newNote;
+  }
+
+  public async assignCase(
+    caseId: string,
+    updates: {
+      departmentId?: string;
+      staffId?: string;
+      priority?: CasePriority;
+      slaTargetHours?: number;
+    }
+  ): Promise<StoredCaseItem | null> {
+    const caseItem = this.inMemoryStore.cases.find((c) => c.id === caseId);
+    if (!caseItem) return null;
+
+    if (updates.departmentId !== undefined) {
+      caseItem.assigned_department_id = updates.departmentId;
+    }
+    if (updates.staffId !== undefined) {
+      caseItem.assigned_staff_id = updates.staffId;
+    }
+    if (updates.priority !== undefined) {
+      caseItem.priority = updates.priority;
+    }
+    if (updates.slaTargetHours) {
+      caseItem.sla_target_at = new Date(Date.now() + updates.slaTargetHours * 3600000).toISOString();
+    }
+    caseItem.updated_at = new Date().toISOString();
+
+    // Log assignment event
+    const eventRecord: StoredEvent = {
+      id: crypto.randomUUID(),
+      case_id: caseId,
+      event_type: "CASE_ASSIGNMENT_UPDATED",
+      actor_id: updates.staffId || "SYSTEM",
+      actor_role: "OPS_LEAD",
+      payload: updates,
+      created_at: new Date().toISOString(),
+    };
+    this.inMemoryStore.events.push(eventRecord);
+
+    if (isLiveSupabaseAvailable()) {
+      try {
+        const supabase = await createClient();
+        await supabase
+          .from("cases")
+          .update({
+            assigned_department_id: caseItem.assigned_department_id,
+            assigned_staff_id: caseItem.assigned_staff_id,
+            priority: caseItem.priority,
+            sla_target_at: caseItem.sla_target_at,
+            updated_at: caseItem.updated_at,
+          })
+          .eq("id", caseId);
+      } catch {
+        // fallback
+      }
+    }
+
+    this.persistStore(this.inMemoryStore);
+    return caseItem;
+  }
+
+  public async updateDepartment(
+    deptId: string,
+    updates: Partial<StoredDepartment>
+  ): Promise<StoredDepartment | null> {
+    const dept = this.inMemoryStore.departments.find((d) => d.id === deptId);
+    if (!dept) return null;
+
+    Object.assign(dept, updates);
+
+    if (isLiveSupabaseAvailable()) {
+      try {
+        const supabase = await createClient();
+        await supabase
+          .from("institution_departments")
+          .update(updates)
+          .eq("id", deptId);
+      } catch {
+        // fallback
+      }
+    }
+
+    this.persistStore(this.inMemoryStore);
+    return dept;
+  }
+
+  public async deleteDepartment(deptId: string): Promise<boolean> {
+    const index = this.inMemoryStore.departments.findIndex((d) => d.id === deptId);
+    if (index === -1) return false;
+
+    this.inMemoryStore.departments.splice(index, 1);
+
+    if (isLiveSupabaseAvailable()) {
+      try {
+        const supabase = await createClient();
+        await supabase.from("institution_departments").delete().eq("id", deptId);
+      } catch {
+        // fallback
+      }
+    }
+
+    this.persistStore(this.inMemoryStore);
+    return true;
+  }
+
+  public async getTenantBranding(institutionId: string): Promise<TenantBranding | null> {
+    if (isLiveSupabaseAvailable()) {
+      try {
+        const supabase = await createClient();
+        const { data } = await supabase
+          .from("institutions")
+          .select("branding")
+          .eq("id", institutionId)
+          .single();
+        if (data?.branding) return data.branding as TenantBranding;
+      } catch {
+        // fallback
+      }
+    }
+
+    return this.inMemoryStore.tenantBranding?.[institutionId] || {
+      primary_color: "#0F766E",
+      secondary_color: "#1E293B",
+      institution_short_name: "مُرافِق المؤسسي",
+      welcome_message_ar: "أهلاً بك في البوابة المؤسسية لإدارة الحالات وحل المشكلات",
+      welcome_message_en: "Welcome to Enterprise Case & Resolution Management",
+    };
+  }
+
+  public async saveTenantBranding(
+    institutionId: string,
+    branding: Partial<TenantBranding>
+  ): Promise<TenantBranding> {
+    if (!this.inMemoryStore.tenantBranding) {
+      this.inMemoryStore.tenantBranding = {};
+    }
+
+    const current = this.inMemoryStore.tenantBranding[institutionId] || {
+      primary_color: "#0F766E",
+      institution_short_name: "مُرافِق المؤسسي",
+    };
+
+    const updated: TenantBranding = {
+      ...current,
+      ...branding,
+    };
+
+    this.inMemoryStore.tenantBranding[institutionId] = updated;
+
+    if (isLiveSupabaseAvailable()) {
+      try {
+        const supabase = await createClient();
+        await supabase
+          .from("institutions")
+          .update({ branding: updated })
+          .eq("id", institutionId);
+      } catch {
+        // fallback
+      }
+    }
+
+    this.persistStore(this.inMemoryStore);
+    return updated;
+  }
+
+  public async getTenantSlaConfig(institutionId: string): Promise<TenantSlaConfig> {
+    if (isLiveSupabaseAvailable()) {
+      try {
+        const supabase = await createClient();
+        const { data } = await supabase
+          .from("institutions")
+          .select("sla_config")
+          .eq("id", institutionId)
+          .single();
+        if (data?.sla_config) return data.sla_config as TenantSlaConfig;
+      } catch {
+        // fallback
+      }
+    }
+
+    return (
+      this.inMemoryStore.tenantSlaConfigs?.[institutionId] || {
+        first_response_hours: 24,
+        action_plan_hours: 72,
+        resolution_hours: 168,
+        critical_resolution_hours: 24,
+        high_resolution_hours: 48,
+        medium_resolution_hours: 96,
+        low_resolution_hours: 168,
+        escalation_threshold_hours: 48,
+        business_hours_start: "08:00",
+        business_hours_end: "16:00",
+        working_days: [0, 1, 2, 3, 4],
+      }
+    );
+  }
+
+  public async saveTenantSlaConfig(
+    institutionId: string,
+    config: Partial<TenantSlaConfig>
+  ): Promise<TenantSlaConfig> {
+    if (!this.inMemoryStore.tenantSlaConfigs) {
+      this.inMemoryStore.tenantSlaConfigs = {};
+    }
+
+    const current = await this.getTenantSlaConfig(institutionId);
+    const updated: TenantSlaConfig = {
+      ...current,
+      ...config,
+    };
+
+    this.inMemoryStore.tenantSlaConfigs[institutionId] = updated;
+
+    if (isLiveSupabaseAvailable()) {
+      try {
+        const supabase = await createClient();
+        await supabase
+          .from("institutions")
+          .update({ sla_config: updated })
+          .eq("id", institutionId);
+      } catch {
+        // fallback
+      }
+    }
+
+    this.persistStore(this.inMemoryStore);
+    return updated;
+  }
+
+  public async getStaffMembers(institutionId: string): Promise<InstitutionStaffMember[]> {
+    const list = this.inMemoryStore.staffMembers || [];
+    const filtered = list.filter((s) => s.institution_id === institutionId);
+    if (filtered.length > 0) return filtered;
+
+    // Seed default staff members for demo/local if empty
+    const defaults: InstitutionStaffMember[] = [
+      {
+        id: crypto.randomUUID(),
+        institution_id: institutionId,
+        name: "د. طارق مصطفى",
+        email: "tarek.m@organization.edu.eg",
+        role: "ADMIN",
+        is_active: true,
+        created_at: new Date().toISOString(),
+      },
+      {
+        id: crypto.randomUUID(),
+        institution_id: institutionId,
+        name: "أ. منى يوسف",
+        email: "mona.y@organization.edu.eg",
+        role: "OPS_LEAD",
+        is_active: true,
+        created_at: new Date().toISOString(),
+      },
+      {
+        id: crypto.randomUUID(),
+        institution_id: institutionId,
+        name: "م. خالد نبيل",
+        email: "khaled.n@organization.edu.eg",
+        role: "STAFF",
+        is_active: true,
+        created_at: new Date().toISOString(),
+      },
+    ];
+
+    if (!this.inMemoryStore.staffMembers) {
+      this.inMemoryStore.staffMembers = [];
+    }
+    this.inMemoryStore.staffMembers.push(...defaults);
+    this.persistStore(this.inMemoryStore);
+    return defaults;
+  }
+
+  public async createStaffMember(
+    staff: Omit<InstitutionStaffMember, "id" | "created_at">
+  ): Promise<InstitutionStaffMember> {
+    if (!this.inMemoryStore.staffMembers) {
+      this.inMemoryStore.staffMembers = [];
+    }
+
+    const newStaff: InstitutionStaffMember = {
+      ...staff,
+      id: crypto.randomUUID(),
+      created_at: new Date().toISOString(),
+    };
+
+    this.inMemoryStore.staffMembers.push(newStaff);
+    this.persistStore(this.inMemoryStore);
+    return newStaff;
+  }
+
+  public async updateStaffMember(
+    staffId: string,
+    updates: Partial<InstitutionStaffMember>
+  ): Promise<InstitutionStaffMember | null> {
+    if (!this.inMemoryStore.staffMembers) return null;
+    const staff = this.inMemoryStore.staffMembers.find((s) => s.id === staffId);
+    if (!staff) return null;
+
+    Object.assign(staff, updates);
+    this.persistStore(this.inMemoryStore);
+    return staff;
+  }
+
+  public async deleteStaffMember(staffId: string): Promise<boolean> {
+    if (!this.inMemoryStore.staffMembers) return false;
+    const index = this.inMemoryStore.staffMembers.findIndex((s) => s.id === staffId);
+    if (index === -1) return false;
+
+    this.inMemoryStore.staffMembers.splice(index, 1);
+    this.persistStore(this.inMemoryStore);
+    return true;
   }
 }
 

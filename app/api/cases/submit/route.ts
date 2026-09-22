@@ -59,6 +59,8 @@ export async function POST(request: NextRequest) {
           subcategory: processed.caseRecord.subcategory,
           sanitized_description: processed.caseRecord.sanitized_description,
           initial_experience_rating: processed.caseRecord.initial_experience_rating,
+          priority: processed.caseRecord.priority || "MEDIUM",
+          assigned_department_id: processed.caseRecord.assigned_department_id || null,
           grace_expires_at: processed.caseRecord.grace_expires_at,
           custom_entity_name: (processed.caseRecord.metadata as any)?.custom_entity_name || null,
           metadata: processed.caseRecord.metadata,

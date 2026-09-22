@@ -42,6 +42,8 @@ export default function InstitutionTriageDashboard() {
   const [cases, setCases] = useState<CaseTriageItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterCategory, setFilterCategory] = useState<string>("ALL");
+  const [filterPriority, setFilterPriority] = useState<string>("ALL");
+  const [filterDepartment, setFilterDepartment] = useState<string>("ALL");
 
   // Find active entity metadata if a single institution is selected
   const activeEntity: SampleEntityRecord | undefined = SAMPLE_ENTITIES.find(
@@ -93,8 +95,10 @@ export default function InstitutionTriageDashboard() {
   ).length;
 
   const filteredCases = cases.filter((c) => {
-    if (filterCategory === "ALL") return true;
-    return c.category === filterCategory;
+    if (filterCategory !== "ALL" && c.category !== filterCategory) return false;
+    if (filterPriority !== "ALL" && c.priority !== filterPriority) return false;
+    if (filterDepartment !== "ALL" && c.assigned_department_id !== filterDepartment) return false;
+    return true;
   });
 
   // Dynamic available categories
@@ -170,15 +174,19 @@ export default function InstitutionTriageDashboard() {
           <div className="flex items-center gap-3 font-bold text-slate-700">
             <Link href="/" className="hover:opacity-90 transition flex items-center gap-1.5">
               <MurafiqLogo size="sm" showText={false} />
-              <span className="text-sky-950 font-black">مُرافِق</span>
+              <span className="text-sky-950 font-black">مُرافِق إنتربرايز</span>
             </Link>
             <span className="text-slate-300">|</span>
-            <Link href="/directory" className="hover:text-sky-800 transition">
-              🌐 الدليل الوطني للجهات (5 قطاعات)
+            <span className="text-sky-800 font-extrabold bg-sky-50 px-2.5 py-1 rounded-lg border border-sky-200">
+              📋 لوحة فرز ومعالجة الحالات
+            </span>
+            <span className="text-slate-300">|</span>
+            <Link href="/portal/analytics" className="hover:text-sky-800 transition">
+              📊 مؤشرات الأداء والجودة (Analytics)
             </Link>
             <span className="text-slate-300">|</span>
-            <Link href="/schools" className="hover:text-sky-800 transition">
-              🏫 المدارس
+            <Link href="/portal/admin" className="hover:text-teal-800 transition">
+              ⚙️ إدارة المؤسسة (Org Admin)
             </Link>
           </div>
           <Link
@@ -360,19 +368,51 @@ export default function InstitutionTriageDashboard() {
                 ? `شكاوى وطلبات ${SECTOR_LABELS[activeEntity.sector]?.applicantTerm || "المستفيدين"} الواردة حديثًا (${filteredCases.length})`
                 : `الحالات والشكاوى الواردة حديثًا عبر المنظومة الوطنية (${filteredCases.length})`}
             </h2>
+          </div>
 
-            <select
-              value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value)}
-              className="rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-xs focus:border-civic-navy focus:outline-none"
-            >
-              <option value="ALL">جميع التصنيفات</option>
-              {availableCategories.map((c) => (
-                <option key={c.key} value={c.key}>
-                  {c.label_ar}
-                </option>
+          {/* Filter Bar: Priority & Category */}
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 rounded-xl border border-slate-200 text-xs">
+            {/* Priority Filter Pills */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="font-bold text-slate-500 ml-1">الأولوية:</span>
+              {[
+                { key: "ALL", label: "الكل" },
+                { key: "CRITICAL", label: "🚨 طارئة" },
+                { key: "HIGH", label: "⚡ عاجلة" },
+                { key: "MEDIUM", label: "متوسطة" },
+                { key: "LOW", label: "عادية" },
+              ].map((p) => (
+                <button
+                  key={p.key}
+                  type="button"
+                  onClick={() => setFilterPriority(p.key)}
+                  className={`px-3 py-1 rounded-lg font-bold transition ${
+                    filterPriority === p.key
+                      ? "bg-sky-800 text-white shadow-2xs"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
+                >
+                  {p.label}
+                </button>
               ))}
-            </select>
+            </div>
+
+            {/* Category Dropdown */}
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-slate-500">التصنيف:</span>
+              <select
+                value={filterCategory}
+                onChange={(e) => setFilterCategory(e.target.value)}
+                className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-1 text-xs font-semibold focus:border-sky-800 focus:outline-none"
+              >
+                <option value="ALL">جميع التصنيفات</option>
+                {availableCategories.map((c) => (
+                  <option key={c.key} value={c.key}>
+                    {c.label_ar}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {loading ? (

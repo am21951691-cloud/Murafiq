@@ -111,6 +111,94 @@ export const VerificationMethodEnum = {
   EXTERNAL_REGISTRY: "EXTERNAL_REGISTRY",
 } as const;
 
+export type CasePriority = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
+
+export const CasePriorityEnum = {
+  LOW: "LOW",
+  MEDIUM: "MEDIUM",
+  HIGH: "HIGH",
+  CRITICAL: "CRITICAL",
+} as const;
+
+export type InstitutionStaffRole = "ADMIN" | "OPS_LEAD" | "STAFF" | "OBSERVER";
+
+export const InstitutionStaffRoleEnum = {
+  ADMIN: "ADMIN",
+  OPS_LEAD: "OPS_LEAD",
+  STAFF: "STAFF",
+  OBSERVER: "OBSERVER",
+} as const;
+
+export interface InstitutionStaffMember {
+  id: string;
+  institution_id: string;
+  user_id?: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  role: InstitutionStaffRole;
+  department_id?: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface TenantBranding {
+  primary_color: string;
+  secondary_color?: string;
+  logo_url?: string | null;
+  institution_short_name?: string | null;
+  welcome_message_ar?: string | null;
+  welcome_message_en?: string | null;
+  support_email?: string | null;
+  support_phone?: string | null;
+  custom_domain?: string | null;
+}
+
+export interface TenantSlaConfig {
+  first_response_hours: number;
+  action_plan_hours: number;
+  resolution_hours: number;
+  escalation_threshold_hours?: number;
+  critical_resolution_hours?: number;
+  high_resolution_hours?: number;
+  medium_resolution_hours?: number;
+  low_resolution_hours?: number;
+  business_hours_start?: string;
+  business_hours_end?: string;
+  working_days?: number[];
+}
+
+export interface TenantBeneficiaryTerminology {
+  term_ar: string;
+  term_en: string;
+  identifier_label_ar: string;
+  identifier_label_en: string;
+}
+
+export interface InstitutionDepartment {
+  id: string;
+  institution_id: string;
+  code: string;
+  name_ar: string;
+  name_en: string;
+  default_sla_hours: number;
+  head_user_id?: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CaseInternalNote {
+  id: string;
+  case_id: string;
+  institution_id: string;
+  author_id: string;
+  author_name: string;
+  author_role: string;
+  note_text: string;
+  created_at: string;
+}
+
 export interface Institution {
   id: string;
   slug: string;
@@ -122,6 +210,9 @@ export interface Institution {
   identifier_type: string;
   verification_metadata: Record<string, unknown>;
   is_verified: boolean;
+  branding?: TenantBranding;
+  sla_config?: TenantSlaConfig;
+  beneficiary_terminology?: TenantBeneficiaryTerminology;
   created_at: string;
   updated_at: string;
 }
@@ -134,8 +225,11 @@ export interface Case {
   user_id: string;
   institution_id: string;
   branch_id?: string | null;
+  assigned_department_id?: string | null;
+  assigned_staff_id?: string | null;
   category: CaseCategory;
   subcategory: string;
+  priority?: CasePriority;
   lifecycle_status: LifecycleStatus;
   moderation_status: ModerationStatus;
   dispute_status: DisputeStatus;
@@ -146,6 +240,9 @@ export interface Case {
   public_summary_en?: string | null;
   initial_experience_rating: number;
   grace_expires_at?: string | null;
+  sla_target_at?: string | null;
+  first_responded_at?: string | null;
+  resolved_at?: string | null;
   evaluation_timeout_at?: string | null;
   closed_at?: string | null;
   closure_reason?: string | null;

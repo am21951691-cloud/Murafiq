@@ -40,6 +40,9 @@ export const CaseIntakeSchema = z.object({
   custom_entity_name: z.string().min(2, "Custom entity name must be at least 2 characters").optional().nullable(),
   governorate: z.string().optional().nullable(),
   branch_name: z.string().optional().nullable(),
+  priority: z.enum(["LOW", "MEDIUM", "HIGH", "CRITICAL"]).optional().default("MEDIUM"),
+  assigned_department_id: z.string().optional().nullable(),
+  beneficiary_name: z.string().optional().nullable(),
   consent_given: z.literal(true, {
     errorMap: () => ({ message: "Consent is required" }),
   }),
@@ -93,6 +96,8 @@ export function processCaseIntake(
     branch_id: validated.branch_id || null,
     category: validated.category,
     subcategory: validated.subcategory,
+    priority: validated.priority || "MEDIUM",
+    assigned_department_id: validated.assigned_department_id || null,
     lifecycle_status: "PRIVATE_GRACE",
     moderation_status: "PENDING",
     dispute_status: "NONE",

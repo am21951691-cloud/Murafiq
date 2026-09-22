@@ -145,6 +145,8 @@ export function IntakeWizard({
     return sectorEntities[0]?.id || "00000000-0000-0000-0000-000000000010";
   });
 
+  const [priority, setPriority] = useState<"LOW" | "MEDIUM" | "HIGH" | "CRITICAL">("MEDIUM");
+
   // User Role / Relationship
   const [userRole, setUserRole] = useState<string>(SECTOR_CONFIG[selectedSector].userRoles_ar[0]);
 
@@ -179,14 +181,16 @@ export function IntakeWizard({
   // When sector changes, update institution, categories, and roles
   const handleSectorChange = (newSector: SectorType) => {
     setSelectedSector(newSector);
-    const newSectorEntities = SAMPLE_ENTITIES.filter((e) => e.sector === newSector);
-    if (newSectorEntities.length > 0) {
-      setSelectedInstitutionId(newSectorEntities[0].id);
+    const entities = SAMPLE_ENTITIES.filter((i) => i.sector === newSector);
+    if (entities.length > 0) {
+      setSelectedInstitutionId(entities[0].id);
+    } else {
+      setSelectedInstitutionId("OTHER");
     }
     const newTax = getSectorTaxonomy(newSector);
     if (newTax.length > 0) {
       setCategory(newTax[0].key);
-      setSubcategory(newTax[0].subcategories[0]?.label_ar || "");
+      setSubcategory(newTax[0].subcategories[0]?.label_ar || "عام");
     }
     setUserRole(SECTOR_CONFIG[newSector].userRoles_ar[0]);
     setIdentifierValue("");
@@ -282,6 +286,7 @@ export function IntakeWizard({
           branch_name: isCustomEntity && customBranch.trim() ? customBranch.trim() : undefined,
           category,
           subcategory,
+          priority,
           raw_description: description,
           desired_outcome: desiredOutcome,
           initial_experience_rating: rating,
@@ -829,6 +834,35 @@ export function IntakeWizard({
                 {rating === 4 && (isRtl ? "(4 = ملاحظة طفيفة)" : "(4 = Minor issue)")}
                 {rating === 5 && (isRtl ? "(5 = استفسار تنظيمي بسيط)" : "(5 = Routine inquiry)")}
               </span>
+            </div>
+          </div>
+
+          {/* 1.7 Priority Level */}
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">
+              {isRtl ? "7. درجة الأولوية والأهمية:" : "7. Urgency & Priority Level:"}
+            </label>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {[
+                { id: "LOW", label_ar: "عادية (Low)", label_en: "Low", desc_ar: "استفسار أو معاملة روتينية", color: "border-slate-200" },
+                { id: "MEDIUM", label_ar: "متوسطة (Medium)", label_en: "Medium", desc_ar: "مسألة تتطلب معالجة اعتيادية", color: "border-sky-300" },
+                { id: "HIGH", label_ar: "عاجلة (High)", label_en: "High", desc_ar: "تعطيل خدمة أو أثر مباشر", color: "border-amber-300" },
+                { id: "CRITICAL", label_ar: "طارئة (Critical)", label_en: "Critical", desc_ar: "ضرر بالغ أو نزاع فوري", color: "border-red-300" },
+              ].map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => setPriority(p.id as any)}
+                  className={`rounded-xl border-2 p-3 text-right transition flex flex-col justify-between ${
+                    priority === p.id
+                      ? "border-sky-800 bg-sky-50/70 shadow-xs"
+                      : `${p.color} bg-white hover:bg-slate-50`
+                  }`}
+                >
+                  <span className="font-bold text-xs text-slate-900">{isRtl ? p.label_ar : p.label_en}</span>
+                  <span className="text-[10px] text-slate-500 mt-1">{p.desc_ar}</span>
+                </button>
+              ))}
             </div>
           </div>
 

@@ -1,87 +1,115 @@
-# Murafiq — Product Specification
+# Murafiq (مُرافِق) — Enterprise Product Specification
 
-> **Version:** 1.0  
-> **Last Updated:** 2026-09-13  
-> **Status:** Approved — Ready for Implementation
-
----
-
-## 1. Product Overview
-
-**Murafiq** (مُرافِق) is a Case Resolution Platform for education in Egypt. It transforms unstructured complaints and reviews into structured cases with a documented lifecycle.
-
-**Core Cycle:** REVIEW → RESPONSE → RESOLUTION → VERIFIED OUTCOME
-
-**Initial Vertical:** Private schools and educational centers in Egypt.
+> **Version:** 3.0  
+> **Product Category:** Enterprise Case & Resolution Management Platform (B2B SaaS / On-Premise)  
+> **Arabic Positioning:** منظومة مؤسسية لإدارة الحالات والشكاوى والطلبات وحل المشكلات  
+> **Core Promise:** *Every issue gets an owner, every action gets a deadline, every commitment gets tracked, and every resolution becomes measurable.*  
+> **Status:** Production Reference Specification
 
 ---
 
-## 2. Product Principles
+## 1. Product Vision & Positioning
 
-1. **Neutral, not adversarial:** Facilitate resolution, not punishment.
-2. **Attribution is sacred:** Every statement labeled: `USER-REPORTED`, `INSTITUTION-STATED`, `AI-ANALYSIS`, or `VERIFIED`.
-3. **AI is an analyst, not a judge:** AI structures and evaluates quality. It never declares guilt, fault, or truth.
-4. **Resolution over rating:** Measure the full lifecycle, not just initial sentiment.
-5. **Privacy by design:** Children's information protected. PII redacted. Users control visibility.
-6. **Institutions have rights:** Every institution gets a right of response.
-7. **Evidence over opinion:** Encourage documentation, timelines, specifics over emotional venting.
-8. **Simple before smart:** Don't add AI complexity where a simple form or status update works.
+**Murafiq** is a multi-tenant Enterprise Case & Resolution Management Platform engineered to be sold, deployed, branded, and integrated directly into client organizations.
 
----
+### What Murafiq Is:
+- A private, institutional case resolution and accountability operating system.
+- An issue tracker and action plan management engine connecting beneficiaries, frontline staff, and executive leadership.
+- A SLA enforcement and department performance scorecard platform.
+- A compliance-ready system adhering to Egyptian Data Protection Law 151/2020.
 
-## 3. Target Users
-
-### Primary (MVP)
-- **Parent:** Parent of student at Egyptian private school.
-- **School Manager:** Decision-maker at private school.
-- **School Staff:** Teachers/admins assigned to resolve issues.
-- **Platform Admin:** Murafiq team managing the platform.
-
-### Secondary (Post-MVP)
-- **Student:** University students (V1.5).
-- **Prospective Parent:** Read-only access to public profiles (V1.0).
-- **Educational Center Customer:** Tutoring centers, language schools (V1.5).
+### What Murafiq Is NOT:
+- **NOT** a public consumer review directory or rating aggregator.
+- **NOT** a place for public defamatory venting or review bombing.
+- **NOT** an adversarial consumer forum.
 
 ---
 
-## 4. Feature Specification
+## 2. Core Product Principles
 
-### 4.1 User Registration & Auth
-- Implemented via Supabase Auth.
-- Email verification via magic link / password.
-- Egyptian phone number verification required (E.164 format: `+20xxxxxxxxxx` via SMS OTP).
-- Trust levels: 0 (new) → 1 (verified phone/email) → 2 (established) → 3 (trusted).
+1. **Accountability by Design:** Every case has an assigned department and owner; unassigned cases trigger automated triage alerts.
+2. **Deterministic Time-Bound Resolution:** SLAs are strictly configured per priority level (`CRITICAL`, `HIGH`, `MEDIUM`, `LOW`) and monitored in real time.
+3. **Structured Commitments (Action Plans):** Issues are resolved via multi-phase Action Plans with tangible milestones, accountable officers, and verifiable evidence.
+4. **Beneficiary-Centric Closure:** A case cannot simply be closed unilaterally by staff; the beneficiary provides final evaluation and feedback ($R_{resp}$ and $R_{res}$ on a 1–5 scale).
+5. **PII Physical Separation (Law 151/2020):** Personal identification details are isolated in dedicated encrypted tables (`case_sensitive_data`) with zero broad access.
+6. **Dual AI Assistance (Non-Adversarial):** AI acts as an intake concierge and solution advisor proposing actionable 3-phase plans, never acting as a judicial arbiter.
+7. **Verifiable Audit Integrity:** Every milestone, note, and status transition is recorded in an append-only cryptographic event log, culminating in a SHA-256 digested PDF report.
 
-### 4.2 Institution Directory & Claiming
-- Searchable directory of Egyptian private schools and educational centers.
-- Claim profile workflow requiring commercial registration / MoE license upload.
-- Verified badge awarded upon manual admin approval.
+---
 
-### 4.3 Case Submission (Guided Form)
-1. **Find Institution:** Autocomplete search.
-2. **Describe Experience:** Free text (min 50, max 2000 chars).
-3. **Details:** Category dropdown, timeline, prior contact, expected outcome.
-4. **Evidence:** Up to 5 attachments (images, PDFs, max 10MB each).
-5. **Review & Submit:** AI neutral summary preview, 1–5 initial rating, visibility level (Public, Anonymous, Private), WhatsApp opt-in.
+## 3. Supported Sectors & Configuration
 
-### 4.4 Case Lifecycle State Machine (9 MVP States)
-- `DRAFT` → `SUBMITTED` → `PUBLISHED` (or `REJECTED`)
-- `PUBLISHED` → `INSTITUTION_RESPONDED` (or `AWAITING_EVALUATION` after 14-day timeout)
-- `INSTITUTION_RESPONDED` → `IN_PROGRESS` (with Action Plan) → `AWAITING_EVALUATION`
-- `AWAITING_EVALUATION` → `CLOSED` (via user evaluation or 30-day auto-close)
+The system provides out-of-the-box configuration profiles for 5 primary sectors while supporting custom institutional definitions:
 
-### 4.5 Institution Response & Action Plan
-- Institution responds with official statement within 14 days.
-- Optional structured Action Plan: milestones, accountable owners, explicit deadlines.
+| Sector Code | Sector Name | Beneficiary Term | Institution Term | Standard Departments | Regulatory Baseline |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `EDUCATION_SCHOOLS` | المدارس والتعليم قبل الجامعي | ولي أمر / طالب | إدارة المدرسة | شؤون الطلاب، الشؤون المالية، النقل والحافلات، الإدارة الأكاديمية | Ministerial Decree 187/2023 |
+| `HIGHER_EDUCATION` | الجامعات والتعليم العالي | طالب جامعي / باحث | إدارة الكلية / العمادة | شؤون الطلاب، الكنترول والامتحانات، السكن والمدن الجامعية، الشؤون المالية | Universities Law 49/1972 |
+| `GOVERNMENT_PUBLIC` | الخدمات الحكومية والهيئات | مواطن / مراجع | الإدارة / المركز | خدمة المواطنين، الشؤون القانونية، التحصيل والتراخيص، المتابعة والتفتيش | Public SLA & Digital Governance |
+| `COMMERCIAL_COMPANIES` | الشركات والمؤسسات التجارية | عميل / مشترك | إدارة العمليات / الجودة | خدمة العملاء، الدعم الفني، الفواتير والتحصيل، الشكاوى والاسترجاع | Consumer Protection Law 181/2018 |
+| `HEALTHCARE_MEDICAL` | المستشفيات والمنشآت الصحية | مريض / مرافق | إدارة المستشفى | رعاية المرضى وتجربة المريض، العيادات الخارجية، الطوارئ، التمريض والجودة | GAHAR Standards & Patient Rights |
 
-### 4.6 Final Evaluation & Closure
-- User evaluates: Response Rating (1–5) and Resolution Rating (1–5) plus closing notes.
-- Status moves to `CLOSED`.
-- Experience Resolution Report generated and dispatched via WhatsApp.
+---
 
-### 4.7 Multi-Dimensional Rating Model
-- Separate star ratings:
-  1. **Experience Rating** (original issue)
-  2. **Institution Response Rating** (communication quality)
-  3. **Resolution Rating** (outcome effectiveness)
-- Minimum sample thresholds: Ratings only display publicly once an institution accumulates ≥5 cases.
+## 4. Portals & Access Hierarchy
+
+Murafiq delivers 4 purpose-built portals:
+
+### 4.1 Beneficiary Portal & Ticket Tracking (`/cases/submit`, `/track`)
+- **Guided Intake Wizard:** Step-by-step submission with category selection, priority indicators, and department routing.
+- **Reference-Based Tracking:** Direct lookup via cryptographically secure reference numbers (`MRF-XXXXXX`) without mandatory account creation.
+- **Action Plan Visibility:** Transparent viewing of approved resolution milestones and target delivery dates.
+- **Bidirectional Communication:** Messaging channel between beneficiary and assigned staff.
+- **Resolution Evaluation & Report:** 3D evaluation modal and downloadable PDF report with verification fingerprint.
+
+### 4.2 Staff Operations & Triage Portal (`/portal/dashboard`, `/portal/cases/[id]`)
+- **Triage Matrix:** Priority badges (`CRITICAL`, `HIGH`, `MEDIUM`, `LOW`), SLA countdown timers, and department filtering.
+- **Protected Internal Notes:** Staff-only collaborative discussion thread invisible to beneficiaries.
+- **Case Detail Workspace:** Full chronological event timeline, communication logs, and evidence attachment browser.
+- **Interactive Action Plan Builder:** Creation of 3-stage corrective plans with owner assignment, milestone checklists, and RQS estimation.
+
+### 4.3 Organization Admin Portal (`/portal/admin`)
+- **Institutional Profile:** Entity name, sector taxonomy, logo, brand accents, and custom domain setup.
+- **Department Hierarchy:** Creation and management of organizational departments and routing rules.
+- **SLA Policy Matrix:** Target resolution and first-response hours configured per priority level.
+- **Staff Access Control:** Role assignment (`ADMIN`, `OPS_LEAD`, `STAFF`, `OBSERVER`).
+- **Category Customization:** Sector-specific issue categories and subcategories.
+
+### 4.4 Executive Analytics Dashboard (`/portal/analytics`)
+- **SLA Compliance Rate:** Percentage of cases acknowledged and resolved within target deadlines.
+- **Department Scorecards:** Comparative performance across internal departments.
+- **Priority & Volume Distribution:** Heatmaps of incoming case volumes and critical escalations.
+- **Resolution Quality Score (RQS):** Aggregated metric reflecting adherence, milestone thoroughness, and beneficiary satisfaction.
+
+---
+
+## 5. Case Resolution Lifecycle State Machine
+
+```
+   [SUBMITTED]
+        │
+        ▼ (Triage & Intake Verification)
+ [PRIVATE_GRACE] ──(Grace countdown: 7 days default)
+        │
+        ▼ (Staff Acknowledgment & Department Assignment)
+[ACTION_PLAN_PENDING]
+        │
+        ▼ (Action Plan Constructed & Approved)
+  [IN_PROGRESS] ──(Milestones executed: 1 -> 2 -> 3)
+        │
+        ▼ (Final Milestone Complete & Outcome Submitted)
+[WAITING_FOR_EVALUATION]
+        │
+        ├───────────────────────────────┐
+        ▼ (Beneficiary Submits Evaluation)  ▼ (Inactivity Timeout: 30d)
+     [CLOSED]                        [CLOSED] (Timed Out)
+```
+
+---
+
+## 6. Integration & Enterprise Security
+
+- **API-First Architecture:** Complete RESTful v1 API layer for integration into existing ERP, SIS, HIS, or CRM systems.
+- **Multi-Tenant Isolation:** Guaranteed tenant isolation via dedicated database scopes and Row Level Security.
+- **Notification Multichannel:** Meta WhatsApp Cloud API integration for SMS/WhatsApp status alerts, email fallback, and webhook triggers.
+- **Cryptographic Auditability:** SHA-256 tamper-evident integrity hash embedded on all official resolution certificates.

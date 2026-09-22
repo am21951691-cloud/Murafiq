@@ -1,6 +1,641 @@
 {
   "cases": [
     {
+      "id": "c79c36a5-c821-4854-aedc-ea51c0f2c92e",
+      "reference_number": "MRF-2026-ASSIGN-1790078926722",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "category": "ACADEMIC",
+      "subcategory": "CURRICULUM_DELIVERY",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار توزيع أقسام",
+      "initial_experience_rating": 3,
+      "metadata": {},
+      "created_at": "2026-09-22T12:08:46.722Z",
+      "updated_at": "2026-09-22T12:08:46.724Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+      "assigned_staff_id": "staff-specialist-77",
+      "priority": "HIGH",
+      "sla_target_at": "2026-09-23T12:08:46.724Z"
+    },
+    {
+      "id": "77e72ef1-8967-43d8-a9db-4a65859ed285",
+      "reference_number": "MRF-2026-TESTNOTE-1790078926716",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "category": "ACADEMIC",
+      "subcategory": "CURRICULUM_DELIVERY",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار خاص بالشؤون التعليمية",
+      "initial_experience_rating": 3,
+      "metadata": {},
+      "created_at": "2026-09-22T12:08:46.717Z",
+      "updated_at": "2026-09-22T12:08:46.717Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR"
+    },
+    {
+      "id": "6c0a2abd-2ef8-4d71-bafe-9f4e3c2ebf8a",
+      "reference_number": "MRF-2026-88353",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "category": "TRANSPORTATION_BUSES",
+      "subcategory": "DELAY",
+      "priority": "HIGH",
+      "assigned_department_id": null,
+      "lifecycle_status": "SUBMITTED",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "تأخر مستمر للحافلة المدرسية عن موعد الوصول بأكثر من 45 دقيقة صباحاً.",
+      "initial_experience_rating": 3,
+      "metadata": {
+        "title": "خلل متكرر في مسار الحافلة رقم 12",
+        "submitted_via": "API_V1"
+      },
+      "created_at": "2026-09-22T12:08:45.761Z",
+      "updated_at": "2026-09-22T12:08:45.761Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES"
+    },
+    {
+      "id": "77777777-7777-7777-7777-777777777777",
+      "reference_number": "MRF-2026-ASSIGN-TEST",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "category": "SAFETY_DISCIPLINE",
+      "subcategory": "BULLYING",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "واقعة تنمر تستوجب تدخلاً إدارياً عاجلاً",
+      "initial_experience_rating": 1,
+      "metadata": {},
+      "created_at": "2026-09-22T12:08:45.422Z",
+      "updated_at": "2026-09-22T12:08:45.430Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+      "assigned_staff_id": "staff-officer-99",
+      "priority": "CRITICAL",
+      "sla_target_at": "2026-09-23T00:08:45.430Z"
+    },
+    {
+      "id": "4062534b-4c1d-4202-b336-2a1373dda239",
+      "reference_number": "MRF-2026-32626",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "branch_id": null,
+      "category": "TEACHER_COMMUNICATION",
+      "subcategory": "التواصل الأسبوعي",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "PRIVATE_GRACE",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "المعلم لا يلتزم بمواعيد الحصص ورقم هاتفه الشخصي [PHONE_REDACTED] وبطاقته [NATIONAL_ID_REDACTED].",
+      "initial_experience_rating": 2,
+      "grace_expires_at": "2026-09-29T12:08:44.696Z",
+      "metadata": {
+        "desired_outcome": "متابعة أداء المعلم وتغييره إذا تكرر الأمر.",
+        "phone_hash": "0895f44c7a43ae484d10b8509021516091079927afc18baa37fad1a70f35c01d"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "جهة مسجلة",
+      "sector": "EDUCATION_SCHOOLS"
+    },
+    {
+      "id": "5df6ee7b-3d61-48f5-9245-ee464d60d1c5",
+      "reference_number": "MRF-2026-96453",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "com-vodafone-001",
+      "branch_id": null,
+      "category": "FACILITIES_HEALTH_SAFETY",
+      "subcategory": "سرعات الإنترنت المنزلي VDSL",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "CLOSED",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "تكرار انقطاع خدمة الإنترنت المنزلي لأكثر من 6 أيام متتالية والتواصل مع الدعم الفني على رقم [PHONE_REDACTED] دون أي معالجة فنية على أرض الواقع.",
+      "initial_experience_rating": 1,
+      "grace_expires_at": "2026-09-29T12:08:43.861Z",
+      "metadata": {
+        "desired_outcome": "إرسال فني للصيانة خلال 24 ساعة وتعويض قيمة الأيام المنقطعة.",
+        "phone_hash": "9cb0f9f370b6bc0271cfe8ac9e170e9ebf2681b52497829ce883cdff2bd28def"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "شركة فودافون مصر للاتصالات (Vodafone Egypt - القرية الذكية والجيزة)",
+      "sector": "COMMERCIAL_COMPANIES",
+      "updated_at": "2026-09-22T12:08:44.016Z"
+    },
+    {
+      "id": "9055d4bb-8e7c-41cc-9d28-7d548a0d808c",
+      "reference_number": "MRF-2026-78816",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "category": "TRANSPORTATION_BUSES",
+      "subcategory": "DELAY",
+      "priority": "HIGH",
+      "assigned_department_id": null,
+      "lifecycle_status": "SUBMITTED",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "تأخر مستمر للحافلة المدرسية عن موعد الوصول بأكثر من 45 دقيقة صباحاً.",
+      "initial_experience_rating": 3,
+      "metadata": {
+        "title": "خلل متكرر في مسار الحافلة رقم 12",
+        "submitted_via": "API_V1"
+      },
+      "created_at": "2026-09-22T12:08:35.689Z",
+      "updated_at": "2026-09-22T12:08:35.689Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES"
+    },
+    {
+      "id": "d1170155-051d-4f78-930f-a141a722439d",
+      "reference_number": "MRF-2026-ASSIGN-1790078206463",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "category": "ACADEMIC",
+      "subcategory": "CURRICULUM_DELIVERY",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار توزيع أقسام",
+      "initial_experience_rating": 3,
+      "metadata": {},
+      "created_at": "2026-09-22T11:56:46.463Z",
+      "updated_at": "2026-09-22T11:56:46.506Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+      "assigned_staff_id": "staff-specialist-77",
+      "priority": "HIGH",
+      "sla_target_at": "2026-09-23T11:56:46.506Z"
+    },
+    {
+      "id": "212ce639-0c9d-41f9-bf21-d8a29727566a",
+      "reference_number": "MRF-2026-TESTNOTE-1790078206437",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "category": "ACADEMIC",
+      "subcategory": "CURRICULUM_DELIVERY",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار خاص بالشؤون التعليمية",
+      "initial_experience_rating": 3,
+      "metadata": {},
+      "created_at": "2026-09-22T11:56:46.437Z",
+      "updated_at": "2026-09-22T11:56:46.437Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR"
+    },
+    {
+      "id": "77777777-7777-7777-7777-777777777777",
+      "reference_number": "MRF-2026-ASSIGN-TEST",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "category": "SAFETY_DISCIPLINE",
+      "subcategory": "BULLYING",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "واقعة تنمر تستوجب تدخلاً إدارياً عاجلاً",
+      "initial_experience_rating": 1,
+      "metadata": {},
+      "created_at": "2026-09-22T11:56:40.321Z",
+      "updated_at": "2026-09-22T11:56:40.357Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+      "assigned_staff_id": "staff-officer-99",
+      "priority": "CRITICAL",
+      "sla_target_at": "2026-09-22T23:56:40.357Z"
+    },
+    {
+      "id": "bdc8ae94-b943-417d-8c9e-90a24d2ea49a",
+      "reference_number": "MRF-2026-82888",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "branch_id": null,
+      "category": "TEACHER_COMMUNICATION",
+      "subcategory": "التواصل الأسبوعي",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "PRIVATE_GRACE",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "المعلم لا يلتزم بمواعيد الحصص ورقم هاتفه الشخصي [PHONE_REDACTED] وبطاقته [NATIONAL_ID_REDACTED].",
+      "initial_experience_rating": 2,
+      "grace_expires_at": "2026-09-29T11:56:36.670Z",
+      "metadata": {
+        "desired_outcome": "متابعة أداء المعلم وتغييره إذا تكرر الأمر.",
+        "phone_hash": "0895f44c7a43ae484d10b8509021516091079927afc18baa37fad1a70f35c01d"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "جهة مسجلة",
+      "sector": "EDUCATION_SCHOOLS"
+    },
+    {
+      "id": "e7dd0214-0fe6-4851-bda0-3adbce966279",
+      "reference_number": "MRF-2026-56933",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "com-vodafone-001",
+      "branch_id": null,
+      "category": "FACILITIES_HEALTH_SAFETY",
+      "subcategory": "سرعات الإنترنت المنزلي VDSL",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "CLOSED",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "تكرار انقطاع خدمة الإنترنت المنزلي لأكثر من 6 أيام متتالية والتواصل مع الدعم الفني على رقم [PHONE_REDACTED] دون أي معالجة فنية على أرض الواقع.",
+      "initial_experience_rating": 1,
+      "grace_expires_at": "2026-09-29T11:56:33.648Z",
+      "metadata": {
+        "desired_outcome": "إرسال فني للصيانة خلال 24 ساعة وتعويض قيمة الأيام المنقطعة.",
+        "phone_hash": "9cb0f9f370b6bc0271cfe8ac9e170e9ebf2681b52497829ce883cdff2bd28def"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "شركة فودافون مصر للاتصالات (Vodafone Egypt - القرية الذكية والجيزة)",
+      "sector": "COMMERCIAL_COMPANIES",
+      "updated_at": "2026-09-22T11:56:34.207Z"
+    },
+    {
+      "id": "35393adc-b050-4fff-865d-3b88b797567f",
+      "reference_number": "MRF-2026-ASSIGN-1790077267421",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "category": "ACADEMIC",
+      "subcategory": "CURRICULUM_DELIVERY",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار توزيع أقسام",
+      "initial_experience_rating": 3,
+      "metadata": {},
+      "created_at": "2026-09-22T11:41:07.421Z",
+      "updated_at": "2026-09-22T11:41:07.423Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+      "assigned_staff_id": "staff-specialist-77",
+      "priority": "HIGH",
+      "sla_target_at": "2026-09-23T11:41:07.423Z"
+    },
+    {
+      "id": "a2b660bf-b30a-4ad1-9607-ae5cf5edaac2",
+      "reference_number": "MRF-2026-TESTNOTE-1790077267416",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "category": "ACADEMIC",
+      "subcategory": "CURRICULUM_DELIVERY",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار خاص بالشؤون التعليمية",
+      "initial_experience_rating": 3,
+      "metadata": {},
+      "created_at": "2026-09-22T11:41:07.416Z",
+      "updated_at": "2026-09-22T11:41:07.416Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR"
+    },
+    {
+      "id": "77777777-7777-7777-7777-777777777777",
+      "reference_number": "MRF-2026-ASSIGN-TEST",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "category": "SAFETY_DISCIPLINE",
+      "subcategory": "BULLYING",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "واقعة تنمر تستوجب تدخلاً إدارياً عاجلاً",
+      "initial_experience_rating": 1,
+      "metadata": {},
+      "created_at": "2026-09-22T11:41:05.502Z",
+      "updated_at": "2026-09-22T11:41:05.510Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+      "assigned_staff_id": "staff-officer-99",
+      "priority": "CRITICAL",
+      "sla_target_at": "2026-09-22T23:41:05.510Z"
+    },
+    {
+      "id": "958ea670-f416-4bdd-bfa2-1c5cfff51dbb",
+      "reference_number": "MRF-2026-50575",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "branch_id": null,
+      "category": "TEACHER_COMMUNICATION",
+      "subcategory": "التواصل الأسبوعي",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "PRIVATE_GRACE",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "المعلم لا يلتزم بمواعيد الحصص ورقم هاتفه الشخصي [PHONE_REDACTED] وبطاقته [NATIONAL_ID_REDACTED].",
+      "initial_experience_rating": 2,
+      "grace_expires_at": "2026-09-29T11:41:04.207Z",
+      "metadata": {
+        "desired_outcome": "متابعة أداء المعلم وتغييره إذا تكرر الأمر.",
+        "phone_hash": "0895f44c7a43ae484d10b8509021516091079927afc18baa37fad1a70f35c01d"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "جهة مسجلة",
+      "sector": "EDUCATION_SCHOOLS"
+    },
+    {
+      "id": "c172ddf9-4d18-4412-b6b9-1a495bf2db2e",
+      "reference_number": "MRF-2026-39709",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "com-vodafone-001",
+      "branch_id": null,
+      "category": "FACILITIES_HEALTH_SAFETY",
+      "subcategory": "سرعات الإنترنت المنزلي VDSL",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "CLOSED",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "تكرار انقطاع خدمة الإنترنت المنزلي لأكثر من 6 أيام متتالية والتواصل مع الدعم الفني على رقم [PHONE_REDACTED] دون أي معالجة فنية على أرض الواقع.",
+      "initial_experience_rating": 1,
+      "grace_expires_at": "2026-09-29T11:41:03.188Z",
+      "metadata": {
+        "desired_outcome": "إرسال فني للصيانة خلال 24 ساعة وتعويض قيمة الأيام المنقطعة.",
+        "phone_hash": "9cb0f9f370b6bc0271cfe8ac9e170e9ebf2681b52497829ce883cdff2bd28def"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "شركة فودافون مصر للاتصالات (Vodafone Egypt - القرية الذكية والجيزة)",
+      "sector": "COMMERCIAL_COMPANIES",
+      "updated_at": "2026-09-22T11:41:03.360Z"
+    },
+    {
+      "id": "7bc8c854-0d62-4ce9-99ec-63f3e131c372",
+      "reference_number": "MRF-2026-ASSIGN-1790077250779",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "category": "ACADEMIC",
+      "subcategory": "CURRICULUM_DELIVERY",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار توزيع أقسام",
+      "initial_experience_rating": 3,
+      "metadata": {},
+      "created_at": "2026-09-22T11:40:50.779Z",
+      "updated_at": "2026-09-22T11:40:50.781Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+      "assigned_staff_id": "staff-specialist-77",
+      "priority": "HIGH",
+      "sla_target_at": "2026-09-23T11:40:50.781Z"
+    },
+    {
+      "id": "f05b3219-5c25-4e2c-a043-27bd949d5a07",
+      "reference_number": "MRF-2026-TESTNOTE-1790077250776",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "category": "ACADEMIC",
+      "subcategory": "CURRICULUM_DELIVERY",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار خاص بالشؤون التعليمية",
+      "initial_experience_rating": 3,
+      "metadata": {},
+      "created_at": "2026-09-22T11:40:50.776Z",
+      "updated_at": "2026-09-22T11:40:50.776Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR"
+    },
+    {
+      "id": "77777777-7777-7777-7777-777777777777",
+      "reference_number": "MRF-2026-ASSIGN-TEST",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "category": "SAFETY_DISCIPLINE",
+      "subcategory": "BULLYING",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "واقعة تنمر تستوجب تدخلاً إدارياً عاجلاً",
+      "initial_experience_rating": 1,
+      "metadata": {},
+      "created_at": "2026-09-22T11:40:02.655Z",
+      "updated_at": "2026-09-22T11:40:02.665Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+      "assigned_staff_id": "staff-officer-99",
+      "priority": "CRITICAL",
+      "sla_target_at": "2026-09-22T23:40:02.665Z"
+    },
+    {
+      "id": "ec43617c-0ed1-4bfe-879f-383969a2ecb9",
+      "reference_number": "MRF-2026-23404",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "branch_id": null,
+      "category": "TEACHER_COMMUNICATION",
+      "subcategory": "التواصل الأسبوعي",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "PRIVATE_GRACE",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "المعلم لا يلتزم بمواعيد الحصص ورقم هاتفه الشخصي [PHONE_REDACTED] وبطاقته [NATIONAL_ID_REDACTED].",
+      "initial_experience_rating": 2,
+      "grace_expires_at": "2026-09-29T11:39:59.928Z",
+      "metadata": {
+        "desired_outcome": "متابعة أداء المعلم وتغييره إذا تكرر الأمر.",
+        "phone_hash": "0895f44c7a43ae484d10b8509021516091079927afc18baa37fad1a70f35c01d"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "جهة مسجلة",
+      "sector": "EDUCATION_SCHOOLS"
+    },
+    {
+      "id": "6f4f3c7f-a37e-42b4-86fd-0f5640058cb8",
+      "reference_number": "MRF-2026-74741",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "com-vodafone-001",
+      "branch_id": null,
+      "category": "FACILITIES_HEALTH_SAFETY",
+      "subcategory": "سرعات الإنترنت المنزلي VDSL",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "CLOSED",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "تكرار انقطاع خدمة الإنترنت المنزلي لأكثر من 6 أيام متتالية والتواصل مع الدعم الفني على رقم [PHONE_REDACTED] دون أي معالجة فنية على أرض الواقع.",
+      "initial_experience_rating": 1,
+      "grace_expires_at": "2026-09-29T11:39:59.179Z",
+      "metadata": {
+        "desired_outcome": "إرسال فني للصيانة خلال 24 ساعة وتعويض قيمة الأيام المنقطعة.",
+        "phone_hash": "9cb0f9f370b6bc0271cfe8ac9e170e9ebf2681b52497829ce883cdff2bd28def"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "شركة فودافون مصر للاتصالات (Vodafone Egypt - القرية الذكية والجيزة)",
+      "sector": "COMMERCIAL_COMPANIES",
+      "updated_at": "2026-09-22T11:39:59.424Z"
+    },
+    {
+      "id": "838af13b-deb6-43bb-81b0-4d8970f0352d",
+      "reference_number": "MRF-2026-35078",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "com-vodafone-001",
+      "branch_id": null,
+      "category": "FACILITIES_HEALTH_SAFETY",
+      "subcategory": "سرعات الإنترنت المنزلي VDSL",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "CLOSED",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "تكرار انقطاع خدمة الإنترنت المنزلي لأكثر من 6 أيام متتالية والتواصل مع الدعم الفني على رقم [PHONE_REDACTED] دون أي معالجة فنية على أرض الواقع.",
+      "initial_experience_rating": 1,
+      "grace_expires_at": "2026-09-29T11:38:29.204Z",
+      "metadata": {
+        "desired_outcome": "إرسال فني للصيانة خلال 24 ساعة وتعويض قيمة الأيام المنقطعة.",
+        "phone_hash": "9cb0f9f370b6bc0271cfe8ac9e170e9ebf2681b52497829ce883cdff2bd28def"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "شركة فودافون مصر للاتصالات (Vodafone Egypt - القرية الذكية والجيزة)",
+      "sector": "COMMERCIAL_COMPANIES",
+      "updated_at": "2026-09-22T11:38:29.290Z"
+    },
+    {
+      "id": "77777777-7777-7777-7777-777777777777",
+      "reference_number": "MRF-2026-ASSIGN-TEST",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "category": "SAFETY_DISCIPLINE",
+      "subcategory": "BULLYING",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "واقعة تنمر تستوجب تدخلاً إدارياً عاجلاً",
+      "initial_experience_rating": 1,
+      "metadata": {},
+      "created_at": "2026-09-22T11:38:04.144Z",
+      "updated_at": "2026-09-22T11:38:04.148Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+      "assigned_staff_id": "staff-officer-99",
+      "priority": "CRITICAL",
+      "sla_target_at": "2026-09-22T23:38:04.148Z"
+    },
+    {
+      "id": "5873f6c7-928b-42c6-bdc8-7d8aa72fc22b",
+      "reference_number": "MRF-2026-96807",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "branch_id": null,
+      "category": "TEACHER_COMMUNICATION",
+      "subcategory": "التواصل الأسبوعي",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "PRIVATE_GRACE",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "تواصلت مع المعلم على هاتفه [PHONE_REDACTED] بخصوص بطاقة [NATIONAL_ID_REDACTED] ولكن لم يتم الرد علي لمدة أسبوعين متتاليين وتجاهل الإدارة مستمر.",
+      "initial_experience_rating": 2,
+      "grace_expires_at": "2026-09-29T11:35:01.933Z",
+      "metadata": {
+        "desired_outcome": "التواصل مع إدارة المرحلة لحل المشكلة ودياً ووضع خطة تعويضية.",
+        "phone_hash": "09d2153ee2d2eaf56149b2404fa041464d3323e18e45d0bdc0f5c9d2d246f414"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "جهة مسجلة",
+      "sector": "EDUCATION_SCHOOLS"
+    },
+    {
+      "id": "99999999-9999-9999-9999-999999999999",
+      "reference_number": "MRF-2026-TESTNOTE",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "category": "ACADEMIC",
+      "subcategory": "CURRICULUM_DELIVERY",
+      "lifecycle_status": "PRIVATE_GRACE",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار خاص بالشؤون التعليمية",
+      "initial_experience_rating": 3,
+      "metadata": {},
+      "created_at": "2026-09-22T11:32:13.555Z",
+      "updated_at": "2026-09-22T11:32:13.558Z",
+      "institution_name": "جهة مسجلة",
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "assigned_department_id": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+      "assigned_staff_id": "staff-specialist-77",
+      "priority": "HIGH",
+      "sla_target_at": "2026-09-23T11:32:13.558Z"
+    },
+    {
       "id": "b3275367-9827-461d-8eee-a7ed4d4ec44e",
       "reference_number": "MRF-2026-12815",
       "user_id": "00000000-0000-0000-0000-000000000001",
@@ -589,6 +1224,196 @@
           "completed_by": "00000000-0000-0000-0000-000000000002"
         }
       ]
+    },
+    {
+      "id": "d591b40d-75fa-413f-b33d-6e86e041e9fd",
+      "case_id": "838af13b-deb6-43bb-81b0-4d8970f0352d",
+      "submitted_by": "00000000-0000-0000-0000-000000000002",
+      "official_statement": "تلتزم الشركة بإيفاد فريق الدعم الفني المتخصص وقياس جودة الإشارة لضمان استقرار الخدمة بصورة كاملة.",
+      "rqs_score": 100,
+      "rqs_breakdown": {
+        "problemAlignmentScore": 100,
+        "specificityScore": 100,
+        "ownershipScore": 100,
+        "timelineScore": 100,
+        "measurabilityScore": 100,
+        "deductions": 0,
+        "weights": {
+          "problemAlignment": 0.3,
+          "specificity": 0.2,
+          "ownership": 0.2,
+          "timeline": 0.15,
+          "measurability": 0.15
+        },
+        "details": []
+      },
+      "created_at": "2026-09-22T11:38:29.278Z",
+      "updated_at": "2026-09-22T11:38:29.278Z",
+      "milestones": [
+        {
+          "id": "535f8f1e-8cf4-4e84-a263-537d6d604d85",
+          "action_plan_id": "d591b40d-75fa-413f-b33d-6e86e041e9fd",
+          "title": "زيارة فنية ميدانية وفحص كابينة الاتصالات",
+          "owner_role": "مهندس الصيانة الميدانية",
+          "due_date": "2026-09-24",
+          "is_completed": true,
+          "completed_at": "2026-09-22T11:38:29.286Z",
+          "created_at": "2026-09-22T11:38:29.278Z",
+          "completed_by": "00000000-0000-0000-0000-000000000002"
+        }
+      ]
+    },
+    {
+      "id": "99c2b931-96e2-4e0c-a64d-090afe90c71a",
+      "case_id": "6f4f3c7f-a37e-42b4-86fd-0f5640058cb8",
+      "submitted_by": "00000000-0000-0000-0000-000000000002",
+      "official_statement": "تلتزم الشركة بإيفاد فريق الدعم الفني المتخصص وقياس جودة الإشارة لضمان استقرار الخدمة بصورة كاملة.",
+      "rqs_score": 100,
+      "rqs_breakdown": {
+        "problemAlignmentScore": 100,
+        "specificityScore": 100,
+        "ownershipScore": 100,
+        "timelineScore": 100,
+        "measurabilityScore": 100,
+        "deductions": 0,
+        "weights": {
+          "problemAlignment": 0.3,
+          "specificity": 0.2,
+          "ownership": 0.2,
+          "timeline": 0.15,
+          "measurability": 0.15
+        },
+        "details": []
+      },
+      "created_at": "2026-09-22T11:39:59.408Z",
+      "updated_at": "2026-09-22T11:39:59.408Z",
+      "milestones": [
+        {
+          "id": "b0259a43-1933-454e-b43b-8484cb9e3813",
+          "action_plan_id": "99c2b931-96e2-4e0c-a64d-090afe90c71a",
+          "title": "زيارة فنية ميدانية وفحص كابينة الاتصالات",
+          "owner_role": "مهندس الصيانة الميدانية",
+          "due_date": "2026-09-24",
+          "is_completed": true,
+          "completed_at": "2026-09-22T11:39:59.417Z",
+          "created_at": "2026-09-22T11:39:59.408Z",
+          "completed_by": "00000000-0000-0000-0000-000000000002"
+        }
+      ]
+    },
+    {
+      "id": "0353ba68-860a-4ea4-a511-0a7a8fb4c4c6",
+      "case_id": "c172ddf9-4d18-4412-b6b9-1a495bf2db2e",
+      "submitted_by": "00000000-0000-0000-0000-000000000002",
+      "official_statement": "تلتزم الشركة بإيفاد فريق الدعم الفني المتخصص وقياس جودة الإشارة لضمان استقرار الخدمة بصورة كاملة.",
+      "rqs_score": 100,
+      "rqs_breakdown": {
+        "problemAlignmentScore": 100,
+        "specificityScore": 100,
+        "ownershipScore": 100,
+        "timelineScore": 100,
+        "measurabilityScore": 100,
+        "deductions": 0,
+        "weights": {
+          "problemAlignment": 0.3,
+          "specificity": 0.2,
+          "ownership": 0.2,
+          "timeline": 0.15,
+          "measurability": 0.15
+        },
+        "details": []
+      },
+      "created_at": "2026-09-22T11:41:03.338Z",
+      "updated_at": "2026-09-22T11:41:03.338Z",
+      "milestones": [
+        {
+          "id": "4a5a0977-4c9d-4fee-a3d6-38a6bbdc2234",
+          "action_plan_id": "0353ba68-860a-4ea4-a511-0a7a8fb4c4c6",
+          "title": "زيارة فنية ميدانية وفحص كابينة الاتصالات",
+          "owner_role": "مهندس الصيانة الميدانية",
+          "due_date": "2026-09-24",
+          "is_completed": true,
+          "completed_at": "2026-09-22T11:41:03.352Z",
+          "created_at": "2026-09-22T11:41:03.338Z",
+          "completed_by": "00000000-0000-0000-0000-000000000002"
+        }
+      ]
+    },
+    {
+      "id": "936de4c6-170f-46e6-b443-9273ae8fe3b4",
+      "case_id": "e7dd0214-0fe6-4851-bda0-3adbce966279",
+      "submitted_by": "00000000-0000-0000-0000-000000000002",
+      "official_statement": "تلتزم الشركة بإيفاد فريق الدعم الفني المتخصص وقياس جودة الإشارة لضمان استقرار الخدمة بصورة كاملة.",
+      "rqs_score": 100,
+      "rqs_breakdown": {
+        "problemAlignmentScore": 100,
+        "specificityScore": 100,
+        "ownershipScore": 100,
+        "timelineScore": 100,
+        "measurabilityScore": 100,
+        "deductions": 0,
+        "weights": {
+          "problemAlignment": 0.3,
+          "specificity": 0.2,
+          "ownership": 0.2,
+          "timeline": 0.15,
+          "measurability": 0.15
+        },
+        "details": []
+      },
+      "created_at": "2026-09-22T11:56:34.134Z",
+      "updated_at": "2026-09-22T11:56:34.134Z",
+      "milestones": [
+        {
+          "id": "d3df4438-eec3-4ccd-88b6-817bb834ef36",
+          "action_plan_id": "936de4c6-170f-46e6-b443-9273ae8fe3b4",
+          "title": "زيارة فنية ميدانية وفحص كابينة الاتصالات",
+          "owner_role": "مهندس الصيانة الميدانية",
+          "due_date": "2026-09-24",
+          "is_completed": true,
+          "completed_at": "2026-09-22T11:56:34.181Z",
+          "created_at": "2026-09-22T11:56:34.134Z",
+          "completed_by": "00000000-0000-0000-0000-000000000002"
+        }
+      ]
+    },
+    {
+      "id": "3c3af283-0262-474d-ade1-e9cdd8c28e48",
+      "case_id": "5df6ee7b-3d61-48f5-9245-ee464d60d1c5",
+      "submitted_by": "00000000-0000-0000-0000-000000000002",
+      "official_statement": "تلتزم الشركة بإيفاد فريق الدعم الفني المتخصص وقياس جودة الإشارة لضمان استقرار الخدمة بصورة كاملة.",
+      "rqs_score": 100,
+      "rqs_breakdown": {
+        "problemAlignmentScore": 100,
+        "specificityScore": 100,
+        "ownershipScore": 100,
+        "timelineScore": 100,
+        "measurabilityScore": 100,
+        "deductions": 0,
+        "weights": {
+          "problemAlignment": 0.3,
+          "specificity": 0.2,
+          "ownership": 0.2,
+          "timeline": 0.15,
+          "measurability": 0.15
+        },
+        "details": []
+      },
+      "created_at": "2026-09-22T12:08:43.998Z",
+      "updated_at": "2026-09-22T12:08:43.998Z",
+      "milestones": [
+        {
+          "id": "bcf8a337-a9e3-445a-bc9d-1e95fe6ec202",
+          "action_plan_id": "3c3af283-0262-474d-ade1-e9cdd8c28e48",
+          "title": "زيارة فنية ميدانية وفحص كابينة الاتصالات",
+          "owner_role": "مهندس الصيانة الميدانية",
+          "due_date": "2026-09-24",
+          "is_completed": true,
+          "completed_at": "2026-09-22T12:08:44.009Z",
+          "created_at": "2026-09-22T12:08:43.998Z",
+          "completed_by": "00000000-0000-0000-0000-000000000002"
+        }
+      ]
     }
   ],
   "evaluations": [
@@ -645,6 +1470,51 @@
       "resolution_satisfaction_rating": 5,
       "feedback_notes": "تم حل المشكلة بمهنية وسرعة بعد تدخل الإدارة، شكراً لكم.",
       "created_at": "2026-09-22T08:38:17.937Z"
+    },
+    {
+      "id": "ab8d9b5f-0b62-4fc5-98b3-d139c741fa84",
+      "case_id": "838af13b-deb6-43bb-81b0-4d8970f0352d",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "responsiveness_rating": 4,
+      "resolution_satisfaction_rating": 5,
+      "feedback_notes": "تم حل المشكلة بمهنية وسرعة بعد تدخل الإدارة، شكراً لكم.",
+      "created_at": "2026-09-22T11:38:29.290Z"
+    },
+    {
+      "id": "17f14748-5400-4fc2-a9e0-1dac4bc64d4e",
+      "case_id": "6f4f3c7f-a37e-42b4-86fd-0f5640058cb8",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "responsiveness_rating": 4,
+      "resolution_satisfaction_rating": 5,
+      "feedback_notes": "تم حل المشكلة بمهنية وسرعة بعد تدخل الإدارة، شكراً لكم.",
+      "created_at": "2026-09-22T11:39:59.423Z"
+    },
+    {
+      "id": "921a56e9-a361-4f20-9efa-f5c5b83265cd",
+      "case_id": "c172ddf9-4d18-4412-b6b9-1a495bf2db2e",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "responsiveness_rating": 4,
+      "resolution_satisfaction_rating": 5,
+      "feedback_notes": "تم حل المشكلة بمهنية وسرعة بعد تدخل الإدارة، شكراً لكم.",
+      "created_at": "2026-09-22T11:41:03.360Z"
+    },
+    {
+      "id": "bb7cb983-878d-4e06-8836-c541e1d9e524",
+      "case_id": "e7dd0214-0fe6-4851-bda0-3adbce966279",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "responsiveness_rating": 4,
+      "resolution_satisfaction_rating": 5,
+      "feedback_notes": "تم حل المشكلة بمهنية وسرعة بعد تدخل الإدارة، شكراً لكم.",
+      "created_at": "2026-09-22T11:56:34.207Z"
+    },
+    {
+      "id": "83e92b2c-138a-433e-a6a4-a17a5c420728",
+      "case_id": "5df6ee7b-3d61-48f5-9245-ee464d60d1c5",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "responsiveness_rating": 4,
+      "resolution_satisfaction_rating": 5,
+      "feedback_notes": "تم حل المشكلة بمهنية وسرعة بعد تدخل الإدارة، شكراً لكم.",
+      "created_at": "2026-09-22T12:08:44.016Z"
     }
   ],
   "events": [
@@ -970,6 +1840,1071 @@
         "visibility": "STRICTLY_PRIVATE",
         "grace_expires_at": "2026-09-29T08:38:18.731Z"
       }
+    },
+    {
+      "id": "e55e3125-ccf6-497b-8d05-3b4852326a8d",
+      "case_id": "99999999-9999-9999-9999-999999999999",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-specialist-77",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+        "staffId": "staff-specialist-77",
+        "priority": "HIGH",
+        "slaTargetHours": 24
+      },
+      "created_at": "2026-09-22T11:32:13.558Z"
+    },
+    {
+      "id": "780b5c42-7aeb-4328-9875-479b3de3568e",
+      "case_id": "5873f6c7-928b-42c6-bdc8-7d8aa72fc22b",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-96807",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T11:35:01.933Z"
+      }
+    },
+    {
+      "id": "a685698b-b2f6-4278-8aec-d40a1afe30e3",
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-officer-99",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+        "staffId": "staff-officer-99",
+        "priority": "CRITICAL",
+        "slaTargetHours": 12
+      },
+      "created_at": "2026-09-22T11:38:04.148Z"
+    },
+    {
+      "id": "f22ba38f-f3dc-405d-8ecb-76f6e0982230",
+      "case_id": "838af13b-deb6-43bb-81b0-4d8970f0352d",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-35078",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T11:38:29.204Z"
+      }
+    },
+    {
+      "id": "f2b13188-98d7-472c-8ec3-4245e2dd6e05",
+      "case_id": "838af13b-deb6-43bb-81b0-4d8970f0352d",
+      "event_type": "CASE_ACKNOWLEDGED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "internal_notes": "تمت مراجعة الشكوى من إدارة الجودة والعمليات."
+      },
+      "created_at": "2026-09-22T11:38:29.220Z"
+    },
+    {
+      "id": "91986c19-b7b3-4966-86cb-6cf12f50cd9d",
+      "case_id": "838af13b-deb6-43bb-81b0-4d8970f0352d",
+      "event_type": "ACTION_PLAN_FORMULATED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_REP",
+      "payload": {
+        "rqs_score": 100
+      },
+      "created_at": "2026-09-22T11:38:29.279Z"
+    },
+    {
+      "id": "695eeace-409c-4b44-88d3-7ffe4a98af6a",
+      "case_id": "838af13b-deb6-43bb-81b0-4d8970f0352d",
+      "event_type": "ACTION_PLAN_POSTED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "action_plan_id": "d591b40d-75fa-413f-b33d-6e86e041e9fd",
+        "rqs_score": 100,
+        "grade": "EXEMPLARY",
+        "milestones_count": 1
+      },
+      "created_at": "2026-09-22T11:38:29.281Z"
+    },
+    {
+      "id": "8071d639-529d-4ca5-80ae-160a4e7c2617",
+      "case_id": "838af13b-deb6-43bb-81b0-4d8970f0352d",
+      "event_type": "ALL_MILESTONES_COMPLETED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_OPS",
+      "payload": {
+        "evaluation_timeout_at": "2026-10-06T11:38:29.287Z"
+      },
+      "created_at": "2026-09-22T11:38:29.287Z"
+    },
+    {
+      "id": "77d3190d-c537-4725-b65c-f1a278adb469",
+      "case_id": "838af13b-deb6-43bb-81b0-4d8970f0352d",
+      "event_type": "CASE_EVALUATION_SUBMITTED",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "actor_role": "CITIZEN",
+      "payload": {
+        "responsiveness_rating": 4,
+        "resolution_satisfaction_rating": 5,
+        "is_resolved": true
+      },
+      "created_at": "2026-09-22T11:38:29.290Z"
+    },
+    {
+      "id": "77189b8f-3ff7-4fec-ae89-6ee839635d4d",
+      "case_id": "6f4f3c7f-a37e-42b4-86fd-0f5640058cb8",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-74741",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T11:39:59.179Z"
+      }
+    },
+    {
+      "id": "fc560350-b544-4af4-8f27-d78ad5d3f7f5",
+      "case_id": "6f4f3c7f-a37e-42b4-86fd-0f5640058cb8",
+      "event_type": "CASE_ACKNOWLEDGED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "internal_notes": "تمت مراجعة الشكوى من إدارة الجودة والعمليات."
+      },
+      "created_at": "2026-09-22T11:39:59.273Z"
+    },
+    {
+      "id": "d90ccfc8-43f8-4dd1-8591-1e27af1dd8e6",
+      "case_id": "6f4f3c7f-a37e-42b4-86fd-0f5640058cb8",
+      "event_type": "ACTION_PLAN_FORMULATED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_REP",
+      "payload": {
+        "rqs_score": 100
+      },
+      "created_at": "2026-09-22T11:39:59.409Z"
+    },
+    {
+      "id": "8071893f-131e-4ef3-823a-ed41a90bafb9",
+      "case_id": "6f4f3c7f-a37e-42b4-86fd-0f5640058cb8",
+      "event_type": "ACTION_PLAN_POSTED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "action_plan_id": "99c2b931-96e2-4e0c-a64d-090afe90c71a",
+        "rqs_score": 100,
+        "grade": "EXEMPLARY",
+        "milestones_count": 1
+      },
+      "created_at": "2026-09-22T11:39:59.411Z"
+    },
+    {
+      "id": "aac3248c-99b0-4583-868a-6e5569f02538",
+      "case_id": "6f4f3c7f-a37e-42b4-86fd-0f5640058cb8",
+      "event_type": "ALL_MILESTONES_COMPLETED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_OPS",
+      "payload": {
+        "evaluation_timeout_at": "2026-10-06T11:39:59.418Z"
+      },
+      "created_at": "2026-09-22T11:39:59.418Z"
+    },
+    {
+      "id": "2c54528a-eba4-427b-8a4a-5a86547e40de",
+      "case_id": "6f4f3c7f-a37e-42b4-86fd-0f5640058cb8",
+      "event_type": "CASE_EVALUATION_SUBMITTED",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "actor_role": "CITIZEN",
+      "payload": {
+        "responsiveness_rating": 4,
+        "resolution_satisfaction_rating": 5,
+        "is_resolved": true
+      },
+      "created_at": "2026-09-22T11:39:59.424Z"
+    },
+    {
+      "id": "2f4abbef-9ce8-44df-a61d-a04600a06d30",
+      "case_id": "ec43617c-0ed1-4bfe-879f-383969a2ecb9",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-23404",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T11:39:59.928Z"
+      }
+    },
+    {
+      "id": "aff1ee45-3710-43dd-8e54-3723f3bd7807",
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-officer-99",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+        "staffId": "staff-officer-99",
+        "priority": "CRITICAL",
+        "slaTargetHours": 12
+      },
+      "created_at": "2026-09-22T11:40:02.666Z"
+    },
+    {
+      "id": "e64e9e14-3fb9-4c1b-b08f-e9c1f7206ca7",
+      "case_id": "7bc8c854-0d62-4ce9-99ec-63f3e131c372",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-specialist-77",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+        "staffId": "staff-specialist-77",
+        "priority": "HIGH",
+        "slaTargetHours": 24
+      },
+      "created_at": "2026-09-22T11:40:50.781Z"
+    },
+    {
+      "id": "7167bba7-38de-43a6-9625-a1eba4917f7f",
+      "case_id": "c172ddf9-4d18-4412-b6b9-1a495bf2db2e",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-39709",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T11:41:03.188Z"
+      }
+    },
+    {
+      "id": "4406d665-5aa3-4c6a-9f16-f1c505d9be1b",
+      "case_id": "c172ddf9-4d18-4412-b6b9-1a495bf2db2e",
+      "event_type": "CASE_ACKNOWLEDGED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "internal_notes": "تمت مراجعة الشكوى من إدارة الجودة والعمليات."
+      },
+      "created_at": "2026-09-22T11:41:03.213Z"
+    },
+    {
+      "id": "263364ae-5f09-4486-98f5-507ae90490f5",
+      "case_id": "c172ddf9-4d18-4412-b6b9-1a495bf2db2e",
+      "event_type": "ACTION_PLAN_FORMULATED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_REP",
+      "payload": {
+        "rqs_score": 100
+      },
+      "created_at": "2026-09-22T11:41:03.338Z"
+    },
+    {
+      "id": "6ff5f7bd-cb81-4f2d-a7b0-fa6f9ac042f5",
+      "case_id": "c172ddf9-4d18-4412-b6b9-1a495bf2db2e",
+      "event_type": "ACTION_PLAN_POSTED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "action_plan_id": "0353ba68-860a-4ea4-a511-0a7a8fb4c4c6",
+        "rqs_score": 100,
+        "grade": "EXEMPLARY",
+        "milestones_count": 1
+      },
+      "created_at": "2026-09-22T11:41:03.344Z"
+    },
+    {
+      "id": "d182ff65-ce00-48f2-bd60-9c4ce2477fe2",
+      "case_id": "c172ddf9-4d18-4412-b6b9-1a495bf2db2e",
+      "event_type": "ALL_MILESTONES_COMPLETED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_OPS",
+      "payload": {
+        "evaluation_timeout_at": "2026-10-06T11:41:03.354Z"
+      },
+      "created_at": "2026-09-22T11:41:03.354Z"
+    },
+    {
+      "id": "36184986-fa4a-4f1f-8926-363ddc056d72",
+      "case_id": "c172ddf9-4d18-4412-b6b9-1a495bf2db2e",
+      "event_type": "CASE_EVALUATION_SUBMITTED",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "actor_role": "CITIZEN",
+      "payload": {
+        "responsiveness_rating": 4,
+        "resolution_satisfaction_rating": 5,
+        "is_resolved": true
+      },
+      "created_at": "2026-09-22T11:41:03.360Z"
+    },
+    {
+      "id": "d5e8deb9-4fa6-428e-a418-e2a79ca31e07",
+      "case_id": "958ea670-f416-4bdd-bfa2-1c5cfff51dbb",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-50575",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T11:41:04.207Z"
+      }
+    },
+    {
+      "id": "7437c502-e897-4ed9-8623-ab9a363679ce",
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-officer-99",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+        "staffId": "staff-officer-99",
+        "priority": "CRITICAL",
+        "slaTargetHours": 12
+      },
+      "created_at": "2026-09-22T11:41:05.511Z"
+    },
+    {
+      "id": "05e79d39-d742-4b57-92e2-d8c2a8212fef",
+      "case_id": "35393adc-b050-4fff-865d-3b88b797567f",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-specialist-77",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+        "staffId": "staff-specialist-77",
+        "priority": "HIGH",
+        "slaTargetHours": 24
+      },
+      "created_at": "2026-09-22T11:41:07.423Z"
+    },
+    {
+      "id": "57053306-67f2-4950-9c9a-9d8b2960c639",
+      "case_id": "e7dd0214-0fe6-4851-bda0-3adbce966279",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-56933",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T11:56:33.648Z"
+      }
+    },
+    {
+      "id": "1f8aec93-df49-4cdf-be88-6f3939489385",
+      "case_id": "e7dd0214-0fe6-4851-bda0-3adbce966279",
+      "event_type": "CASE_ACKNOWLEDGED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "internal_notes": "تمت مراجعة الشكوى من إدارة الجودة والعمليات."
+      },
+      "created_at": "2026-09-22T11:56:33.798Z"
+    },
+    {
+      "id": "9cbf76d0-6cb3-44e2-b67b-0010d8f5194b",
+      "case_id": "e7dd0214-0fe6-4851-bda0-3adbce966279",
+      "event_type": "ACTION_PLAN_FORMULATED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_REP",
+      "payload": {
+        "rqs_score": 100
+      },
+      "created_at": "2026-09-22T11:56:34.136Z"
+    },
+    {
+      "id": "2ec2a098-b3ab-4f91-abbc-de8e14d86e0d",
+      "case_id": "e7dd0214-0fe6-4851-bda0-3adbce966279",
+      "event_type": "ACTION_PLAN_POSTED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "action_plan_id": "936de4c6-170f-46e6-b443-9273ae8fe3b4",
+        "rqs_score": 100,
+        "grade": "EXEMPLARY",
+        "milestones_count": 1
+      },
+      "created_at": "2026-09-22T11:56:34.150Z"
+    },
+    {
+      "id": "3c21a68d-3c90-46e0-b2ea-830914516a56",
+      "case_id": "e7dd0214-0fe6-4851-bda0-3adbce966279",
+      "event_type": "ALL_MILESTONES_COMPLETED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_OPS",
+      "payload": {
+        "evaluation_timeout_at": "2026-10-06T11:56:34.189Z"
+      },
+      "created_at": "2026-09-22T11:56:34.189Z"
+    },
+    {
+      "id": "7c61f3ea-ad8f-45e3-89f4-aa150df6a1f3",
+      "case_id": "e7dd0214-0fe6-4851-bda0-3adbce966279",
+      "event_type": "CASE_EVALUATION_SUBMITTED",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "actor_role": "CITIZEN",
+      "payload": {
+        "responsiveness_rating": 4,
+        "resolution_satisfaction_rating": 5,
+        "is_resolved": true
+      },
+      "created_at": "2026-09-22T11:56:34.207Z"
+    },
+    {
+      "id": "6290882a-3e3b-4bec-9eeb-e1b7648f1fc7",
+      "case_id": "bdc8ae94-b943-417d-8c9e-90a24d2ea49a",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-82888",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T11:56:36.670Z"
+      }
+    },
+    {
+      "id": "2b6642dc-645f-4810-b579-2659cb6446c4",
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-officer-99",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+        "staffId": "staff-officer-99",
+        "priority": "CRITICAL",
+        "slaTargetHours": 12
+      },
+      "created_at": "2026-09-22T11:56:40.359Z"
+    },
+    {
+      "id": "6ce61a57-5dd6-4ee8-8262-af7ef5285dcd",
+      "case_id": "d1170155-051d-4f78-930f-a141a722439d",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-specialist-77",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+        "staffId": "staff-specialist-77",
+        "priority": "HIGH",
+        "slaTargetHours": 24
+      },
+      "created_at": "2026-09-22T11:56:46.507Z"
+    },
+    {
+      "id": "a9df7a01-ef13-4da6-a251-98714b103f69",
+      "case_id": "9055d4bb-8e7c-41cc-9d28-7d548a0d808c",
+      "event_type": "CASE_SUBMITTED_VIA_API",
+      "actor_id": "API_CLIENT",
+      "actor_role": "ADMIN",
+      "payload": {
+        "title": "خلل متكرر في مسار الحافلة رقم 12",
+        "priority": "HIGH"
+      },
+      "created_at": "2026-09-22T12:08:35.689Z"
+    },
+    {
+      "id": "42b08733-0830-4678-9e3b-1898f62e7e26",
+      "case_id": "5df6ee7b-3d61-48f5-9245-ee464d60d1c5",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-96453",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T12:08:43.861Z"
+      }
+    },
+    {
+      "id": "bd013fd8-1929-4ee8-8889-84e017d2ae64",
+      "case_id": "5df6ee7b-3d61-48f5-9245-ee464d60d1c5",
+      "event_type": "CASE_ACKNOWLEDGED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "internal_notes": "تمت مراجعة الشكوى من إدارة الجودة والعمليات."
+      },
+      "created_at": "2026-09-22T12:08:43.890Z"
+    },
+    {
+      "id": "a02778b8-f6ee-4b43-9fca-fcf608ce29c1",
+      "case_id": "5df6ee7b-3d61-48f5-9245-ee464d60d1c5",
+      "event_type": "ACTION_PLAN_FORMULATED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_REP",
+      "payload": {
+        "rqs_score": 100
+      },
+      "created_at": "2026-09-22T12:08:43.999Z"
+    },
+    {
+      "id": "3ac9b84f-f8d3-4965-b955-02dc9c3bd511",
+      "case_id": "5df6ee7b-3d61-48f5-9245-ee464d60d1c5",
+      "event_type": "ACTION_PLAN_POSTED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "ADMIN",
+      "payload": {
+        "action_plan_id": "3c3af283-0262-474d-ade1-e9cdd8c28e48",
+        "rqs_score": 100,
+        "grade": "EXEMPLARY",
+        "milestones_count": 1
+      },
+      "created_at": "2026-09-22T12:08:44.003Z"
+    },
+    {
+      "id": "a192b4fb-7597-4b95-a154-e086004a5c3f",
+      "case_id": "5df6ee7b-3d61-48f5-9245-ee464d60d1c5",
+      "event_type": "ALL_MILESTONES_COMPLETED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_OPS",
+      "payload": {
+        "evaluation_timeout_at": "2026-10-06T12:08:44.011Z"
+      },
+      "created_at": "2026-09-22T12:08:44.011Z"
+    },
+    {
+      "id": "7a24ea3e-ad69-4032-a8f4-7af021d95bea",
+      "case_id": "5df6ee7b-3d61-48f5-9245-ee464d60d1c5",
+      "event_type": "CASE_EVALUATION_SUBMITTED",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "actor_role": "CITIZEN",
+      "payload": {
+        "responsiveness_rating": 4,
+        "resolution_satisfaction_rating": 5,
+        "is_resolved": true
+      },
+      "created_at": "2026-09-22T12:08:44.016Z"
+    },
+    {
+      "id": "419f7e98-8222-4538-861a-ed3a8820bec4",
+      "case_id": "4062534b-4c1d-4202-b336-2a1373dda239",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-32626",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-09-29T12:08:44.696Z"
+      }
+    },
+    {
+      "id": "c26066b9-dc64-47cb-b7ef-218ba6662ec7",
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-officer-99",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+        "staffId": "staff-officer-99",
+        "priority": "CRITICAL",
+        "slaTargetHours": 12
+      },
+      "created_at": "2026-09-22T12:08:45.431Z"
+    },
+    {
+      "id": "983f277c-6c9e-4f3f-9f36-e0ef31347321",
+      "case_id": "6c0a2abd-2ef8-4d71-bafe-9f4e3c2ebf8a",
+      "event_type": "CASE_SUBMITTED_VIA_API",
+      "actor_id": "API_CLIENT",
+      "actor_role": "ADMIN",
+      "payload": {
+        "title": "خلل متكرر في مسار الحافلة رقم 12",
+        "priority": "HIGH"
+      },
+      "created_at": "2026-09-22T12:08:45.761Z"
+    },
+    {
+      "id": "1a0bbc2e-5175-4e82-9a55-463b30356036",
+      "case_id": "c79c36a5-c821-4854-aedc-ea51c0f2c92e",
+      "event_type": "CASE_ASSIGNMENT_UPDATED",
+      "actor_id": "staff-specialist-77",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "departmentId": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+        "staffId": "staff-specialist-77",
+        "priority": "HIGH",
+        "slaTargetHours": 24
+      },
+      "created_at": "2026-09-22T12:08:46.724Z"
+    }
+  ],
+  "departments": [
+    {
+      "id": "337301ce-8346-4d08-be2b-9fd6ca773bf6",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "STUDENT_AFFAIRS",
+      "name_ar": "شؤون الطلاب والقيد",
+      "name_en": "Student Affairs",
+      "default_sla_hours": 48,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.546Z"
+    },
+    {
+      "id": "00ef15c2-ff83-47b0-b57c-5e1c87e2b9d6",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "ACADEMIC",
+      "name_ar": "الشؤون التعليمية والأكاديمية",
+      "name_en": "Academic Affairs",
+      "default_sla_hours": 72,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.546Z"
+    },
+    {
+      "id": "2e12c927-a4bc-4cbc-9a97-de908cacde80",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "FINANCE_TUITION",
+      "name_ar": "الحسابات والمصروفات",
+      "name_en": "Finance & Tuition",
+      "default_sla_hours": 48,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.546Z"
+    },
+    {
+      "id": "04ef5cf4-06b0-43de-8c19-73d6d1ade5bb",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "BEHAVIORAL_DISCIPLINE",
+      "name_ar": "التوجيه السلوكي والانضباط",
+      "name_en": "Behavioral Guidance",
+      "default_sla_hours": 24,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.546Z"
+    },
+    {
+      "id": "e377f3b3-04bb-43a4-9c31-866a76b778e3",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "FACILITIES_TRANSPORT",
+      "name_ar": "الحافلات والمرافق المدرسية",
+      "name_en": "Facilities & Transport",
+      "default_sla_hours": 36,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.546Z"
+    },
+    {
+      "id": "449b57f2-82e5-4bf5-a845-1db81d59a738",
+      "institution_id": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+      "code": "PATIENT_RELATIONS",
+      "name_ar": "علاقات وخدمة المرضى",
+      "name_en": "Patient Relations",
+      "default_sla_hours": 12,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.549Z"
+    },
+    {
+      "id": "ae480bd6-8060-42d6-9514-92494c97035d",
+      "institution_id": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+      "code": "MEDICAL_ADMIN",
+      "name_ar": "الإدارة الطبية والأطباء",
+      "name_en": "Medical Administration",
+      "default_sla_hours": 24,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.549Z"
+    },
+    {
+      "id": "04805d53-a97c-47f9-946e-9ba93d07f239",
+      "institution_id": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+      "code": "BILLING_INSURANCE",
+      "name_ar": "الحسابات والتأمين الصحي",
+      "name_en": "Billing & Medical Insurance",
+      "default_sla_hours": 24,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.549Z"
+    },
+    {
+      "id": "31502224-287d-4caf-9113-db1c5eb5b944",
+      "institution_id": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+      "code": "QUALITY_SAFETY",
+      "name_ar": "الجودة وسلامة المرضى ومكافحة العدوى",
+      "name_en": "Quality & Safety",
+      "default_sla_hours": 24,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.549Z"
+    },
+    {
+      "id": "5a976dfc-3003-46c5-b3d9-72e8dfaf7905",
+      "institution_id": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+      "code": "NURSING_CARE",
+      "name_ar": "هيئة التمريض والرعاية الداخلية",
+      "name_en": "Nursing & Inpatient Care",
+      "default_sla_hours": 12,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:32:13.549Z"
+    },
+    {
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "BUS_DISPATCH",
+      "name_ar": "حركة الحافلات المدرسية",
+      "name_en": "Bus Dispatch & Logistics",
+      "default_sla_hours": 24,
+      "is_active": true,
+      "id": "b7a2dc60-b60c-48e1-b298-18b14fdcd63e",
+      "created_at": "2026-09-22T11:32:13.553Z"
+    },
+    {
+      "id": "39fe2ca8-76f3-4470-92d7-3e5625351195",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "code": "STUDENT_AFFAIRS",
+      "name_ar": "شؤون الطلاب والقيد",
+      "name_en": "Student Affairs",
+      "default_sla_hours": 48,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:38:04.137Z"
+    },
+    {
+      "id": "e987f009-7142-42fc-b663-632a5d32f0d5",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "code": "ACADEMIC",
+      "name_ar": "الشؤون التعليمية والأكاديمية",
+      "name_en": "Academic Affairs",
+      "default_sla_hours": 72,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:38:04.137Z"
+    },
+    {
+      "id": "651f88c9-ddb6-40cf-b461-2aa6a7dbbc26",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "code": "FINANCE_TUITION",
+      "name_ar": "الحسابات والمصروفات",
+      "name_en": "Finance & Tuition",
+      "default_sla_hours": 48,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:38:04.137Z"
+    },
+    {
+      "id": "76c6f5a7-2801-44d2-ba7e-cdffb140e178",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "code": "BEHAVIORAL_DISCIPLINE",
+      "name_ar": "التوجيه السلوكي والانضباط",
+      "name_en": "Behavioral Guidance",
+      "default_sla_hours": 24,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:38:04.137Z"
+    },
+    {
+      "id": "fe7845f7-af12-40f1-a84e-0512e60dbd81",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "code": "FACILITIES_TRANSPORT",
+      "name_ar": "الحافلات والمرافق المدرسية",
+      "name_en": "Facilities & Transport",
+      "default_sla_hours": 36,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T11:38:04.137Z"
+    },
+    {
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "BUS_DISPATCH",
+      "name_ar": "حركة الحافلات المدرسية",
+      "name_en": "Bus Dispatch & Logistics",
+      "default_sla_hours": 24,
+      "is_active": true,
+      "id": "fb12080a-c0b7-40f3-9941-b06a3149c1a2",
+      "created_at": "2026-09-22T11:40:50.772Z"
+    },
+    {
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "BUS_DISPATCH",
+      "name_ar": "حركة الحافلات المدرسية",
+      "name_en": "Bus Dispatch & Logistics",
+      "default_sla_hours": 24,
+      "is_active": true,
+      "id": "17e6f5a3-17fd-4410-a01d-3addeaf91e5b",
+      "created_at": "2026-09-22T11:41:07.413Z"
+    },
+    {
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "BUS_DISPATCH",
+      "name_ar": "حركة الحافلات المدرسية",
+      "name_en": "Bus Dispatch & Logistics",
+      "default_sla_hours": 24,
+      "is_active": true,
+      "id": "1fde1069-f958-490f-872e-90081b8e2c0f",
+      "created_at": "2026-09-22T11:56:46.427Z"
+    },
+    {
+      "id": "9ababc6f-d9ef-4180-ab79-b5c06bdebf31",
+      "institution_id": "test-tenant-inst-001",
+      "code": "STUDENT_AFFAIRS",
+      "name_ar": "شؤون الطلاب والقيد",
+      "name_en": "Student Affairs",
+      "default_sla_hours": 48,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T12:08:11.978Z"
+    },
+    {
+      "id": "29a6aa95-e752-4f1f-8882-77b426afc38f",
+      "institution_id": "test-tenant-inst-001",
+      "code": "ACADEMIC",
+      "name_ar": "الشؤون التعليمية والأكاديمية",
+      "name_en": "Academic Affairs",
+      "default_sla_hours": 72,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T12:08:11.979Z"
+    },
+    {
+      "id": "53fd7a85-d81a-4239-bb6f-3e88f8d205ef",
+      "institution_id": "test-tenant-inst-001",
+      "code": "FINANCE_TUITION",
+      "name_ar": "الحسابات والمصروفات",
+      "name_en": "Finance & Tuition",
+      "default_sla_hours": 48,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T12:08:11.979Z"
+    },
+    {
+      "id": "2ea95644-f79f-4905-a9ab-4ea9bad5b0c4",
+      "institution_id": "test-tenant-inst-001",
+      "code": "BEHAVIORAL_DISCIPLINE",
+      "name_ar": "التوجيه السلوكي والانضباط",
+      "name_en": "Behavioral Guidance",
+      "default_sla_hours": 24,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T12:08:11.979Z"
+    },
+    {
+      "id": "1b9a4274-51f3-47f5-8db7-db1419ab015c",
+      "institution_id": "test-tenant-inst-001",
+      "code": "FACILITIES_TRANSPORT",
+      "name_ar": "الحافلات والمرافق المدرسية",
+      "name_en": "Facilities & Transport",
+      "default_sla_hours": 36,
+      "head_user_id": null,
+      "is_active": true,
+      "created_at": "2026-09-22T12:08:11.979Z"
+    },
+    {
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "code": "BUS_DISPATCH",
+      "name_ar": "حركة الحافلات المدرسية",
+      "name_en": "Bus Dispatch & Logistics",
+      "default_sla_hours": 24,
+      "is_active": true,
+      "id": "9941bc4f-1da3-465a-b2ce-70783bd8f558",
+      "created_at": "2026-09-22T12:08:46.712Z"
+    }
+  ],
+  "internalNotes": [
+    {
+      "case_id": "99999999-9999-9999-9999-999999999999",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "author_id": "staff-user-001",
+      "author_name": "أ. أحمد إبراهيم (رئيس القسم الأكاديمي)",
+      "author_role": "DEPARTMENT_HEAD",
+      "note_text": "تم مراجعة سجلات الدرجات وتبين وجود خطأ رصد في كنترول نصف العام.",
+      "id": "f43378aa-a0f8-43be-af4e-b80a4960f884",
+      "created_at": "2026-09-22T11:32:13.556Z"
+    },
+    {
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "author_id": "lead-officer-01",
+      "author_name": "مدير الشؤون القانونية",
+      "author_role": "OPS_LEAD",
+      "note_text": "تم إحالة الشكوى للجنة الانضباط المدرسي لبدء التحقيق الفوري.",
+      "id": "a0e9a19a-79e5-4a58-b7ad-6ea188eee85e",
+      "created_at": "2026-09-22T11:38:04.150Z"
+    },
+    {
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "author_id": "lead-officer-01",
+      "author_name": "مدير الشؤون القانونية",
+      "author_role": "OPS_LEAD",
+      "note_text": "تم إحالة الشكوى للجنة الانضباط المدرسي لبدء التحقيق الفوري.",
+      "id": "49a4ad5b-5641-4280-b820-a21bec9a0b79",
+      "created_at": "2026-09-22T11:40:02.672Z"
+    },
+    {
+      "case_id": "f05b3219-5c25-4e2c-a043-27bd949d5a07",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "author_id": "staff-user-001",
+      "author_name": "أ. أحمد إبراهيم (رئيس القسم الأكاديمي)",
+      "author_role": "DEPARTMENT_HEAD",
+      "note_text": "تم مراجعة سجلات الدرجات وتبين وجود خطأ رصد في كنترول نصف العام.",
+      "id": "e5f5d7b9-e9b0-4b24-a546-32b8cfdaa5c1",
+      "created_at": "2026-09-22T11:40:50.777Z"
+    },
+    {
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "author_id": "lead-officer-01",
+      "author_name": "مدير الشؤون القانونية",
+      "author_role": "OPS_LEAD",
+      "note_text": "تم إحالة الشكوى للجنة الانضباط المدرسي لبدء التحقيق الفوري.",
+      "id": "6d7d9434-5fdb-4031-8233-7e41aacf5d89",
+      "created_at": "2026-09-22T11:41:05.519Z"
+    },
+    {
+      "case_id": "a2b660bf-b30a-4ad1-9607-ae5cf5edaac2",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "author_id": "staff-user-001",
+      "author_name": "أ. أحمد إبراهيم (رئيس القسم الأكاديمي)",
+      "author_role": "DEPARTMENT_HEAD",
+      "note_text": "تم مراجعة سجلات الدرجات وتبين وجود خطأ رصد في كنترول نصف العام.",
+      "id": "eea37f36-67bd-489a-9b5a-6562d2f370b6",
+      "created_at": "2026-09-22T11:41:07.418Z"
+    },
+    {
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "author_id": "lead-officer-01",
+      "author_name": "مدير الشؤون القانونية",
+      "author_role": "OPS_LEAD",
+      "note_text": "تم إحالة الشكوى للجنة الانضباط المدرسي لبدء التحقيق الفوري.",
+      "id": "765b9c0b-6b23-4cad-ab05-5e9d7b5d2796",
+      "created_at": "2026-09-22T11:56:40.382Z"
+    },
+    {
+      "case_id": "212ce639-0c9d-41f9-bf21-d8a29727566a",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "author_id": "staff-user-001",
+      "author_name": "أ. أحمد إبراهيم (رئيس القسم الأكاديمي)",
+      "author_role": "DEPARTMENT_HEAD",
+      "note_text": "تم مراجعة سجلات الدرجات وتبين وجود خطأ رصد في كنترول نصف العام.",
+      "id": "3cd90552-691a-4363-8390-d95bbf789413",
+      "created_at": "2026-09-22T11:56:46.445Z"
+    },
+    {
+      "case_id": "77777777-7777-7777-7777-777777777777",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "author_id": "lead-officer-01",
+      "author_name": "مدير الشؤون القانونية",
+      "author_role": "OPS_LEAD",
+      "note_text": "تم إحالة الشكوى للجنة الانضباط المدرسي لبدء التحقيق الفوري.",
+      "id": "44c31f88-ce58-4f92-8b79-c174ab79a6ec",
+      "created_at": "2026-09-22T12:08:45.437Z"
+    },
+    {
+      "case_id": "77e72ef1-8967-43d8-a9db-4a65859ed285",
+      "institution_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "author_id": "staff-user-001",
+      "author_name": "أ. أحمد إبراهيم (رئيس القسم الأكاديمي)",
+      "author_role": "DEPARTMENT_HEAD",
+      "note_text": "تم مراجعة سجلات الدرجات وتبين وجود خطأ رصد في كنترول نصف العام.",
+      "id": "3e224b29-f7fe-4791-a8c3-3d01094afa43",
+      "created_at": "2026-09-22T12:08:46.719Z"
+    }
+  ],
+  "tenantBranding": {
+    "test-tenant-inst-001": {
+      "primary_color": "#1E3A8A",
+      "institution_short_name": "مدرسة المستقبل الدولية",
+      "welcome_message_ar": "أهلاً بأولياء الأمور الكرام في بوابة الحلول"
+    }
+  },
+  "tenantSlaConfigs": {
+    "test-tenant-inst-001": {
+      "first_response_hours": 12,
+      "action_plan_hours": 72,
+      "resolution_hours": 120,
+      "critical_resolution_hours": 18,
+      "high_resolution_hours": 48,
+      "medium_resolution_hours": 96,
+      "low_resolution_hours": 168,
+      "escalation_threshold_hours": 48,
+      "business_hours_start": "08:00",
+      "business_hours_end": "16:00",
+      "working_days": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  },
+  "staffMembers": [
+    {
+      "id": "f7e4f2a6-6687-4f0e-b207-e8275e675992",
+      "institution_id": "test-tenant-inst-001",
+      "name": "د. طارق مصطفى",
+      "email": "tarek.m@organization.edu.eg",
+      "role": "ADMIN",
+      "is_active": true,
+      "created_at": "2026-09-22T12:08:11.981Z"
+    },
+    {
+      "id": "23db2672-6700-4bb2-bb79-6c4d7dd4f69b",
+      "institution_id": "test-tenant-inst-001",
+      "name": "أ. منى يوسف",
+      "email": "mona.y@organization.edu.eg",
+      "role": "OPS_LEAD",
+      "is_active": true,
+      "created_at": "2026-09-22T12:08:11.981Z"
+    },
+    {
+      "id": "cb1e8db8-e4a4-43c9-aa91-c8d8f7c783df",
+      "institution_id": "test-tenant-inst-001",
+      "name": "م. خالد نبيل",
+      "email": "khaled.n@organization.edu.eg",
+      "role": "STAFF",
+      "is_active": true,
+      "created_at": "2026-09-22T12:08:11.981Z"
     }
   ]
 }
