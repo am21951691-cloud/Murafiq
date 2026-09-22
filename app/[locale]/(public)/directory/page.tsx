@@ -168,7 +168,7 @@ export default async function GenericDirectoryPage({ searchParams }: Props) {
                         <span className="block text-lg font-black text-sky-800 mt-0.5">
                           {entity.metrics.bars.barsScore.toFixed(1)} / 5.0
                         </span>
-                        <span className="block text-[10px] text-slate-400">
+                        <span className="block text-[11px] text-slate-600 font-bold">
                           {entity.metrics.bars.isEstablishing
                             ? "قيد التأسيس"
                             : `${entity.metrics.bars.sampleSize} حالة موثقة`}
@@ -176,13 +176,13 @@ export default async function GenericDirectoryPage({ searchParams }: Props) {
                       </div>
 
                       <div className="bg-slate-50 rounded-xl p-2.5">
-                        <span className="block text-[11px] text-slate-500 font-medium">
+                        <span className="block text-[11px] text-slate-600 font-medium">
                           نسبة الحل المؤكد
                         </span>
                         <span className="block text-lg font-black text-emerald-700 mt-0.5">
                           {entity.metrics.userConfirmedResolutionRate}%
                         </span>
-                        <span className="block text-[10px] text-slate-400">
+                        <span className="block text-[11px] text-slate-600 font-bold">
                           خلال {entity.metrics.medianResponseDays} يوم
                         </span>
                       </div>

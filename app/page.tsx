@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { SAMPLE_ENTITIES } from "@/lib/services/entities";
 import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
-import { NavAiTriggers } from "@/components/ai/NavAiTriggers";
 import { HomeAiCallout } from "@/components/ai/HomeAiCallout";
 
 const SECTORS = [
@@ -154,19 +153,17 @@ export default function HomePage() {
             </Link>
           </nav>
 
-          {/* Action CTAs & AI Triggers */}
-          <div className="flex items-center gap-2 text-xs">
-            <NavAiTriggers />
-
+          {/* Action CTAs */}
+          <div className="flex items-center gap-2.5 text-xs">
             <Link
               href="/portal/dashboard"
-              className="rounded-xl border border-slate-300 bg-white px-3.5 py-2 font-bold text-slate-700 hover:bg-slate-50 transition shadow-2xs"
+              className="rounded-xl border-2 border-slate-300 bg-white px-4 py-2 font-bold text-slate-800 hover:bg-slate-50 transition shadow-2xs"
             >
               بوابة الجهات والمؤسسات
             </Link>
             <Link
               href="/cases/new"
-              className="rounded-xl bg-sky-700 px-4 py-2 font-bold text-white hover:bg-sky-800 transition shadow-xs"
+              className="rounded-xl bg-sky-700 px-4.5 py-2 font-black text-white hover:bg-sky-800 transition shadow-xs"
             >
               + تقديم حالة / شكوى
             </Link>
@@ -244,10 +241,10 @@ export default function HomePage() {
                 <h3 className="text-lg font-extrabold text-slate-900 mb-1">
                   {sec.title_ar}
                 </h3>
-                <span className="text-[11px] text-slate-400 block mb-3 font-sans">
+                <span className="text-[11px] text-slate-500 font-semibold block mb-3 font-sans">
                   {sec.title_en}
                 </span>
-                <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                <p className="text-xs text-slate-700 leading-relaxed mb-4">
                   {sec.desc}
                 </p>
 
@@ -329,16 +326,16 @@ export default function HomePage() {
                   <span className="inline-block rounded-md bg-white border border-slate-200 px-2 py-0.5 text-[10px] font-bold text-slate-600 mb-2">
                     {ent.sectorLabel}
                   </span>
-                  <h3 className="text-xs font-extrabold text-slate-900 group-hover:text-sky-800 transition line-clamp-2 mb-1">
+                  <h3 className="text-xs font-extrabold text-slate-950 group-hover:text-sky-800 transition line-clamp-2 mb-1">
                     {ent.name}
                   </h3>
-                  <span className="text-[10px] text-slate-400 block mb-3">
+                  <span className="text-xs text-slate-600 font-bold block mb-3">
                     {ent.governorate}
                   </span>
                 </div>
 
-                <div className="pt-3 border-t border-slate-200/60">
-                  <span className="block text-[10px] text-slate-400">مؤشر BARS المعتمد</span>
+                <div className="pt-3 border-t border-slate-200/80">
+                  <span className="block text-[11px] text-slate-600 font-bold">مؤشر BARS المعتمد</span>
                   <span className="block text-base font-black text-sky-800">
                     {ent.bars} / 5.0
                   </span>
@@ -424,7 +421,7 @@ export default function HomePage() {
             <p className="text-slate-500 leading-relaxed">
               المنظومة الوطنية المعتمدة لتسوية الشكاوى والنزاعات وحماية حقوق المستفيدين والمؤسسات في مصر.
             </p>
-            <p className="text-[11px] text-slate-400 mt-3">
+            <p className="text-xs text-slate-500 font-medium mt-3">
               جميع الحقوق محفوظة © 2026 مُرافِق.
             </p>
           </div>

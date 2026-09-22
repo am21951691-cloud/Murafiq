@@ -158,7 +158,7 @@ export default async function SchoolsDirectoryPage({ searchParams }: Props) {
                             <span className="text-xl font-extrabold text-sky-700">
                               {b.barsScore.toFixed(1)}
                             </span>
-                            <span className="text-[10px] text-slate-400 block">
+                            <span className="text-[11px] text-slate-600 font-bold block">
                               من 5.0 (BARS)
                             </span>
                           </div>
@@ -169,7 +169,7 @@ export default async function SchoolsDirectoryPage({ searchParams }: Props) {
                     {/* Metrics Breakdown */}
                     <div className="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-slate-100 text-xs">
                       <div>
-                        <span className="text-slate-500 block text-[11px]">
+                        <span className="text-slate-600 font-medium block text-[11px]">
                           نسبة الحل المؤكد (UCRR):
                         </span>
                         <span className="font-extrabold text-emerald-700">
@@ -177,25 +177,25 @@ export default async function SchoolsDirectoryPage({ searchParams }: Props) {
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block text-[11px]">
+                        <span className="text-slate-600 font-medium block text-[11px]">
                           متوسط زمن الاستجابة:
                         </span>
-                        <span className="font-bold text-slate-700">
+                        <span className="font-bold text-slate-800">
                           {school.metrics.medianResponseDays} يوم
                         </span>
                       </div>
                     </div>
 
                     {/* Sample Size Context (Gate 4) */}
-                    <div className="mt-3 text-[11px] text-slate-400">
+                    <div className="mt-3 text-[11px] text-slate-600 font-bold">
                       {school.metrics.sampleSizeContext}
                     </div>
                   </div>
 
                   <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-[11px] text-slate-600 font-bold">
                       مستوى الثقة الإحصائية:{" "}
-                      <strong className="text-slate-700">
+                      <strong className="text-slate-900 font-black">
                         {b.confidenceLevel === "HIGH"
                           ? "مرتفع"
                           : b.confidenceLevel === "MODERATE"

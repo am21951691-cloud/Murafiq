@@ -90,10 +90,10 @@ export default async function SchoolProfilePage({ params }: Props) {
                   <div className="text-3xl font-extrabold text-sky-800">
                     {b.barsScore.toFixed(1)}
                   </div>
-                  <span className="text-[11px] font-bold text-slate-500 block">
+                  <span className="text-[11px] font-bold text-slate-600 block">
                     مؤشر التسوية البايزي (BARS)
                   </span>
-                  <span className="text-[10px] text-slate-400">
+                  <span className="text-xs text-slate-600 font-bold">
                     من 5.0 نقاط
                   </span>
                 </div>
@@ -103,28 +103,28 @@ export default async function SchoolProfilePage({ params }: Props) {
 
           {/* Metrics Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-6 border-t border-slate-100 text-center">
-            <div className="rounded-xl bg-slate-50 p-3 border border-slate-200">
-              <span className="text-xs text-slate-500 block">نسبة الحل المؤكد من المستخدم (UCRR)</span>
-              <span className="text-xl font-extrabold text-emerald-700 mt-1 block">
+            <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-200">
+              <span className="text-xs text-slate-600 font-bold block">نسبة الحل المؤكد من المستخدم (UCRR)</span>
+              <span className="text-xl font-black text-emerald-700 mt-1 block">
                 {school.metrics.userConfirmedResolutionRate}%
               </span>
-              <span className="text-[10px] text-slate-400">رضا عن الحل النهائي R<sub>res</sub> ≥ 3</span>
+              <span className="text-xs text-slate-600 font-semibold">رضا عن الحل النهائي R<sub>res</sub> ≥ 3</span>
             </div>
 
-            <div className="rounded-xl bg-slate-50 p-3 border border-slate-200">
-              <span className="text-xs text-slate-500 block">متوسط سرعة الاستجابة واعتماد الخطة</span>
-              <span className="text-xl font-extrabold text-slate-800 mt-1 block">
+            <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-200">
+              <span className="text-xs text-slate-600 font-bold block">متوسط سرعة الاستجابة واعتماد الخطة</span>
+              <span className="text-xl font-black text-slate-900 mt-1 block">
                 {school.metrics.medianResponseDays} يوم
               </span>
-              <span className="text-[10px] text-slate-400">خلال مهلة المراجعة الخاصة</span>
+              <span className="text-xs text-slate-600 font-semibold">خلال مهلة المراجعة الخاصة</span>
             </div>
 
-            <div className="rounded-xl bg-slate-50 p-3 border border-slate-200">
-              <span className="text-xs text-slate-500 block">مستوى الثقة الإحصائية وسياق العينة</span>
-              <span className="text-xl font-extrabold text-sky-800 mt-1 block">
+            <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-200">
+              <span className="text-xs text-slate-600 font-bold block">مستوى الثقة الإحصائية وسياق العينة</span>
+              <span className="text-xl font-black text-sky-800 mt-1 block">
                 {b.confidenceLevel === "HIGH" ? "مرتفع" : b.confidenceLevel === "MODERATE" ? "متوسط" : "أولي"}
               </span>
-              <span className="text-[10px] text-slate-400">{school.metrics.sampleSizeContext}</span>
+              <span className="text-xs text-slate-600 font-semibold">{school.metrics.sampleSizeContext}</span>
             </div>
           </div>
         </div>

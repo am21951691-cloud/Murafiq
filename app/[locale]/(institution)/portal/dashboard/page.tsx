@@ -333,7 +333,7 @@ export default function InstitutionTriageDashboard() {
               <span className="text-sm font-bold text-emerald-700">
                 🔒 مشفر ومفصول بنسبة 100%
               </span>
-              <span className="text-xs text-slate-400">قانون 151/2020</span>
+              <span className="text-xs font-bold text-slate-600">قانون 151/2020</span>
             </div>
           </div>
         </div>
@@ -376,7 +376,7 @@ export default function InstitutionTriageDashboard() {
           </div>
 
           {loading ? (
-            <div className="rounded-2xl bg-white p-12 text-center text-sm text-slate-400 border border-slate-200">
+            <div className="rounded-2xl bg-white p-12 text-center text-sm font-bold text-slate-600 border border-slate-200">
               جاري تحميل الحالات الواردة...
             </div>
           ) : filteredCases.length === 0 ? (
