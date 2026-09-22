@@ -105,7 +105,7 @@ export function GlobalSolutionAdvisor() {
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="group flex items-center gap-3 rounded-full bg-linear-to-r from-amber-600 via-amber-700 to-amber-800 p-3.5 pr-4 text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-amber-400"
+            className="group flex items-center gap-3 rounded-full bg-amber-600 bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 p-3.5 pr-4 text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-amber-400"
             aria-label="افتح مستشار الحلول القانونية والخطط"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-xl backdrop-blur-xs">
@@ -160,17 +160,17 @@ export function GlobalSolutionAdvisor() {
             </div>
 
             {/* Mode Switcher Tabs */}
-            <div className="mb-6 grid grid-cols-2 gap-2 rounded-2xl bg-slate-100 p-1.5 border border-slate-300">
+            <div className="mb-6 grid grid-cols-2 gap-2 rounded-2xl bg-slate-100 p-1.5 border-2 border-slate-200">
               <button
                 type="button"
                 onClick={() => {
                   setMode("CITIZEN_OUTCOME");
                   handleReset();
                 }}
-                className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-black transition ${
+                className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-black transition border-2 ${
                   isCitizen
-                    ? "bg-amber-600 text-white shadow-sm"
-                    : "text-slate-800 hover:bg-slate-200"
+                    ? "bg-amber-600 text-white shadow-sm border-amber-600"
+                    : "bg-white text-slate-800 hover:bg-slate-50 border-slate-200"
                 }`}
               >
                 <span>👤</span>
@@ -183,14 +183,14 @@ export function GlobalSolutionAdvisor() {
                   setMode("INSTITUTION_ACTION_PLAN");
                   handleReset();
                 }}
-                className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-black transition ${
+                className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-black transition border-2 ${
                   !isCitizen
-                    ? "bg-sky-800 text-white shadow-sm"
-                    : "text-slate-800 hover:bg-slate-200"
+                    ? "bg-sky-900 text-white shadow-sm border-sky-900"
+                    : "bg-white text-slate-800 hover:bg-slate-50 border-slate-200"
                 }`}
               >
                 <span>🏛️</span>
-                <span>المؤسسة والجهة (خطة معالجة RQS $\ge 90$)</span>
+                <span>المؤسسة والجهة (خطة معالجة RQS ≥ 90)</span>
               </button>
             </div>
 
@@ -199,7 +199,7 @@ export function GlobalSolutionAdvisor() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Sector Selector */}
                 <div>
-                  <label className="block text-xs font-black text-slate-900 mb-1.5">
+                  <label className="block text-xs font-black text-slate-950 mb-1.5">
                     1. القطاع المعني:
                   </label>
                   <select
@@ -217,7 +217,7 @@ export function GlobalSolutionAdvisor() {
 
                 {/* Entity Name (Optional) */}
                 <div>
-                  <label className="block text-xs font-black text-slate-900 mb-1.5">
+                  <label className="block text-xs font-black text-slate-950 mb-1.5">
                     2. اسم الجهة أو المؤسسة المشكو ضدها (اختياري):
                   </label>
                   <input
@@ -225,14 +225,14 @@ export function GlobalSolutionAdvisor() {
                     value={entityName}
                     onChange={(e) => setEntityName(e.target.value)}
                     placeholder="مثال: مدرسة الأمل، شركة اتصالات، مستشفى السلام..."
-                    className="w-full rounded-xl border-2 border-slate-300 bg-white px-3.5 py-2.5 text-xs font-bold text-slate-950 placeholder:text-slate-500 focus:border-amber-600 focus:outline-none"
+                    className="w-full rounded-xl border-2 border-slate-300 bg-white px-3.5 py-2.5 text-xs font-bold text-slate-950 placeholder:text-slate-400 focus:border-amber-600 focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Dispute Description */}
               <div>
-                <label className="block text-xs font-black text-slate-900 mb-1.5">
+                <label className="block text-xs font-black text-slate-950 mb-1.5">
                   {isCitizen
                     ? "3. اشرح ما حدث معك وما هو الضرر الذي تعرضت له:"
                     : "3. ملخص الشكوى الواردة إلى إدارتكم لبناء خطة المعالجة:"}
@@ -246,7 +246,7 @@ export function GlobalSolutionAdvisor() {
                       ? "مثال: اشتريت هاتف وظهر به عيب مصنعي في الشاشة خلال 10 أيام من الشراء ورفضت الشركة الاسترجاع، أو تم فرض زيادة مصروفات على ابني بالمدرسة بالمخالفة للائحة..."
                       : "مثال: تقدم ولي أمر بشكوى عن تأخر الحافلة المدرسية والتعدي اللفظي من المشرف، ونريد صياغة خطة معالجة متدرجة تضمن محاسبة المقصر وتفادي تكرار الخطأ..."
                   }
-                  className="w-full rounded-2xl border-2 border-slate-300 bg-white p-3.5 text-xs sm:text-sm font-medium text-slate-950 placeholder:text-slate-500 focus:border-amber-600 focus:outline-none leading-relaxed"
+                  className="w-full rounded-2xl border-2 border-slate-300 bg-white p-3.5 text-xs sm:text-sm font-medium text-slate-950 placeholder:text-slate-400 focus:border-amber-600 focus:outline-none leading-relaxed"
                 />
               </div>
 
@@ -255,7 +255,7 @@ export function GlobalSolutionAdvisor() {
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="rounded-xl border-2 border-slate-300 px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100 transition"
+                  className="rounded-xl border-2 border-slate-300 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 text-xs font-bold text-slate-800 transition"
                 >
                   إعادة ضبط
                 </button>
@@ -263,10 +263,10 @@ export function GlobalSolutionAdvisor() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="rounded-xl bg-linear-to-r from-amber-600 to-amber-700 px-6 py-2.5 text-xs font-black text-white shadow-md hover:from-amber-700 hover:to-amber-800 disabled:opacity-50 transition flex items-center gap-2"
+                  className="rounded-xl bg-amber-600 bg-gradient-to-r from-amber-600 to-amber-700 px-6 py-2.5 text-xs sm:text-sm font-black text-white shadow-md hover:bg-amber-700 hover:from-amber-700 hover:to-amber-800 disabled:opacity-50 transition flex items-center gap-2 border-2 border-amber-500"
                 >
                   <span>✨</span>
-                  <span>{isLoading ? "جاري التحليل واستخراج الحل..." : "تحليل وصياغة الحل الذكي"}</span>
+                  <span>{isLoading ? "جاري التحليل واستخراج الحل..." : "تحليل وصياغة الحل بالذكاء الاصطناعي"}</span>
                 </button>
               </div>
             </form>
@@ -440,7 +440,7 @@ export function GlobalSolutionAdvisor() {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="rounded-xl border-2 border-slate-300 px-6 py-2 text-xs font-black text-slate-800 hover:bg-slate-100 transition"
+                className="rounded-xl border-2 border-slate-300 bg-slate-100 hover:bg-slate-200 px-6 py-2.5 text-xs font-black text-slate-900 transition shadow-2xs"
               >
                 إغلاق النافذة
               </button>

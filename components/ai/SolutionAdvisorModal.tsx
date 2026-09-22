@@ -108,13 +108,13 @@ export function SolutionAdvisorWidget({
         type="button"
         onClick={handleFetchAdvice}
         disabled={isCitizen && (!description || description.trim().length < 20)}
-        className="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-amber-500 to-amber-600 px-4 py-2 text-xs font-bold text-white shadow-xs hover:from-amber-600 hover:to-amber-700 disabled:opacity-50 transition"
+        className="inline-flex items-center gap-2 rounded-xl bg-amber-600 bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-2 text-xs font-black text-white shadow-xs hover:bg-amber-700 hover:from-amber-600 hover:to-amber-700 disabled:opacity-50 transition border border-amber-400"
       >
         <span>✨</span>
         <span>
           {isCitizen
             ? "اقتراح حل قانوني ومطلب عادل بالذكاء الاصطناعي"
-            : "اقتراح خطة معالجة مؤسسية ذكية (RQS-Compliant)"}
+            : "اقتراح خطة معالجة مؤسسية ذكية (RQS ≥ 90)"}
         </span>
       </button>
 
@@ -295,7 +295,7 @@ export function SolutionAdvisorWidget({
                   type="button"
                   onClick={handleApply}
                   disabled={applied}
-                  className="rounded-xl bg-linear-to-r from-emerald-600 to-teal-700 px-6 py-2.5 text-xs font-black text-white shadow-md hover:from-emerald-700 hover:to-teal-800 transition flex items-center gap-1.5"
+                  className="rounded-xl bg-emerald-600 bg-gradient-to-r from-emerald-600 to-teal-700 px-6 py-2.5 text-xs font-black text-white shadow-md hover:bg-emerald-700 hover:from-emerald-700 hover:to-teal-800 transition flex items-center gap-1.5 border border-emerald-500"
                 >
                   {applied ? (
                     <span>✓ تم التطبيق بنجاح!</span>

@@ -17,7 +17,7 @@ export function HomeAiCallout() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 font-arabic" dir="rtl">
-      <div className="rounded-3xl border-2 border-slate-300 bg-linear-to-b from-slate-100 to-slate-200/80 p-6 sm:p-8 shadow-sm">
+      <div className="rounded-3xl border-2 border-slate-300 bg-slate-100 bg-gradient-to-b from-slate-100 to-slate-200/80 p-6 sm:p-8 shadow-sm">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-slate-900 text-white px-3 py-1 text-xs font-black mb-2 shadow-2xs">
@@ -108,7 +108,7 @@ export function HomeAiCallout() {
               </div>
 
               <p className="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed mb-4">
-                أداة متقدمة لصياغة المطالب العادلة للمواطنين والمستهلكين، أو بناء خطط عمل ثلاثية المراحل مطابقة لمعايير الجودة المؤسسية RQS $\ge 90$.
+                أداة متقدمة لصياغة المطالب العادلة للمواطنين والمستهلكين، أو بناء خطط عمل ثلاثية المراحل مطابقة لمعايير الجودة المؤسسية RQS ≥ 90.
               </p>
 
               <div className="space-y-1.5 mb-6 text-xs font-bold text-slate-700">

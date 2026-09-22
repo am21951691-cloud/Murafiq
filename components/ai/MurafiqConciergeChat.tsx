@@ -18,6 +18,20 @@ interface ChatMessage extends ConciergeMessage {
   };
 }
 
+function formatMessageContent(content: string) {
+  const parts = content.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={index} className="font-black">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return part;
+  });
+}
+
 export function MurafiqConciergeChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -132,11 +146,11 @@ export function MurafiqConciergeChat() {
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="group flex items-center gap-3 rounded-full bg-linear-to-r from-sky-900 to-sky-800 p-3.5 pr-4 text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 border border-sky-700/50"
+            className="group flex items-center gap-3 rounded-full bg-sky-900 bg-gradient-to-r from-sky-900 to-sky-800 p-3.5 pr-4 text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-sky-600"
             aria-label="افتح مساعد مُرافِق الذكي"
           >
             <div className="relative flex items-center justify-center">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-xs text-xl">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-xs text-xl">
                 ✨
               </span>
               {hasUnread && (
@@ -151,7 +165,7 @@ export function MurafiqConciergeChat() {
               <div className="text-xs font-black tracking-wide text-amber-300">
                 مُساعد مُرافِق الذكي
               </div>
-              <div className="text-[11px] text-sky-100 font-medium opacity-90">
+              <div className="text-[11px] text-sky-100 font-bold opacity-95">
                 استفسار فوري • توجيه قانوني
               </div>
             </div>
@@ -163,31 +177,31 @@ export function MurafiqConciergeChat() {
       {isOpen && (
         <div
           dir="rtl"
-          className="fixed bottom-5 left-5 z-50 flex flex-col w-[94vw] sm:w-[420px] h-[580px] max-h-[85vh] rounded-3xl border border-slate-200/80 bg-white/95 shadow-2xl backdrop-blur-md overflow-hidden font-arabic transition-all duration-300 animate-in fade-in slide-in-from-bottom-5"
+          className="fixed bottom-5 left-5 z-50 flex flex-col w-[94vw] sm:w-[420px] h-[580px] max-h-[85vh] rounded-3xl border-2 border-slate-300 bg-white shadow-2xl overflow-hidden font-arabic transition-all duration-300 animate-in fade-in slide-in-from-bottom-5"
         >
           {/* Header */}
-          <div className="flex items-center justify-between bg-linear-to-r from-sky-950 via-sky-900 to-sky-850 p-4 text-white">
+          <div className="flex items-center justify-between bg-sky-950 bg-gradient-to-r from-sky-950 via-sky-900 to-sky-900 p-4 text-white shadow-md border-b-2 border-sky-800">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-lg shadow-xs">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 text-xl shadow-xs">
                 ✨
               </div>
               <div>
-                <div className="flex items-center gap-1.5">
-                  <h3 className="text-sm font-bold">مُساعد مُرافِق الذكي</h3>
-                  <span className="flex h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-emerald-950" />
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-black text-white">مُساعد مُرافِق الذكي</h3>
+                  <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-emerald-950 animate-pulse" />
                 </div>
-                <p className="text-[10px] text-sky-200">
+                <p className="text-xs font-bold text-sky-200 mt-0.5">
                   متاح للإجابة والتوجيه القانوني في 5 قطاعات
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-1 text-sky-200">
+            <div className="flex items-center gap-1.5 text-white">
               <button
                 type="button"
                 onClick={clearChat}
                 title="بدء محادثة جديدة"
-                className="rounded-lg p-1.5 hover:bg-white/10 hover:text-white transition text-xs"
+                className="rounded-xl bg-white/10 p-2 hover:bg-white/20 hover:text-white transition text-xs font-bold"
               >
                 🔄
               </button>
@@ -195,7 +209,7 @@ export function MurafiqConciergeChat() {
                 type="button"
                 onClick={() => setIsOpen(false)}
                 title="إغلاق النافذة"
-                className="rounded-lg p-1.5 hover:bg-white/10 hover:text-white transition text-sm font-bold"
+                className="rounded-xl bg-white/10 p-2 hover:bg-white/20 hover:text-white transition text-sm font-black"
               >
                 ✕
               </button>
@@ -203,7 +217,7 @@ export function MurafiqConciergeChat() {
           </div>
 
           {/* Messages Body */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 bg-slate-100">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 bg-slate-50">
             {messages.map((m) => {
               const isUser = m.role === "user";
               return (
@@ -214,11 +228,11 @@ export function MurafiqConciergeChat() {
                   <div
                     className={`max-w-[88%] rounded-2xl p-3.5 text-xs sm:text-sm leading-relaxed ${
                       isUser
-                        ? "bg-sky-900 text-white font-medium rounded-br-xs shadow-xs"
+                        ? "bg-sky-900 text-white font-bold rounded-br-xs shadow-xs"
                         : "bg-white text-slate-950 font-medium rounded-bl-xs border-2 border-slate-300 shadow-sm"
                     }`}
                   >
-                    <div className="whitespace-pre-wrap">{m.content}</div>
+                    <div className="whitespace-pre-wrap">{formatMessageContent(m.content)}</div>
 
                     {/* Direct Link Button if provided by assistant */}
                     {m.directLink && (
@@ -242,7 +256,7 @@ export function MurafiqConciergeChat() {
                           key={idx}
                           type="button"
                           onClick={() => handleSend(s)}
-                          className="rounded-xl border-2 border-sky-300 bg-white px-3 py-1 text-[11px] font-bold text-sky-950 hover:bg-sky-50 hover:border-sky-500 transition text-right shadow-2xs"
+                          className="rounded-xl border-2 border-sky-300 bg-sky-50 px-3 py-1.5 text-xs font-bold text-sky-950 hover:bg-sky-100 hover:border-sky-500 transition text-right shadow-2xs"
                         >
                           {s}
                         </button>
@@ -281,12 +295,12 @@ export function MurafiqConciergeChat() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="اكتب استفسارك هنا (مثال: كيف أسترجع أموالي؟)..."
               disabled={isLoading}
-              className="flex-1 rounded-xl border-2 border-slate-300 px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-950 placeholder:text-slate-500 focus:border-sky-900 focus:outline-none bg-white"
+              className="flex-1 rounded-xl border-2 border-slate-300 px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-950 placeholder:text-slate-400 focus:border-sky-900 focus:outline-none bg-white"
             />
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-900 text-white font-black hover:bg-sky-950 disabled:opacity-40 transition shadow-sm text-sm"
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-900 text-white font-black hover:bg-sky-950 disabled:bg-slate-200 disabled:text-slate-400 disabled:border disabled:border-slate-300 transition shadow-sm text-base"
               aria-label="إرسال السؤال"
             >
               ↑
