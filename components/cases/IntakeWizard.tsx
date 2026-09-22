@@ -51,8 +51,8 @@ const SECTOR_CONFIG: Record<
     identifierLabel_en: "Student Code (Optional - Encrypted)",
     identifierPlaceholder_ar: "مثال: STU-2026-90412",
     identifierPlaceholder_en: "e.g. STU-2026-90412",
-    guidance_ar: "سيتم إرسال الإشعار لإدارة المدرسة لبدء مهلة الـ 7 أيام وتقديم خطة معالجة معتمدة.",
-    guidance_en: "The school leadership is officially notified to initiate the 7-day private grace period and submit an approved action plan.",
+    guidance_ar: "سيتم إرسال الإشعار آلياً لإدارة المدرسة المختصة لتفعيل مؤقت الـ SLA وصياغة خطة عمل معتمدة.",
+    guidance_en: "The school administration is notified automatically to initiate the institutional SLA timer and action plan.",
   },
   HIGHER_EDUCATION: {
     icon: "🎓",
@@ -66,8 +66,8 @@ const SECTOR_CONFIG: Record<
     identifierLabel_en: "Academic Student ID (Encrypted)",
     identifierPlaceholder_ar: "مثال: ENG-2023-94812",
     identifierPlaceholder_en: "e.g. ENG-2023-94812",
-    guidance_ar: "تخضع المعالجة لضمانات التحقيق والتظلم الأكاديمي بقانون تنظيم الجامعات رقم 49 لسنة 1972.",
-    guidance_en: "Case handling is governed by statutory academic grievance procedures under Universities Regulation Law No. 49 of 1972.",
+    guidance_ar: "تخضع المعالجة لسياسات الشفافية الأكاديمية ولوائح الالتماسات والتظلمات المعتمدة بالجامعة.",
+    guidance_en: "Handling complies with institutional academic transparency policies and university grievance regulations.",
   },
   GOVERNMENT_PUBLIC: {
     icon: "🏛️",
@@ -81,8 +81,8 @@ const SECTOR_CONFIG: Record<
     identifierLabel_en: "Service Request / Ticket Number (No National ID)",
     identifierPlaceholder_ar: "مثال: REQ-CAIRO-90214",
     identifierPlaceholder_en: "e.g. REQ-CAIRO-90214",
-    guidance_ar: "يُحظر كتابة الرقم القومي المكون من 14 رقماً. يرجى إدخال رقم إيصال الطلب أو المعاملة.",
-    guidance_en: "14-digit National IDs are prohibited under Law 151/2020. Please enter the service ticket or transaction receipt number.",
+    guidance_ar: "يُحظر كتابة الرقم القومي المكون من 14 رقماً. يرجى إدخال رقم إيصال الطلب أو المعاملة لسرعة المعالجة.",
+    guidance_en: "National IDs are restricted for privacy. Please enter the service ticket or transaction receipt number.",
   },
   COMMERCIAL_COMPANIES: {
     icon: "🏢",
@@ -96,8 +96,8 @@ const SECTOR_CONFIG: Record<
     identifierLabel_en: "Order / Invoice / Account Number (Encrypted)",
     identifierPlaceholder_ar: "مثال: ORD-2026-88194",
     identifierPlaceholder_en: "e.g. ORD-2026-88194",
-    guidance_ar: "تطبق المنظومة ضمانات قانون حماية المستهلك رقم 181 لسنة 2018 (حق الاسترجاع والضمان).",
-    guidance_en: "The system enforces statutory consumer guarantees under Egyptian Consumer Protection Law No. 181 of 2018.",
+    guidance_ar: "تطبق المؤسسة معايير جودة الخدمة وحق الاسترجاع والضمان بمتابعة مؤشرات الأداء والـ SLA اللحظية.",
+    guidance_en: "The organization applies service quality standards, warranty fulfillment, and live SLA monitoring.",
   },
   HEALTHCARE_MEDICAL: {
     icon: "🏥",
@@ -111,8 +111,8 @@ const SECTOR_CONFIG: Record<
     identifierLabel_en: "Medical Record Number (MRN - Encrypted)",
     identifierPlaceholder_ar: "مثال: MRN-MED-99412",
     identifierPlaceholder_en: "e.g. MRN-MED-99412",
-    guidance_ar: "تُعزل الأرقام الطبية والملفات الحساسة طبقاً لمعايير الخصوصية الصحية وقانون 151 لسنة 2020.",
-    guidance_en: "Medical records and sensitive IDs are strictly isolated and encrypted under Egyptian healthcare data standards and Law 151/2020.",
+    guidance_ar: "تُعزل الأرقام الطبية والملفات الحساسة بتشفير تام طبقاً لأعلى معايير أمان وخصوصية بيانات المرضى.",
+    guidance_en: "Medical records and sensitive IDs are strictly isolated and encrypted according to institutional health data security standards.",
   },
 };
 

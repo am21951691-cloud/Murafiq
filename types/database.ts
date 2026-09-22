@@ -146,12 +146,167 @@ export interface TenantBranding {
   primary_color: string;
   secondary_color?: string;
   logo_url?: string | null;
+  favicon_url?: string | null;
+  login_banner_url?: string | null;
   institution_short_name?: string | null;
+  portal_title_ar?: string | null;
+  portal_title_en?: string | null;
+  org_description_ar?: string | null;
+  org_description_en?: string | null;
   welcome_message_ar?: string | null;
   welcome_message_en?: string | null;
   support_email?: string | null;
   support_phone?: string | null;
+  email_header_logo?: string | null;
+  email_footer_text?: string | null;
+  whatsapp_header_text?: string | null;
+  pdf_crest_url?: string | null;
+  pdf_footer_text?: string | null;
+  footer_text_ar?: string | null;
+  footer_text_en?: string | null;
   custom_domain?: string | null;
+}
+
+export type SubscriptionPlanTier = "STARTER" | "PROFESSIONAL" | "ENTERPRISE" | "CUSTOM";
+export type SubscriptionStatus = "TRIAL" | "ACTIVE" | "SUSPENDED" | "EXPIRED";
+
+export interface TenantSubscription {
+  plan: SubscriptionPlanTier;
+  status: SubscriptionStatus;
+  max_staff_seats: number;
+  max_cases_monthly: number;
+  max_storage_gb: number;
+  ai_quota_monthly: number;
+  ai_used_this_month: number;
+  custom_domain_enabled: boolean;
+  webhooks_enabled: boolean;
+  sso_enabled: boolean;
+  trial_ends_at?: string | null;
+  renews_at?: string | null;
+}
+
+export type CustomFieldType = "TEXT" | "NUMBER" | "DATE" | "SELECT" | "BOOLEAN" | "FILE";
+
+export interface CustomFieldDefinition {
+  id: string;
+  institution_id: string;
+  field_key: string;
+  label_ar: string;
+  label_en: string;
+  field_type: CustomFieldType;
+  options?: string[];
+  is_required: boolean;
+  visibility: "BENEFICIARY" | "STAFF_ONLY";
+  sector?: SectorType;
+  placeholder_ar?: string;
+  placeholder_en?: string;
+}
+
+export type WorkflowTrigger =
+  | "CASE_CREATED"
+  | "SLA_WARNING"
+  | "SLA_BREACHED"
+  | "STATUS_CHANGED"
+  | "EVALUATION_SUBMITTED";
+
+export interface WorkflowRule {
+  id: string;
+  institution_id: string;
+  name: string;
+  trigger: WorkflowTrigger;
+  condition_category?: string;
+  condition_priority?: CasePriority;
+  condition_sla_hours_left?: number;
+  action_assign_department_id?: string;
+  action_assign_staff_id?: string;
+  action_set_priority?: CasePriority;
+  action_set_sla_hours?: number;
+  action_notify_channels?: ("IN_APP" | "EMAIL" | "WHATSAPP" | "SMS")[];
+  escalation_threshold_hours?: number;
+  escalation_target_role?: InstitutionStaffRole;
+  is_active: boolean;
+  created_at: string;
+}
+
+export type WebhookEventType =
+  | "case.created"
+  | "case.assigned"
+  | "case.updated"
+  | "case.resolved"
+  | "case.closed"
+  | "evaluation.created"
+  | "report.generated";
+
+export interface WebhookSubscription {
+  id: string;
+  institution_id: string;
+  url: string;
+  secret: string;
+  events: WebhookEventType[];
+  is_active: boolean;
+  created_at: string;
+  last_delivery_at?: string;
+  last_status_code?: number;
+}
+
+export interface WebhookDeliveryLog {
+  id: string;
+  subscription_id: string;
+  event: WebhookEventType;
+  payload: any;
+  status_code: number;
+  response_body?: string;
+  delivered_at: string;
+  retry_count: number;
+}
+
+export interface AuditLogEntry {
+  id: string;
+  institution_id: string;
+  actor_id: string;
+  actor_name: string;
+  actor_role: string;
+  action: string;
+  entity_type:
+    | "CASE"
+    | "DEPARTMENT"
+    | "STAFF"
+    | "SLA"
+    | "BRANDING"
+    | "WORKFLOW"
+    | "CUSTOM_FIELD"
+    | "INTEGRATION"
+    | "SECURITY"
+    | "ORGANIZATION";
+  entity_id: string;
+  before_state?: any;
+  after_state?: any;
+  ip_address?: string;
+  created_at: string;
+}
+
+export interface CaseTemplate {
+  id: string;
+  institution_id: string;
+  sector: SectorType;
+  title_ar: string;
+  title_en: string;
+  category: CaseCategory;
+  default_priority: CasePriority;
+  suggested_sla_hours: number;
+  preset_description_ar?: string;
+  preset_description_en?: string;
+  recommended_department_code?: string;
+}
+
+export interface TenantBranch {
+  id: string;
+  institution_id: string;
+  code: string;
+  name_ar: string;
+  name_en: string;
+  is_active: boolean;
+  created_at: string;
 }
 
 export interface TenantSlaConfig {
@@ -210,9 +365,12 @@ export interface Institution {
   identifier_type: string;
   verification_metadata: Record<string, unknown>;
   is_verified: boolean;
+  status?: SubscriptionStatus;
+  subscription?: TenantSubscription;
   branding?: TenantBranding;
   sla_config?: TenantSlaConfig;
   beneficiary_terminology?: TenantBeneficiaryTerminology;
+  branches?: TenantBranch[];
   created_at: string;
   updated_at: string;
 }

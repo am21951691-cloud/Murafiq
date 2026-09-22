@@ -9,6 +9,15 @@ import type {
   TenantBranding,
   TenantSlaConfig,
   InstitutionStaffMember,
+  Institution,
+  TenantSubscription,
+  CustomFieldDefinition,
+  WorkflowRule,
+  WebhookSubscription,
+  WebhookDeliveryLog,
+  AuditLogEntry,
+  CaseTemplate,
+  TenantBranch,
 } from "@/types/database";
 import { getSectorConfig } from "@/lib/config/sectors";
 import { createClient } from "@/lib/supabase/server";
@@ -99,9 +108,215 @@ interface StorageSchema {
   tenantBranding?: Record<string, TenantBranding>;
   tenantSlaConfigs?: Record<string, TenantSlaConfig>;
   staffMembers?: InstitutionStaffMember[];
+  institutions?: Institution[];
+  customFields?: Record<string, CustomFieldDefinition[]>;
+  workflowRules?: Record<string, WorkflowRule[]>;
+  webhooks?: Record<string, WebhookSubscription[]>;
+  webhookLogs?: WebhookDeliveryLog[];
+  auditLogs?: AuditLogEntry[];
+  caseTemplates?: Record<string, CaseTemplate[]>;
+  branches?: Record<string, TenantBranch[]>;
 }
 
 const STORE_PATH = path.join(process.cwd(), "data", "cases-store.json");
+
+export const SEED_INSTITUTIONS: Institution[] = [
+  {
+    id: "00000000-0000-0000-0000-000000000010",
+    slug: "cairo-experimental-school",
+    name_ar: "مدرسة القاهرة التجريبية الرسمية للغات",
+    name_en: "Cairo Experimental Language School",
+    sector: "EDUCATION_SCHOOLS",
+    identifier_type: "STUDENT_ID",
+    verification_metadata: { registered: true },
+    is_verified: true,
+    status: "ACTIVE",
+    subscription: {
+      plan: "ENTERPRISE",
+      status: "ACTIVE",
+      max_staff_seats: 50,
+      max_cases_monthly: 1000,
+      max_storage_gb: 100,
+      ai_quota_monthly: 5000,
+      ai_used_this_month: 420,
+      custom_domain_enabled: true,
+      webhooks_enabled: true,
+      sso_enabled: true,
+      renews_at: new Date(Date.now() + 300 * 86400000).toISOString(),
+    },
+    branding: {
+      primary_color: "#0F766E",
+      secondary_color: "#1E293B",
+      institution_short_name: "مدرسة القاهرة التجريبية",
+      portal_title_ar: "بوابة خدمة أولياء الأمور وإدارة الحالات",
+      portal_title_en: "Parent Services & Case Management Portal",
+      org_description_ar: "البوابة الرسمية المعتمدة لتلقي ومعالجة طلبات ومقترحات وشكاوى أولياء الأمور والطلاب بمؤشرات أداء موثوقة.",
+      welcome_message_ar: "أهلاً بكم في البوابة المؤسسية لمدرسة القاهرة التجريبية لإدارة وحسم الحالات",
+      welcome_message_en: "Welcome to Cairo Experimental Language School Resolution Portal",
+      support_email: "support@cairo-school.edu.eg",
+      support_phone: "+20227914000",
+      custom_domain: "cases.cairo-school.edu.eg",
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+  {
+    id: "uni-cairo-001",
+    slug: "cairo-university",
+    name_ar: "جامعة القاهرة (Cairo University)",
+    name_en: "Cairo University",
+    sector: "HIGHER_EDUCATION",
+    identifier_type: "STUDENT_ID",
+    verification_metadata: { registered: true },
+    is_verified: true,
+    status: "ACTIVE",
+    subscription: {
+      plan: "ENTERPRISE",
+      status: "ACTIVE",
+      max_staff_seats: 250,
+      max_cases_monthly: 10000,
+      max_storage_gb: 500,
+      ai_quota_monthly: 25000,
+      ai_used_this_month: 3120,
+      custom_domain_enabled: true,
+      webhooks_enabled: true,
+      sso_enabled: true,
+      renews_at: new Date(Date.now() + 320 * 86400000).toISOString(),
+    },
+    branding: {
+      primary_color: "#1E3A8A",
+      secondary_color: "#D97706",
+      institution_short_name: "جامعة القاهرة",
+      portal_title_ar: "بوابة شؤون الطلاب والالتماسات الأكاديمية",
+      portal_title_en: "Student Affairs & Academic Petitions Portal",
+      org_description_ar: "المنظومة الرقمية الموحدة لخدمة طلاب جامعة القاهرة لتسجيل ومتابعة الالتماسات الأكاديمية والمقترحات والشكاوى.",
+      welcome_message_ar: "مرحباً بكم في بوابة جامعة القاهرة الموحدة لتسوية الحالات والالتماسات",
+      welcome_message_en: "Welcome to Cairo University Academic Resolution Portal",
+      support_email: "helpdesk@cu.edu.eg",
+      support_phone: "+20235676100",
+      custom_domain: "resolution.cu.edu.eg",
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+  {
+    id: "gov-post-001",
+    slug: "egypt-post",
+    name_ar: "الهيئة القومية للبريد المصري",
+    name_en: "Egypt Post Authority",
+    sector: "GOVERNMENT_PUBLIC",
+    identifier_type: "NATIONAL_ID",
+    verification_metadata: { registered: true },
+    is_verified: true,
+    status: "ACTIVE",
+    subscription: {
+      plan: "ENTERPRISE",
+      status: "ACTIVE",
+      max_staff_seats: 500,
+      max_cases_monthly: 50000,
+      max_storage_gb: 1000,
+      ai_quota_monthly: 50000,
+      ai_used_this_month: 8400,
+      custom_domain_enabled: true,
+      webhooks_enabled: true,
+      sso_enabled: true,
+      renews_at: new Date(Date.now() + 180 * 86400000).toISOString(),
+    },
+    branding: {
+      primary_color: "#047857",
+      secondary_color: "#B45309",
+      institution_short_name: "البريد المصري",
+      portal_title_ar: "منظومة خدمة العملاء وحسم المعاملات البريدية",
+      portal_title_en: "Customer Care & Postal Transactions Resolution",
+      org_description_ar: "بوابة الشكاوى والمعاملات البريدية والمالية الرسمية للهيئة القومية للبريد.",
+      welcome_message_ar: "أهلاً بك في بوابة خدمة عملاء البريد المصري الرسمية",
+      welcome_message_en: "Welcome to Egypt Post Official Customer Resolution Portal",
+      support_email: "care@egyptpost.org",
+      support_phone: "16789",
+      custom_domain: "care.egyptpost.org",
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+  {
+    id: "com-vodafone-001",
+    slug: "vodafone-egypt",
+    name_ar: "شركة فودافون مصر للاتصالات",
+    name_en: "Vodafone Egypt Telecom",
+    sector: "COMMERCIAL_COMPANIES",
+    identifier_type: "PHONE_NUMBER",
+    verification_metadata: { registered: true },
+    is_verified: true,
+    status: "ACTIVE",
+    subscription: {
+      plan: "ENTERPRISE",
+      status: "ACTIVE",
+      max_staff_seats: 1000,
+      max_cases_monthly: 100000,
+      max_storage_gb: 2000,
+      ai_quota_monthly: 100000,
+      ai_used_this_month: 14200,
+      custom_domain_enabled: true,
+      webhooks_enabled: true,
+      sso_enabled: true,
+      renews_at: new Date(Date.now() + 240 * 86400000).toISOString(),
+    },
+    branding: {
+      primary_color: "#E11D48",
+      secondary_color: "#0F172A",
+      institution_short_name: "فودافون مصر",
+      portal_title_ar: "بوابة حل مشكلات واشتراكات العملاء",
+      portal_title_en: "Subscriber Care & Dispute Resolution Portal",
+      org_description_ar: "المنصة الرسمية لإدارة ومتابعة طلبات الدعم المتقدم والشكاوى لعملاء شبكة فودافون مصر.",
+      welcome_message_ar: "أهلاً بكم في بوابة فودافون مصر لحل مشكلات المشتركين",
+      welcome_message_en: "Welcome to Vodafone Egypt Resolution Portal",
+      support_email: "enterprise.care@vodafone.com.eg",
+      support_phone: "888",
+      custom_domain: "care.vodafone.com.eg",
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+  {
+    id: "med-qasr-001",
+    slug: "qasr-el-eini-hospitals",
+    name_ar: "مستشفيات جامعة القاهرة - قصر العيني",
+    name_en: "Qasr El-Eini University Hospitals",
+    sector: "HEALTHCARE_MEDICAL",
+    identifier_type: "MEDICAL_RECORD",
+    verification_metadata: { registered: true },
+    is_verified: true,
+    status: "ACTIVE",
+    subscription: {
+      plan: "ENTERPRISE",
+      status: "ACTIVE",
+      max_staff_seats: 300,
+      max_cases_monthly: 20000,
+      max_storage_gb: 500,
+      ai_quota_monthly: 20000,
+      ai_used_this_month: 1950,
+      custom_domain_enabled: true,
+      webhooks_enabled: true,
+      sso_enabled: true,
+      renews_at: new Date(Date.now() + 365 * 86400000).toISOString(),
+    },
+    branding: {
+      primary_color: "#0284C7",
+      secondary_color: "#0D9488",
+      institution_short_name: "مستشفيات قصر العيني",
+      portal_title_ar: "بوابة علاقات المرضى والرعاية الصحية",
+      portal_title_en: "Patient Relations & Quality Care Portal",
+      org_description_ar: "البوابة الرسمية المعتمدة لتقديم ومتابعة ملاحظات المرضى والمراجعين وفق معايير الجودة والاعتماد الصحية.",
+      welcome_message_ar: "أهلاً بكم في بوابة رعاية وعلاقات المرضى لمستشفيات قصر العيني",
+      welcome_message_en: "Welcome to Qasr El-Eini Patient Care Portal",
+      support_email: "patientcare@kasralainy.edu.eg",
+      support_phone: "+20223654000",
+      custom_domain: "patients.kasralainy.edu.eg",
+    },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+];
 
 // Multi-sector seed cases for Egypt's 5 core national sectors
 const SEED_CASES: StoredCaseItem[] = [
@@ -376,6 +591,14 @@ class StorageAdapter {
           parsed.tenantBranding = parsed.tenantBranding || {};
           parsed.tenantSlaConfigs = parsed.tenantSlaConfigs || {};
           parsed.staffMembers = parsed.staffMembers || [];
+          parsed.institutions = parsed.institutions || SEED_INSTITUTIONS;
+          parsed.customFields = parsed.customFields || {};
+          parsed.workflowRules = parsed.workflowRules || {};
+          parsed.webhooks = parsed.webhooks || {};
+          parsed.webhookLogs = parsed.webhookLogs || [];
+          parsed.auditLogs = parsed.auditLogs || [];
+          parsed.caseTemplates = parsed.caseTemplates || {};
+          parsed.branches = parsed.branches || {};
           return parsed;
         }
       }
@@ -393,6 +616,14 @@ class StorageAdapter {
       tenantBranding: {},
       tenantSlaConfigs: {},
       staffMembers: [],
+      institutions: SEED_INSTITUTIONS,
+      customFields: {},
+      workflowRules: {},
+      webhooks: {},
+      webhookLogs: [],
+      auditLogs: [],
+      caseTemplates: {},
+      branches: {},
     };
     this.persistStore(initialStore);
     return initialStore;
@@ -1071,6 +1302,578 @@ class StorageAdapter {
     this.inMemoryStore.staffMembers.splice(index, 1);
     this.persistStore(this.inMemoryStore);
     return true;
+  }
+
+  // ==========================================
+  // ENTERPRISE MULTI-TENANCY METHODS
+  // ==========================================
+
+  public async getOrganizations(): Promise<Institution[]> {
+    return this.inMemoryStore.institutions || SEED_INSTITUTIONS;
+  }
+
+  public async getOrganization(id: string): Promise<Institution | null> {
+    const list = await this.getOrganizations();
+    return list.find((org) => org.id === id) || null;
+  }
+
+  public async createOrganization(org: Omit<Institution, "created_at" | "updated_at">): Promise<Institution> {
+    if (!this.inMemoryStore.institutions) {
+      this.inMemoryStore.institutions = [...SEED_INSTITUTIONS];
+    }
+    const now = new Date().toISOString();
+    const newOrg: Institution = {
+      ...org,
+      status: org.status || "ACTIVE",
+      created_at: now,
+      updated_at: now,
+    };
+    this.inMemoryStore.institutions.push(newOrg);
+    this.persistStore(this.inMemoryStore);
+    await this.logAuditEvent({
+      institution_id: newOrg.id,
+      actor_id: "super-admin",
+      actor_name: "Murafiq Platform Owner",
+      actor_role: "SUPER_ADMIN",
+      action: "CREATE_ORGANIZATION",
+      entity_type: "ORGANIZATION",
+      entity_id: newOrg.id,
+      after_state: newOrg,
+    });
+    return newOrg;
+  }
+
+  public async updateOrganization(id: string, updates: Partial<Institution>): Promise<Institution | null> {
+    if (!this.inMemoryStore.institutions) {
+      this.inMemoryStore.institutions = [...SEED_INSTITUTIONS];
+    }
+    const org = this.inMemoryStore.institutions.find((o) => o.id === id);
+    if (!org) return null;
+
+    const beforeState = { ...org };
+    Object.assign(org, updates, { updated_at: new Date().toISOString() });
+    this.persistStore(this.inMemoryStore);
+
+    await this.logAuditEvent({
+      institution_id: id,
+      actor_id: "super-admin",
+      actor_name: "Murafiq Platform Owner",
+      actor_role: "SUPER_ADMIN",
+      action: "UPDATE_ORGANIZATION",
+      entity_type: "ORGANIZATION",
+      entity_id: id,
+      before_state: beforeState,
+      after_state: org,
+    });
+
+    return org;
+  }
+
+  public async getSubscription(institutionId: string): Promise<TenantSubscription> {
+    const org = await this.getOrganization(institutionId);
+    if (org?.subscription) return org.subscription;
+
+    return {
+      plan: "ENTERPRISE",
+      status: "ACTIVE",
+      max_staff_seats: 50,
+      max_cases_monthly: 1000,
+      max_storage_gb: 100,
+      ai_quota_monthly: 5000,
+      ai_used_this_month: 250,
+      custom_domain_enabled: true,
+      webhooks_enabled: true,
+      sso_enabled: true,
+      renews_at: new Date(Date.now() + 300 * 86400000).toISOString(),
+    };
+  }
+
+  public async saveSubscription(institutionId: string, sub: Partial<TenantSubscription>): Promise<TenantSubscription> {
+    const current = await this.getSubscription(institutionId);
+    const updated: TenantSubscription = { ...current, ...sub };
+    await this.updateOrganization(institutionId, { subscription: updated });
+    return updated;
+  }
+
+  // Custom Fields
+  public async getCustomFields(institutionId: string): Promise<CustomFieldDefinition[]> {
+    if (!this.inMemoryStore.customFields) {
+      this.inMemoryStore.customFields = {};
+    }
+    if (!this.inMemoryStore.customFields[institutionId]) {
+      const org = await this.getOrganization(institutionId);
+      const sector = org?.sector || "EDUCATION_SCHOOLS";
+      let defaults: CustomFieldDefinition[] = [];
+      if (sector === "EDUCATION_SCHOOLS") {
+        defaults = [
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            field_key: "student_grade",
+            label_ar: "الصف الدراسي",
+            label_en: "Academic Grade",
+            field_type: "SELECT",
+            options: ["الصف الأول الابتدائي", "الصف الثاني الابتدائي", "الصف الثالث الإعدادي", "الصف الأول الثانوي"],
+            is_required: true,
+            visibility: "BENEFICIARY",
+          },
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            field_key: "student_id",
+            label_ar: "رقم قيد الطالب",
+            label_en: "Student Registration Code",
+            field_type: "TEXT",
+            is_required: true,
+            visibility: "BENEFICIARY",
+            placeholder_ar: "مثال: STU-8924",
+          },
+        ];
+      } else if (sector === "HIGHER_EDUCATION") {
+        defaults = [
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            field_key: "faculty_name",
+            label_ar: "الكلية / المعهد",
+            label_en: "Faculty / College",
+            field_type: "SELECT",
+            options: ["كلية الهندسة", "كلية الطب", "كلية التجارة", "كلية الحاسبات والذكاء الاصطناعي"],
+            is_required: true,
+            visibility: "BENEFICIARY",
+          },
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            field_key: "academic_number",
+            label_ar: "الرقم الجامعي",
+            label_en: "University ID",
+            field_type: "TEXT",
+            is_required: true,
+            visibility: "BENEFICIARY",
+          },
+        ];
+      } else if (sector === "HEALTHCARE_MEDICAL") {
+        defaults = [
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            field_key: "medical_record_number",
+            label_ar: "رقم الملف الطبي",
+            label_en: "Medical Record Number (MRN)",
+            field_type: "TEXT",
+            is_required: true,
+            visibility: "BENEFICIARY",
+          },
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            field_key: "clinic_department",
+            label_ar: "العيادة / القسم الطبي",
+            label_en: "Clinic / Medical Department",
+            field_type: "SELECT",
+            options: ["العيادات الخارجية", "قسم الطوارئ", "الباطنة", "الجراحة العامة"],
+            is_required: true,
+            visibility: "BENEFICIARY",
+          },
+        ];
+      } else {
+        defaults = [
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            field_key: "customer_id",
+            label_ar: "رقم المشترك / الحساب",
+            label_en: "Customer Account Number",
+            field_type: "TEXT",
+            is_required: true,
+            visibility: "BENEFICIARY",
+          },
+        ];
+      }
+      this.inMemoryStore.customFields[institutionId] = defaults;
+      this.persistStore(this.inMemoryStore);
+    }
+    return this.inMemoryStore.customFields[institutionId] || [];
+  }
+
+  public async saveCustomField(institutionId: string, field: Omit<CustomFieldDefinition, "id"> & { id?: string }): Promise<CustomFieldDefinition> {
+    if (!this.inMemoryStore.customFields) this.inMemoryStore.customFields = {};
+    if (!this.inMemoryStore.customFields[institutionId]) this.inMemoryStore.customFields[institutionId] = [];
+
+    const existingIdx = field.id ? this.inMemoryStore.customFields[institutionId].findIndex((f) => f.id === field.id) : -1;
+    if (existingIdx >= 0) {
+      const updated = { ...this.inMemoryStore.customFields[institutionId][existingIdx], ...field };
+      this.inMemoryStore.customFields[institutionId][existingIdx] = updated;
+      this.persistStore(this.inMemoryStore);
+      return updated;
+    } else {
+      const newField: CustomFieldDefinition = {
+        ...field,
+        id: crypto.randomUUID(),
+        institution_id: institutionId,
+      };
+      this.inMemoryStore.customFields[institutionId].push(newField);
+      this.persistStore(this.inMemoryStore);
+      return newField;
+    }
+  }
+
+  public async deleteCustomField(institutionId: string, fieldId: string): Promise<boolean> {
+    if (!this.inMemoryStore.customFields || !this.inMemoryStore.customFields[institutionId]) return false;
+    const idx = this.inMemoryStore.customFields[institutionId].findIndex((f) => f.id === fieldId);
+    if (idx === -1) return false;
+    this.inMemoryStore.customFields[institutionId].splice(idx, 1);
+    this.persistStore(this.inMemoryStore);
+    return true;
+  }
+
+  // Workflows
+  public async getWorkflowRules(institutionId: string): Promise<WorkflowRule[]> {
+    if (!this.inMemoryStore.workflowRules) this.inMemoryStore.workflowRules = {};
+    if (!this.inMemoryStore.workflowRules[institutionId]) {
+      const defaults: WorkflowRule[] = [
+        {
+          id: crypto.randomUUID(),
+          institution_id: institutionId,
+          name: "التوجيه الفوري للشكاوى العاجلة",
+          trigger: "CASE_CREATED",
+          condition_priority: "CRITICAL",
+          action_set_sla_hours: 12,
+          action_notify_channels: ["IN_APP", "WHATSAPP"],
+          escalation_threshold_hours: 8,
+          escalation_target_role: "ADMIN",
+          is_active: true,
+          created_at: new Date().toISOString(),
+        },
+        {
+          id: crypto.randomUUID(),
+          institution_id: institutionId,
+          name: "إشعار المسؤول عند اقتراب انتهاء الـ SLA بنسبة 75%",
+          trigger: "SLA_WARNING",
+          condition_sla_hours_left: 6,
+          action_notify_channels: ["IN_APP", "EMAIL"],
+          escalation_threshold_hours: 4,
+          escalation_target_role: "OPS_LEAD",
+          is_active: true,
+          created_at: new Date().toISOString(),
+        },
+      ];
+      this.inMemoryStore.workflowRules[institutionId] = defaults;
+      this.persistStore(this.inMemoryStore);
+    }
+    return this.inMemoryStore.workflowRules[institutionId] || [];
+  }
+
+  public async saveWorkflowRule(institutionId: string, rule: Omit<WorkflowRule, "id" | "created_at"> & { id?: string }): Promise<WorkflowRule> {
+    if (!this.inMemoryStore.workflowRules) this.inMemoryStore.workflowRules = {};
+    if (!this.inMemoryStore.workflowRules[institutionId]) this.inMemoryStore.workflowRules[institutionId] = [];
+
+    const existingIdx = rule.id ? this.inMemoryStore.workflowRules[institutionId].findIndex((r) => r.id === rule.id) : -1;
+    if (existingIdx >= 0) {
+      const updated = { ...this.inMemoryStore.workflowRules[institutionId][existingIdx], ...rule };
+      this.inMemoryStore.workflowRules[institutionId][existingIdx] = updated;
+      this.persistStore(this.inMemoryStore);
+      return updated;
+    } else {
+      const newRule: WorkflowRule = {
+        ...rule,
+        id: crypto.randomUUID(),
+        institution_id: institutionId,
+        created_at: new Date().toISOString(),
+      };
+      this.inMemoryStore.workflowRules[institutionId].push(newRule);
+      this.persistStore(this.inMemoryStore);
+      return newRule;
+    }
+  }
+
+  public async deleteWorkflowRule(institutionId: string, ruleId: string): Promise<boolean> {
+    if (!this.inMemoryStore.workflowRules || !this.inMemoryStore.workflowRules[institutionId]) return false;
+    const idx = this.inMemoryStore.workflowRules[institutionId].findIndex((r) => r.id === ruleId);
+    if (idx === -1) return false;
+    this.inMemoryStore.workflowRules[institutionId].splice(idx, 1);
+    this.persistStore(this.inMemoryStore);
+    return true;
+  }
+
+  // Webhooks
+  public async getWebhooks(institutionId: string): Promise<WebhookSubscription[]> {
+    if (!this.inMemoryStore.webhooks) this.inMemoryStore.webhooks = {};
+    if (!this.inMemoryStore.webhooks[institutionId]) {
+      const defaults: WebhookSubscription[] = [
+        {
+          id: crypto.randomUUID(),
+          institution_id: institutionId,
+          url: "https://api.organization.edu.eg/webhooks/murafiq",
+          secret: "whsec_" + crypto.randomBytes(16).toString("hex"),
+          events: ["case.created", "case.assigned", "case.resolved"],
+          is_active: true,
+          created_at: new Date().toISOString(),
+          last_delivery_at: new Date(Date.now() - 3600000).toISOString(),
+          last_status_code: 200,
+        },
+      ];
+      this.inMemoryStore.webhooks[institutionId] = defaults;
+      this.persistStore(this.inMemoryStore);
+    }
+    return this.inMemoryStore.webhooks[institutionId] || [];
+  }
+
+  public async saveWebhook(institutionId: string, webhook: Omit<WebhookSubscription, "id" | "created_at"> & { id?: string }): Promise<WebhookSubscription> {
+    if (!this.inMemoryStore.webhooks) this.inMemoryStore.webhooks = {};
+    if (!this.inMemoryStore.webhooks[institutionId]) this.inMemoryStore.webhooks[institutionId] = [];
+
+    const existingIdx = webhook.id ? this.inMemoryStore.webhooks[institutionId].findIndex((w) => w.id === webhook.id) : -1;
+    if (existingIdx >= 0) {
+      const updated = { ...this.inMemoryStore.webhooks[institutionId][existingIdx], ...webhook };
+      this.inMemoryStore.webhooks[institutionId][existingIdx] = updated;
+      this.persistStore(this.inMemoryStore);
+      return updated;
+    } else {
+      const newWebhook: WebhookSubscription = {
+        ...webhook,
+        id: crypto.randomUUID(),
+        institution_id: institutionId,
+        secret: webhook.secret || "whsec_" + crypto.randomBytes(16).toString("hex"),
+        created_at: new Date().toISOString(),
+      };
+      this.inMemoryStore.webhooks[institutionId].push(newWebhook);
+      this.persistStore(this.inMemoryStore);
+      return newWebhook;
+    }
+  }
+
+  public async deleteWebhook(institutionId: string, webhookId: string): Promise<boolean> {
+    if (!this.inMemoryStore.webhooks || !this.inMemoryStore.webhooks[institutionId]) return false;
+    const idx = this.inMemoryStore.webhooks[institutionId].findIndex((w) => w.id === webhookId);
+    if (idx === -1) return false;
+    this.inMemoryStore.webhooks[institutionId].splice(idx, 1);
+    this.persistStore(this.inMemoryStore);
+    return true;
+  }
+
+  public async recordWebhookDelivery(log: Omit<WebhookDeliveryLog, "id" | "delivered_at">): Promise<WebhookDeliveryLog> {
+    if (!this.inMemoryStore.webhookLogs) this.inMemoryStore.webhookLogs = [];
+    const newLog: WebhookDeliveryLog = {
+      ...log,
+      id: crypto.randomUUID(),
+      delivered_at: new Date().toISOString(),
+    };
+    this.inMemoryStore.webhookLogs.unshift(newLog);
+    if (this.inMemoryStore.webhookLogs.length > 200) {
+      this.inMemoryStore.webhookLogs = this.inMemoryStore.webhookLogs.slice(0, 200);
+    }
+    this.persistStore(this.inMemoryStore);
+    return newLog;
+  }
+
+  public async getWebhookLogs(institutionId: string): Promise<WebhookDeliveryLog[]> {
+    const webhooks = await this.getWebhooks(institutionId);
+    const ids = new Set(webhooks.map((w) => w.id));
+    return (this.inMemoryStore.webhookLogs || []).filter((l) => ids.has(l.subscription_id));
+  }
+
+  // Audit Logs
+  public async logAuditEvent(entry: Omit<AuditLogEntry, "id" | "created_at">): Promise<AuditLogEntry> {
+    if (!this.inMemoryStore.auditLogs) this.inMemoryStore.auditLogs = [];
+    const newEntry: AuditLogEntry = {
+      ...entry,
+      id: crypto.randomUUID(),
+      created_at: new Date().toISOString(),
+    };
+    this.inMemoryStore.auditLogs.unshift(newEntry);
+    if (this.inMemoryStore.auditLogs.length > 1000) {
+      this.inMemoryStore.auditLogs = this.inMemoryStore.auditLogs.slice(0, 1000);
+    }
+    this.persistStore(this.inMemoryStore);
+    return newEntry;
+  }
+
+  public async getAuditLogs(institutionId?: string, limit: number = 50): Promise<AuditLogEntry[]> {
+    if (!this.inMemoryStore.auditLogs) {
+      this.inMemoryStore.auditLogs = [
+        {
+          id: crypto.randomUUID(),
+          institution_id: institutionId || "00000000-0000-0000-0000-000000000010",
+          actor_id: "usr-admin-01",
+          actor_name: "د. طارق مصطفى",
+          actor_role: "ADMIN",
+          action: "UPDATE_SLA_POLICY",
+          entity_type: "SLA",
+          entity_id: "sla-config",
+          before_state: { first_response_hours: 48 },
+          after_state: { first_response_hours: 24 },
+          created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+        },
+        {
+          id: crypto.randomUUID(),
+          institution_id: institutionId || "00000000-0000-0000-0000-000000000010",
+          actor_id: "usr-ops-02",
+          actor_name: "أ. منى يوسف",
+          actor_role: "OPS_LEAD",
+          action: "ASSIGN_CASE_DEPARTMENT",
+          entity_type: "CASE",
+          entity_id: "11111111-1111-1111-1111-111111111111",
+          before_state: { department: "UNASSIGNED" },
+          after_state: { department: "STUDENT_AFFAIRS" },
+          created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
+        },
+      ];
+      this.persistStore(this.inMemoryStore);
+    }
+
+    let list = this.inMemoryStore.auditLogs || [];
+    if (institutionId) {
+      list = list.filter((a) => a.institution_id === institutionId);
+    }
+    return list.slice(0, limit);
+  }
+
+  // Case Templates
+  public async getCaseTemplates(institutionId: string, sector?: SectorType): Promise<CaseTemplate[]> {
+    if (!this.inMemoryStore.caseTemplates) this.inMemoryStore.caseTemplates = {};
+    if (!this.inMemoryStore.caseTemplates[institutionId]) {
+      const org = await this.getOrganization(institutionId);
+      const sec = sector || org?.sector || "EDUCATION_SCHOOLS";
+      let defaults: CaseTemplate[] = [];
+
+      if (sec === "HIGHER_EDUCATION") {
+        defaults = [
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            sector: "HIGHER_EDUCATION",
+            title_ar: "التماس إعادة رصد وتصحيح درجات الامتحان",
+            title_en: "Exam Grade Re-evaluation Petition",
+            category: "ACADEMIC_CURRICULUM",
+            default_priority: "HIGH",
+            suggested_sla_hours: 48,
+            preset_description_ar: "طلب رسمي لمراجعة كراسة الإجابة وإعادة تجميع الدرجات من قبل لجنة الكنترول المختصة.",
+            recommended_department_code: "CONTROL_AFFAIRS",
+          },
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            sector: "HIGHER_EDUCATION",
+            title_ar: "طلب تأجيل سداد القسط الدراسي الجامعي",
+            title_en: "Tuition Fee Installment Deferral Request",
+            category: "TUITION_FEES_REFUNDS",
+            default_priority: "MEDIUM",
+            suggested_sla_hours: 72,
+            preset_description_ar: "التماس موجه لرعاية الطلاب لتقسيط أو تأجيل المصروفات الدراسية نظراً لظروف طارئة.",
+            recommended_department_code: "STUDENT_FINANCE",
+          },
+        ];
+      } else if (sec === "HEALTHCARE_MEDICAL") {
+        defaults = [
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            sector: "HEALTHCARE_MEDICAL",
+            title_ar: "شكوى تأخر مواعيد العيادات الخارجية التخصصية",
+            title_en: "Outpatient Clinic Appointment Delay Complaint",
+            category: "FACILITIES_HEALTH_SAFETY",
+            default_priority: "MEDIUM",
+            suggested_sla_hours: 24,
+            preset_description_ar: "ملاحظة بشأن تجاوز وقت الانتظار المحدد للكشف الطبي دون إشعار مسبق.",
+            recommended_department_code: "PATIENT_RELATIONS",
+          },
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            sector: "HEALTHCARE_MEDICAL",
+            title_ar: "استفسار ومراجعة فاتورة الإقامة والخدمات الطبية",
+            title_en: "Hospital Billing & Medical Service Review",
+            category: "TUITION_FEES_REFUNDS",
+            default_priority: "HIGH",
+            suggested_sla_hours: 36,
+            preset_description_ar: "طلب تفصيل بنود الفاتورة الطبية والتغطية التأمينية المعتمدة من شركة الرعاية.",
+            recommended_department_code: "MEDICAL_BILLING",
+          },
+        ];
+      } else {
+        defaults = [
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            sector: sec,
+            title_ar: "طلب متابعة سلوك وانضباط مدرسي",
+            title_en: "Student Behavior & Discipline Follow-up",
+            category: "STUDENT_BEHAVIOR_BULLYING",
+            default_priority: "HIGH",
+            suggested_sla_hours: 24,
+            preset_description_ar: "إشعار إدارة المدرسة بحادثة تنمر أو مشادة تتطلب تدخلاً تربوياً فورياً من الأخصائي الاجتماعي.",
+            recommended_department_code: "BEHAVIORAL_DISCIPLINE",
+          },
+          {
+            id: crypto.randomUUID(),
+            institution_id: institutionId,
+            sector: sec,
+            title_ar: "شكوى تأخر حافلة النقل المدرسي",
+            title_en: "School Bus Transport Route Delay",
+            category: "TRANSPORTATION_BUSES",
+            default_priority: "HIGH",
+            suggested_sla_hours: 18,
+            preset_description_ar: "إبلاغ عن عدم التزام السائق بالمسار المحدد وتأخر وصول الطلاب للبيوت في الموعد.",
+            recommended_department_code: "FACILITIES_TRANSPORT",
+          },
+        ];
+      }
+      this.inMemoryStore.caseTemplates[institutionId] = defaults;
+      this.persistStore(this.inMemoryStore);
+    }
+    return this.inMemoryStore.caseTemplates[institutionId] || [];
+  }
+
+  public async saveCaseTemplate(institutionId: string, template: Omit<CaseTemplate, "id"> & { id?: string }): Promise<CaseTemplate> {
+    if (!this.inMemoryStore.caseTemplates) this.inMemoryStore.caseTemplates = {};
+    if (!this.inMemoryStore.caseTemplates[institutionId]) this.inMemoryStore.caseTemplates[institutionId] = [];
+
+    const newTemplate: CaseTemplate = {
+      ...template,
+      id: template.id || crypto.randomUUID(),
+      institution_id: institutionId,
+    };
+    this.inMemoryStore.caseTemplates[institutionId].push(newTemplate);
+    this.persistStore(this.inMemoryStore);
+    return newTemplate;
+  }
+
+  // Branches
+  public async getBranches(institutionId: string): Promise<TenantBranch[]> {
+    if (!this.inMemoryStore.branches) this.inMemoryStore.branches = {};
+    if (!this.inMemoryStore.branches[institutionId]) {
+      const defaults: TenantBranch[] = [
+        {
+          id: crypto.randomUUID(),
+          institution_id: institutionId,
+          code: "MAIN",
+          name_ar: "المقر الرئيسي",
+          name_en: "Main Campus / HQ",
+          is_active: true,
+          created_at: new Date().toISOString(),
+        },
+      ];
+      this.inMemoryStore.branches[institutionId] = defaults;
+      this.persistStore(this.inMemoryStore);
+    }
+    return this.inMemoryStore.branches[institutionId] || [];
+  }
+
+  public async saveBranch(institutionId: string, branch: Omit<TenantBranch, "id" | "created_at"> & { id?: string }): Promise<TenantBranch> {
+    if (!this.inMemoryStore.branches) this.inMemoryStore.branches = {};
+    if (!this.inMemoryStore.branches[institutionId]) this.inMemoryStore.branches[institutionId] = [];
+
+    const newBranch: TenantBranch = {
+      ...branch,
+      id: branch.id || crypto.randomUUID(),
+      institution_id: institutionId,
+      created_at: new Date().toISOString(),
+    };
+    this.inMemoryStore.branches[institutionId].push(newBranch);
+    this.persistStore(this.inMemoryStore);
+    return newBranch;
   }
 }
 
