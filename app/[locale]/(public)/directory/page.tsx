@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import type { SectorType } from "@/types/database";
 import { getPublicEntities } from "@/lib/services/entities";
+import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
+import { ALL_EGYPTIAN_GOVERNORATES_AR } from "@/lib/config/governorates";
 
 interface Props {
   searchParams: Promise<{ governorate?: string; sector?: string; q?: string }>;
@@ -16,7 +18,7 @@ const SECTORS: Array<{ key: SectorType | "ALL"; label_ar: string; icon: string }
   { key: "HEALTHCARE_MEDICAL", label_ar: "المنشآت الصحية والمستشفيات", icon: "🏥" },
 ];
 
-const GOVERNORATES = ["ALL", "القاهرة", "الجيزة", "الإسكندرية"];
+const GOVERNORATES = ["ALL", ...ALL_EGYPTIAN_GOVERNORATES_AR];
 
 export default async function GenericDirectoryPage({ searchParams }: Props) {
   const params = await searchParams;
@@ -34,20 +36,10 @@ export default async function GenericDirectoryPage({ searchParams }: Props) {
     <div className="min-h-screen bg-slate-50 text-slate-800 font-arabic" dir="rtl">
       {/* Top Header */}
       <header className="border-b border-slate-200 bg-white sticky top-0 z-20 shadow-xs">
-        <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+        <div className="mx-auto max-w-6xl px-4 py-3.5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="h-9 w-9 rounded-lg bg-sky-700 text-white flex items-center justify-center font-bold text-lg">
-                م
-              </div>
-              <div>
-                <span className="font-extrabold text-base text-sky-900">
-                  مُرافِق — الدليل الوطني للجهات والخدمات
-                </span>
-                <span className="block text-[10px] text-slate-500">
-                  منظومة الشفافية وحل الشكاوى في مصر عبر 5 قطاعات وطنية
-                </span>
-              </div>
+            <Link href="/" className="hover:opacity-95 transition">
+              <MurafiqLogo size="md" />
             </Link>
           </div>
 

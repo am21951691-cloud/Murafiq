@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { getPublicSchoolsDirectory } from "@/lib/services/schools";
+import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
 
 interface Props {
   searchParams: Promise<{ governorate?: string; q?: string }>;
@@ -21,20 +22,10 @@ export default async function SchoolsDirectoryPage({ searchParams }: Props) {
     <div className="min-h-screen bg-slate-50 text-slate-800 font-arabic" dir="rtl">
       {/* Top Header */}
       <header className="border-b border-slate-200 bg-white sticky top-0 z-20 shadow-xs">
-        <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+        <div className="mx-auto max-w-6xl px-4 py-3.5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="h-9 w-9 rounded-lg bg-sky-700 text-white flex items-center justify-center font-bold text-lg">
-                م
-              </div>
-              <div>
-                <span className="font-extrabold text-base text-sky-900">
-                  مُرافِق — الدليل الوطني
-                </span>
-                <span className="block text-[10px] text-slate-500">
-                  مؤشرات جودة الحل والتسوية بالمدارس المصرية
-                </span>
-              </div>
+            <Link href="/" className="hover:opacity-95 transition">
+              <MurafiqLogo size="md" />
             </Link>
           </div>
 

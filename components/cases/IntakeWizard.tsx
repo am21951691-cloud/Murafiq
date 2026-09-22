@@ -12,6 +12,7 @@ import {
   EGYPTIAN_NATIONAL_ID_REGEX,
 } from "@/lib/validators/sensitive-identifiers";
 import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
+import { EGYPTIAN_GOVERNORATES } from "@/lib/config/governorates";
 
 interface IntakeWizardProps {
   initialInstitutionId?: string;
@@ -666,23 +667,34 @@ export function IntakeWizard({
                       onChange={(e) => setCustomGovernorate(e.target.value)}
                       className="w-full rounded-xl border border-sky-300 p-2.5 text-xs bg-white focus:outline-none focus:border-sky-800 font-medium"
                     >
-                      <option value="القاهرة">القاهرة</option>
-                      <option value="الجيزة">الجيزة</option>
-                      <option value="الإسكندرية">الإسكندرية</option>
-                      <option value="القليوبية">القليوبية</option>
-                      <option value="الشرقية">الشرقية</option>
-                      <option value="الدقهلية">الدقهلية</option>
-                      <option value="البحيرة">البحيرة</option>
-                      <option value="الغربية">الغربية</option>
-                      <option value="بورسعيد">بورسعيد</option>
-                      <option value="السويس">السويس</option>
-                      <option value="الإسماعيلية">الإسماعيلية</option>
-                      <option value="أسيوط">أسيوط</option>
-                      <option value="سوهاج">سوهاج</option>
-                      <option value="قنا">قنا</option>
-                      <option value="الأقصر">الأقصر</option>
-                      <option value="أسوان">أسوان</option>
-                      <option value="محافظة أخرى">محافظة أخرى</option>
+                      <optgroup label="📍 إقليم القاهرة الكبرى">
+                        {EGYPTIAN_GOVERNORATES.filter((g) => g.region === "GREATER_CAIRO").map((g) => (
+                          <option key={g.key} value={g.name_ar}>
+                            {g.name_ar} ({g.name_en})
+                          </option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="📍 الإسكندرية والدلتا والوجه البحري">
+                        {EGYPTIAN_GOVERNORATES.filter((g) => g.region === "ALEXANDRIA_DELTA").map((g) => (
+                          <option key={g.key} value={g.name_ar}>
+                            {g.name_ar} ({g.name_en})
+                          </option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="📍 مدن القناة وسيناء والبحر الأحمر">
+                        {EGYPTIAN_GOVERNORATES.filter((g) => g.region === "CANAL_SINAI").map((g) => (
+                          <option key={g.key} value={g.name_ar}>
+                            {g.name_ar} ({g.name_en})
+                          </option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="📍 محافظات الصعيد والمحافظات الحدودية">
+                        {EGYPTIAN_GOVERNORATES.filter((g) => g.region === "UPPER_EGYPT" || g.region === "BORDER").map((g) => (
+                          <option key={g.key} value={g.name_ar}>
+                            {g.name_ar} ({g.name_en})
+                          </option>
+                        ))}
+                      </optgroup>
                     </select>
                   </div>
 
