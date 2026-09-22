@@ -3,7 +3,16 @@ import { askConcierge, type ConciergeMessage } from "@/lib/ai/concierge-service"
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid JSON in request body" },
+        { status: 400 }
+      );
+    }
+
     const messages: ConciergeMessage[] = Array.isArray(body?.messages) ? body.messages : [];
     const locale: "ar" | "en" = body?.locale === "en" ? "en" : "ar";
 

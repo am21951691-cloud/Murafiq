@@ -8,7 +8,15 @@ import { SectorType } from "@/types/database";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid JSON in request body" },
+        { status: 400 }
+      );
+    }
 
     const mode: AdvisorMode =
       body?.mode === "INSTITUTION_ACTION_PLAN"
