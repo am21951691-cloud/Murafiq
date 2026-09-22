@@ -2,11 +2,11 @@
 ### المنظومة الوطنية للوساطة والتسوية المؤسسية في مصر
 **National Resolution, Mediation & Institutional Accountability Platform**
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.2.1-black?style=flat&logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.0.0-blue?style=flat&logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.2-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4.17-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
-[![Tests](https://img.shields.io/badge/Tests-145%20Passed%20(23%20Suites)-emerald?style=flat&logo=vitest)](https://vitest.dev/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0-blue?style=flat&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
+[![Tests](https://img.shields.io/badge/Tests-152%20Passed%20(24%20Suites)-emerald?style=flat&logo=vitest)](https://vitest.dev/)
 [![License](https://img.shields.io/badge/License-Proprietary-slate?style=flat)](#)
 
 ---
@@ -45,7 +45,7 @@
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1️⃣ الشات بوت الفوري (Concierge Chatbot)                                                │
 │ • الواجهة: الزر العائم بأسفل يسار الشاشة (💬 مُساعد مُرافِق الذكي)                     │
-│ • المحرك: محرك المحادثة والتوجيه القانوني السريع                                       │
+│ • المحرك: NVIDIA NIM — nvidia/nemotron-3.5-lightning-30b-a3b                            │
 │ • نقطة النهاية: /api/ai/concierge                                                      │
 │ • الوظيفة: إجابة فورية عن آلية المنصة، حقوق المستهلك، مهلة الـ 7 أيام، وتوجيه الشكاوى.│
 └────────────────────────────────────────────────────────────────────────────────────────┘
@@ -53,7 +53,7 @@
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │ 2️⃣ مستشار الحلول والخطط (Solution & Action Plan Advisor)                              │
 │ • الواجهة: الزر العائم بأسفل يمين الشاشة (⚖️ مستشار الحلول الذكي) + داخل نماذج الشكوى │
-│ • المحرك: محرك الاستدلال القانوني وصياغة الخطط المؤسسية                                │
+│ • المحرك: NVIDIA NIM — meta/muse-glimmer-30b                                           │
 │ • نقطة النهاية: /api/ai/solution-advisor                                               │
 │ • الوظيفة:                                                                             │
 │   - للمواطنين: صياغة مطلب قانوني عادل وهادئ مع الاستشهاد باللوائح المصرية.             │
@@ -66,34 +66,41 @@
 ## 🛡️ الركائز المعمارية والأمنية (Key Architecture & Security)
 
 * **محرك الحالات رباعي المتجهات (4-Vector State Engine):** إدارة دقيقة لدورة حياة الحالة:
-  `SUBMITTED` ➔ `PRIVATE_GRACE` (7 أيام للمراجعة والحل الودي) ➔ `INSTITUTION_PROPOSED` ➔ `USER_CONFIRMED` / `PUBLIC_BARS_INDEX`.
+  `SUBMITTED` ➔ `PRIVATE_GRACE` (7 أيام للمراجعة والحل الودي) ➔ `ACTION_PLAN_PENDING` ➔ `IN_PROGRESS` ➔ `WAITING_FOR_EVALUATION` ➔ `CLOSED`.
 * **العزل المادي لبيانات الهوية (PII Physical Isolation):**
   * التزام صارم بـ **قانون حماية البيانات الشخصية المصري رقم 151 لسنة 2020**.
-  * تشفير وفصل الرقم القومي وبيانات الاتصال في جداول مستقلة مشفرة، مع حظر عرض الهوية للمؤسسات أو في التقييمات العامة بدون موافقة صريحة.
+  * تشفير وفصل الرقم القومي وبيانات الاتصال في جداول مستقلة مشفرة (`case_sensitive_data`)، مع حظر عرض الهوية للمؤسسات أو في التقييمات العامة بدون موافقة صريحة.
 * **مؤشر التسوية البايزي (BARS Score):**
   * احتساب موثوقية المؤسسات والجهات وفق صيغة إحصائية موزونة تمنع الانحياز الإحصائي وتحجب الجهات غير المستوفية للنصاب القانوني لحجم العينة.
+  * معايرة تلقائية لكل قطاع باستخدام معاملات بايـزية خاصة بالقطاع.
 * **محرك توليد تقارير الـ PDF المؤرشفة:**
   * توليد تقارير رسمية بصيغة PDF مع ختم البصمة الرقمية الموثقة (SHA-256 Digest Engine) لمنع التلاعب بسجلات التسوية.
+* **طبقة الاسترجاع القانوني (Statutory RAG):**
+  * استرجاع اللوائح والقوانين المصرية الموثقة بشرياً مع ترشيح حسب القطاع وضمان نص محايد عند عدم وجود تطابق.
 
 ---
 
 ## 💻 حزمة التقنيات المستخدمة (Tech Stack)
 
-* **إطار العمل (Framework):** [Next.js 15.2.1](https://nextjs.org/) (App Router)
-* **واجهة المستخدم (UI):** [React 19](https://react.dev/) + [TypeScript 5.8](https://www.typescriptlang.org/)
-* **التصميم والأنماط (Styling):** [Tailwind CSS 3.4](https://tailwindcss.com/)
-* **قاعدة البيانات والتحقق (Database & BaaS):** [Supabase](https://supabase.com/) / PostgreSQL مع سياسات أمان RLS صارمة
-* **محركات الذكاء الاصطناعي (AI Inference):** Dual AI Engines (Conversational Chatbot & Legal Solution Advisor)
-* **محرك المستندات (Document Engine):** Puppeteer + Handlebars (SHA-256 Verified PDFs)
-* **إطار الاختبارات (Testing):** [Vitest 3.0](https://vitest.dev/)
+| Layer | Technology |
+|-------|-----------|
+| **Framework** | [Next.js 15.5](https://nextjs.org/) (App Router) |
+| **UI** | [React 19](https://react.dev/) + [TypeScript 5.8](https://www.typescriptlang.org/) |
+| **Styling** | [Tailwind CSS 3.4](https://tailwindcss.com/) |
+| **Database & BaaS** | [Supabase](https://supabase.com/) / PostgreSQL + Row Level Security (RLS) |
+| **AI Inference** | [NVIDIA NIM](https://build.nvidia.com/) — Nemotron 3.5 + Muse Glimmer 30B |
+| **Document Engine** | Puppeteer + Handlebars (SHA-256 Verified PDFs) |
+| **WhatsApp** | Meta Cloud API (Signed URLs + Webhook Delivery Tracking) |
+| **Background Jobs** | [Trigger.dev](https://trigger.dev/) |
+| **Testing** | [Vitest 3.0](https://vitest.dev/) — 24 suites, 152 tests |
 
 ---
 
 ## 🚀 التشغيل والإعداد المحلي (Getting Started)
 
 ### 1. المتطلبات الأساسية (Prerequisites)
-* Node.js $\ge$ 18.18.0
-* npm أو yarn أو pnpm
+* Node.js ≥ 18.18.0
+* npm or yarn or pnpm
 
 ### 2. تثبيت الحزم (Installation)
 ```bash
@@ -115,10 +122,15 @@ cp .env.example .env.local
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 
-# AI Services
-AI_CONCIERGE_API_KEY=your-api-key
-AI_ADVISOR_API_KEY=your-api-key
+# AI Services (NVIDIA NIM)
+NVIDIA_CONCIERGE_API_KEY=your-nvidia-api-key
+NVIDIA_ADVISOR_API_KEY=your-nvidia-api-key
+
+# WhatsApp Cloud API
+WHATSAPP_CLOUD_API_TOKEN=your-whatsapp-token
 ```
+
+> ⚠️ **Never commit `.env.local` or any file containing real API keys. See [SECURITY.md](SECURITY.md) for details.**
 
 ### 4. تشغيل خادم التطوير (Run Development Server)
 ```bash
@@ -130,7 +142,7 @@ npm run dev
 ```bash
 npm test
 ```
-* يشمل 23 ملف اختبار و 145 اختباراً لوحدات الحساب الإحصائي، العزل الأمني، نماذج الذكاء الاصطناعي، وتوليد الـ PDF.
+* يشمل **24 ملف اختبار** و **152 اختباراً** لوحدات الحساب الإحصائي، العزل الأمني، نماذج الذكاء الاصطناعي، وتوليد الـ PDF.
 
 ### 6. بناء المشروع للإنتاج (Production Build)
 ```bash
@@ -145,30 +157,38 @@ npm start
 ```
 Murafiq/
 ├── app/                          # Next.js App Router (الصفحات والمسارات)
-│   ├── (institution)/portal/    # بوابة ولوحة تحكم المؤسسات والجهات
-│   ├── (parent)/cases/          # معالج تقديم الشكاوى واستعراض الحالات
-│   ├── (public)/directory/      # الدليل الوطني الموحد للجهات
-│   ├── (public)/schools/        # دليل المؤسسات التعليمية ومؤشر BARS
-│   ├── (public)/services/       # الملفات التعريفية الموثقة للجهات
-│   ├── api/                     # نقاط النهاية البرمجية (AI Concierge, Advisor, Webhooks)
-│   ├── layout.tsx               # التخطيط العام ودمج أدوات الذكاء الاصطناعي
-│   └── page.tsx                 # الصفحة الرئيسية وبوابة القطاعات الخمسة
+│   ├── (institution)/portal/     # بوابة ولوحة تحكم المؤسسات والجهات
+│   ├── (parent)/cases/           # معالج تقديم الشكاوى واستعراض الحالات
+│   ├── (public)/directory/       # الدليل الوطني الموحد للجهات
+│   ├── (public)/schools/         # دليل المؤسسات التعليمية ومؤشر BARS
+│   ├── (public)/services/        # الملفات التعريفية الموثقة للجهات
+│   ├── api/                      # نقاط النهاية البرمجية (AI, Cases, Webhooks)
+│   │   ├── ai/                   # Concierge + Solution Advisor + Statutory Query
+│   │   ├── cases/                # Submit, Evaluate, Milestones, Track
+│   │   ├── institution/          # Acknowledge, Action Plans, Case Listing
+│   │   └── webhooks/             # WhatsApp delivery status webhooks
+│   ├── layout.tsx                # التخطيط العام ودمج أدوات الذكاء الاصطناعي
+│   └── page.tsx                  # الصفحة الرئيسية وبوابة القطاعات الخمسة
 ├── components/
-│   ├── ai/                      # مكوّنات الشات بوت والمستشار القانوني
-│   ├── cases/                   # معالج تقديم الشكوى (Intake Wizard) وتتبع المراحل
-│   ├── institution/             # أدوات الفرز وبناء خطط العمل (Action Plan Builder)
-│   └── brand/                   # الهوية البصرية والشعار المعتمد
+│   ├── ai/                       # مكوّنات الشات بوت والمستشار القانوني
+│   ├── cases/                    # معالج تقديم الشكوى وتتبع المراحل
+│   ├── institution/              # أدوات الفرز وبناء خطط العمل
+│   └── brand/                    # الهوية البصرية والشعار المعتمد
 ├── lib/
-│   ├── ai/                      # خدمات تكامل محركات NVIDIA NIM وتنسيق المطالب
-│   ├── config/                  # اللوائح والقوانين المصرية وتصنيفات المحافظات
-│   ├── services/                # خدمات استرجاع الكيانات والمدارس وحساب BARS
-│   └── supabase/                # تهيئة اتصال Supabase وسياسات الأمان
-└── tests/                       # اختبارات التكامل والوحدات (23 Suites / 145 Tests)
+│   ├── ai/                       # محركات NVIDIA NIM والتنسيق القانوني
+│   ├── config/                   # اللوائح والقوانين وتصنيفات المحافظات
+│   ├── services/                 # خدمات الكيانات، BARS، محول التخزين
+│   ├── supabase/                 # تهيئة اتصال Supabase وسياسات الأمان
+│   └── validators/               # مخططات Zod لبيانات القطاعات والهوية
+├── tests/                        # اختبارات التكامل والوحدات (24 Suites / 152 Tests)
+├── docs/                         # المواصفات والمعمارية وخطة التنفيذ
+├── supabase/                     # هجرات قاعدة البيانات والسكريبتات
+└── trigger/                      # مهام الخلفية (PDF، WhatsApp، Timeouts)
 ```
 
 ---
 
 ## ⚖️ الحقوق والترخيص (License)
 
-جميع الحقوق محفوظة © 2026 **منظومة مُرافِق الوطنية (Murafiq)**.  
+جميع الحقوق محفوظة © 2026 **منظومة مُرافِق الوطنية (Murafiq)**.
 هذا النظام مصمم ومطور خصيصاً لخدمة تسوية النزاعات وحماية البيانات في جمهورية مصر العربية وفق المعايير والقوانين المنظمة.
