@@ -135,14 +135,9 @@ export function GlobalSolutionAdvisor() {
                   ⚖️
                 </span>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-lg sm:text-xl font-black text-slate-950">
-                      مستشار الحلول وصياغة خطط المعالجة
-                    </h2>
-                    <span className="rounded-full bg-amber-100 border border-amber-300 px-2.5 py-0.5 text-[11px] font-extrabold text-amber-950">
-                      Muse Glimmer 30B
-                    </span>
-                  </div>
+                  <h2 className="text-lg sm:text-xl font-black text-slate-950">
+                    مستشار الحلول وصياغة خطط المعالجة
+                  </h2>
                   <p className="text-xs font-bold text-slate-700 mt-0.5">
                     أداة تحليلية مستقلة لصياغة المطالب الودية ودعم القرارات المؤسسية وفق اللوائح المصرية
                   </p>
@@ -285,7 +280,7 @@ export function GlobalSolutionAdvisor() {
                   ⚙️
                 </div>
                 <h4 className="text-sm font-black text-slate-950">
-                  جاري تشغيل محرك Muse Glimmer 30B لفحص النصوص واللوائح المصرية...
+                  جاري فحص النصوص واللوائح المصرية المعتمدة واستخراج التحليل القانوني...
                 </h4>
                 <p className="text-xs font-bold text-slate-700">
                   (قانون حماية المستهلك 181، لائحة الانضباط 187، قانون الجامعات 49، معايير الرقابة الصحية GAHAR)

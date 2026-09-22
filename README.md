@@ -37,15 +37,15 @@
 
 ---
 
-## 🤖 منظومة الذكاء الاصطناعي المزدوجة (Dual AI Engines - NVIDIA NIM)
+## 🤖 منظومة الذكاء الاصطناعي المزدوجة (Dual AI Engines)
 
-تم بناء ميزتين مستقلتين بالكامل للذكاء الاصطناعي، لكل منهما محرك ونموذج ونقطة نهاية وواجهة مستخدم منفصلة:
+تم بناء ميزتين مستقلتين بالكامل للذكاء الاصطناعي، لكل منهما محرك ونقطة نهاية وواجهة مستخدم منفصلة:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1️⃣ الشات بوت الفوري (Concierge Chatbot)                                                │
 │ • الواجهة: الزر العائم بأسفل يسار الشاشة (💬 مُساعد مُرافِق الذكي)                     │
-│ • المحرك: NVIDIA NIM (nvidia/nemotron-3.5-lightning-30b-a3b)                           │
+│ • المحرك: محرك المحادثة والتوجيه القانوني السريع                                       │
 │ • نقطة النهاية: /api/ai/concierge                                                      │
 │ • الوظيفة: إجابة فورية عن آلية المنصة، حقوق المستهلك، مهلة الـ 7 أيام، وتوجيه الشكاوى.│
 └────────────────────────────────────────────────────────────────────────────────────────┘
@@ -53,7 +53,7 @@
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │ 2️⃣ مستشار الحلول والخطط (Solution & Action Plan Advisor)                              │
 │ • الواجهة: الزر العائم بأسفل يمين الشاشة (⚖️ مستشار الحلول الذكي) + داخل نماذج الشكوى │
-│ • المحرك: NVIDIA NIM (meta/muse-glimmer-30b) مع ميزانية استدلال 4096 توكن             │
+│ • المحرك: محرك الاستدلال القانوني وصياغة الخطط المؤسسية                                │
 │ • نقطة النهاية: /api/ai/solution-advisor                                               │
 │ • الوظيفة:                                                                             │
 │   - للمواطنين: صياغة مطلب قانوني عادل وهادئ مع الاستشهاد باللوائح المصرية.             │
@@ -83,7 +83,7 @@
 * **واجهة المستخدم (UI):** [React 19](https://react.dev/) + [TypeScript 5.8](https://www.typescriptlang.org/)
 * **التصميم والأنماط (Styling):** [Tailwind CSS 3.4](https://tailwindcss.com/)
 * **قاعدة البيانات والتحقق (Database & BaaS):** [Supabase](https://supabase.com/) / PostgreSQL مع سياسات أمان RLS صارمة
-* **محركات الذكاء الاصطناعي (AI Inference):** NVIDIA NIM (Nemotron 3.5 Lightning & Meta Muse Glimmer)
+* **محركات الذكاء الاصطناعي (AI Inference):** Dual AI Engines (Conversational Chatbot & Legal Solution Advisor)
 * **محرك المستندات (Document Engine):** Puppeteer + Handlebars (SHA-256 Verified PDFs)
 * **إطار الاختبارات (Testing):** [Vitest 3.0](https://vitest.dev/)
 
@@ -109,19 +109,15 @@ npm install
 cp .env.example .env.local
 ```
 
-أضف المفاتيح الخاصة بك:
+أضف المفاتيح الخاصة بك في ملف `.env.local`:
 ```env
-# Supabase
+# Database & Authentication
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 
-# NVIDIA NIM AI
-NVIDIA_CONCIERGE_API_KEY=your-nvidia-concierge-key
-NVIDIA_CONCIERGE_MODEL=nvidia/nemotron-3.5-lightning-30b-a3b
-
-NVIDIA_ADVISOR_API_KEY=your-nvidia-advisor-key
-NVIDIA_ADVISOR_MODEL=meta/muse-glimmer-30b
+# AI Services
+AI_CONCIERGE_API_KEY=your-api-key
+AI_ADVISOR_API_KEY=your-api-key
 ```
 
 ### 4. تشغيل خادم التطوير (Run Development Server)

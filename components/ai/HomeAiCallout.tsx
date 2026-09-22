@@ -46,7 +46,7 @@ export function HomeAiCallout() {
                       مُساعد مُرافِق للمحادثة الفورية (Chatbot)
                     </h3>
                     <span className="text-[11px] font-bold text-sky-900">
-                      محرك Nemotron 3.5 Lightning • استجابة سريعة
+                      استجابة فورية • توجيه قانوني معتمد
                     </span>
                   </div>
                 </div>
@@ -98,7 +98,7 @@ export function HomeAiCallout() {
                       مستشار الحلول وصياغة خطط المعالجة (AI Assistant)
                     </h3>
                     <span className="text-[11px] font-bold text-amber-950">
-                      محرك Muse Glimmer 30B • استدلال قانوني عميق
+                      استدلال تحليلي متخصص • لوائح وطنية
                     </span>
                   </div>
                 </div>
