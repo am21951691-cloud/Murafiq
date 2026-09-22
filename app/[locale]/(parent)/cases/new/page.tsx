@@ -14,8 +14,8 @@ export default async function NewCasePage({ params }: PageProps) {
       <div className="mx-auto max-w-4xl">
         <Suspense
           fallback={
-            <div className="p-8 text-center text-slate-500 font-arabic">
-              جاري تحميل معالج تسجيل الحالات...
+            <div className={`p-8 text-center text-slate-500 ${validLocale === "ar" ? "font-arabic" : ""}`}>
+              {validLocale === "en" ? "Loading case intake wizard..." : "جاري تحميل معالج تسجيل الحالات..."}
             </div>
           }
         >

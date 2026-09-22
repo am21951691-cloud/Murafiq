@@ -36,6 +36,7 @@ const SECTOR_CONFIG: Record<
     identifierPlaceholder_ar: string;
     identifierPlaceholder_en: string;
     guidance_ar: string;
+    guidance_en: string;
   }
 > = {
   EDUCATION_SCHOOLS: {
@@ -51,6 +52,7 @@ const SECTOR_CONFIG: Record<
     identifierPlaceholder_ar: "مثال: STU-2026-90412",
     identifierPlaceholder_en: "e.g. STU-2026-90412",
     guidance_ar: "سيتم إرسال الإشعار لإدارة المدرسة لبدء مهلة الـ 7 أيام وتقديم خطة معالجة معتمدة.",
+    guidance_en: "The school leadership is officially notified to initiate the 7-day private grace period and submit an approved action plan.",
   },
   HIGHER_EDUCATION: {
     icon: "🎓",
@@ -65,6 +67,7 @@ const SECTOR_CONFIG: Record<
     identifierPlaceholder_ar: "مثال: ENG-2023-94812",
     identifierPlaceholder_en: "e.g. ENG-2023-94812",
     guidance_ar: "تخضع المعالجة لضمانات التحقيق والتظلم الأكاديمي بقانون تنظيم الجامعات رقم 49 لسنة 1972.",
+    guidance_en: "Case handling is governed by statutory academic grievance procedures under Universities Regulation Law No. 49 of 1972.",
   },
   GOVERNMENT_PUBLIC: {
     icon: "🏛️",
@@ -79,6 +82,7 @@ const SECTOR_CONFIG: Record<
     identifierPlaceholder_ar: "مثال: REQ-CAIRO-90214",
     identifierPlaceholder_en: "e.g. REQ-CAIRO-90214",
     guidance_ar: "يُحظر كتابة الرقم القومي المكون من 14 رقماً. يرجى إدخال رقم إيصال الطلب أو المعاملة.",
+    guidance_en: "14-digit National IDs are prohibited under Law 151/2020. Please enter the service ticket or transaction receipt number.",
   },
   COMMERCIAL_COMPANIES: {
     icon: "🏢",
@@ -93,6 +97,7 @@ const SECTOR_CONFIG: Record<
     identifierPlaceholder_ar: "مثال: ORD-2026-88194",
     identifierPlaceholder_en: "e.g. ORD-2026-88194",
     guidance_ar: "تطبق المنظومة ضمانات قانون حماية المستهلك رقم 181 لسنة 2018 (حق الاسترجاع والضمان).",
+    guidance_en: "The system enforces statutory consumer guarantees under Egyptian Consumer Protection Law No. 181 of 2018.",
   },
   HEALTHCARE_MEDICAL: {
     icon: "🏥",
@@ -107,8 +112,84 @@ const SECTOR_CONFIG: Record<
     identifierPlaceholder_ar: "مثال: MRN-MED-99412",
     identifierPlaceholder_en: "e.g. MRN-MED-99412",
     guidance_ar: "تُعزل الأرقام الطبية والملفات الحساسة طبقاً لمعايير الخصوصية الصحية وقانون 151 لسنة 2020.",
+    guidance_en: "Medical records and sensitive IDs are strictly isolated and encrypted under Egyptian healthcare data standards and Law 151/2020.",
   },
 };
+
+const TYPE_TRANSLATIONS: Record<string, string> = {
+  "جامعة حكومية": "Public University",
+  "جامعة خاصة وأهلية": "Private & National University",
+  "جامعة خاصة": "Private University",
+  "جامعة خاصة معتمدة دولياً": "Internationally Accredited Private University",
+  "جامعة أهلية وبحثية": "National & Research University",
+  "مستشفى خاص معتمد": "Accredited Private Hospital",
+  "مستشفى دولي معتمد": "Accredited International Hospital",
+  "مستشفى عسكري متقدم": "Advanced Military Hospital",
+  "مستشفى جامعي حكومي": "Public University Hospital",
+  "هيئة حكومية خدمية": "Public Service Authority",
+  "مصلحة حكومية معتمدة": "Accredited Public Agency",
+  "هيئة رقابية حكومية": "Government Regulatory Authority",
+  "شركة اتصالات وإنترنت": "Telecom & Internet Operator",
+  "شركة اتصالات معتمدة": "Licensed Telecom Operator",
+  "شركة دفع وتحصيل إلكتروني": "Fintech & Electronic Payment",
+  "شركة تجارة تجزئة وسوبرماركت": "Retail & Supermarket Chain",
+  "مدرسة خاصة لغات": "Private Language School",
+  "مدرسة تجريبية رسمية لغات": "Official Experimental Language School",
+  "مدرسة دولية": "International School",
+  "مدرسة دولية أمريكية": "American International School",
+  "مدرسة دولية بريطانية": "British International School",
+  "جهة مسجلة يدوياً": "Custom Entry",
+  "جهة مضافة يدوياً": "Custom Added Entity",
+};
+
+const GOV_TRANSLATIONS: Record<string, string> = {
+  "القاهرة": "Cairo",
+  "الجيزة": "Giza",
+  "الإسكندرية": "Alexandria",
+  "القليوبية": "Qalyubia",
+  "الشرقية": "Sharqia",
+  "الدقهلية": "Dakahlia",
+  "البحيرة": "Beheira",
+  "الغربية": "Gharbia",
+  "المنوفية": "Menofia",
+  "دمياط": "Damietta",
+  "كفر الشيخ": "Kafr El Sheikh",
+  "بورسعيد": "Port Said",
+  "الإسماعيلية": "Ismailia",
+  "السويس": "Suez",
+  "شمال سيناء": "North Sinai",
+  "جنوب سيناء": "South Sinai",
+  "البحر الأحمر": "Red Sea",
+  "الفيوم": "Fayoum",
+  "بني سويف": "Beni Suef",
+  "المنيا": "Minya",
+  "أسيوط": "Asyut",
+  "سوهاج": "Sohag",
+  "قنا": "Qena",
+  "الأقصر": "Luxor",
+  "أسوان": "Aswan",
+  "مطروح": "Matrouh",
+  "الوادي الجديد": "New Valley",
+};
+
+function formatEntityName(name: string, isRtl: boolean): string {
+  if (isRtl) return name;
+  const match = name.match(/^(.*?)\s*\((.*?)\)$/);
+  if (match && match[2]) {
+    return match[2];
+  }
+  return name;
+}
+
+function formatEntityType(type: string, isRtl: boolean): string {
+  if (isRtl) return type;
+  return TYPE_TRANSLATIONS[type] || type;
+}
+
+function formatGovernorate(gov: string, isRtl: boolean): string {
+  if (isRtl) return gov;
+  return GOV_TRANSLATIONS[gov] || gov;
+}
 
 export function IntakeWizard({
   initialInstitutionId,
@@ -148,7 +229,10 @@ export function IntakeWizard({
   const [priority, setPriority] = useState<"LOW" | "MEDIUM" | "HIGH" | "CRITICAL">("MEDIUM");
 
   // User Role / Relationship
-  const [userRole, setUserRole] = useState<string>(SECTOR_CONFIG[selectedSector].userRoles_ar[0]);
+  const [userRole, setUserRole] = useState<string>(() => {
+    const cfg = SECTOR_CONFIG[selectedSector];
+    return initialLocale === "en" ? cfg.userRoles_en[0] : cfg.userRoles_ar[0];
+  });
 
   // Dynamic Taxonomy Categories
   const taxonomy = getSectorTaxonomy(selectedSector);
@@ -178,6 +262,23 @@ export function IntakeWizard({
   const [submissionResult, setSubmissionResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const secConfig = SECTOR_CONFIG[selectedSector];
+
+  // Language toggle with automatic active role synchronization
+  const handleToggleLang = () => {
+    const nextLang = lang === "ar" ? "en" : "ar";
+    setLang(nextLang);
+    const currentRolesAr = secConfig.userRoles_ar;
+    const currentRolesEn = secConfig.userRoles_en;
+    const arIndex = currentRolesAr.indexOf(userRole);
+    const enIndex = currentRolesEn.indexOf(userRole);
+    if (nextLang === "en" && arIndex !== -1) {
+      setUserRole(currentRolesEn[arIndex] || currentRolesEn[0]);
+    } else if (nextLang === "ar" && enIndex !== -1) {
+      setUserRole(currentRolesAr[enIndex] || currentRolesAr[0]);
+    }
+  };
+
   // When sector changes, update institution, categories, and roles
   const handleSectorChange = (newSector: SectorType) => {
     setSelectedSector(newSector);
@@ -192,7 +293,8 @@ export function IntakeWizard({
       setCategory(newTax[0].key);
       setSubcategory(newTax[0].subcategories[0]?.label_ar || "عام");
     }
-    setUserRole(SECTOR_CONFIG[newSector].userRoles_ar[0]);
+    const newCfg = SECTOR_CONFIG[newSector];
+    setUserRole(lang === "en" ? newCfg.userRoles_en[0] : newCfg.userRoles_ar[0]);
     setIdentifierValue("");
     setIdentifierError(null);
     setCustomEntityName("");
@@ -310,7 +412,6 @@ export function IntakeWizard({
   };
 
   const isRtl = lang === "ar";
-  const secConfig = SECTOR_CONFIG[selectedSector];
 
   // Success Screen
   if (submissionResult) {
@@ -339,14 +440,14 @@ export function IntakeWizard({
             <strong>{isRtl ? "الجهة المختصة:" : "Target Entity:"}</strong>
             <span className="font-bold text-slate-800">
               {submissionResult.custom_entity_name
-                ? `${submissionResult.custom_entity_name} (${customGovernorate}) — [جهة مضافة يدوياً]`
-                : selectedEntity.name}
+                ? `${submissionResult.custom_entity_name} (${formatGovernorate(customGovernorate, isRtl)}) — [${isRtl ? "جهة مضافة يدوياً" : "Custom Added Entity"}]`
+                : formatEntityName(selectedEntity.name, isRtl)}
             </span>
           </div>
           <div className="flex items-center justify-between border-b pb-2">
             <strong>{isRtl ? "القطاع الوطني:" : "Sector:"}</strong>
             <span className="rounded-md bg-sky-50 px-2 py-0.5 text-xs font-bold text-sky-800">
-              {secConfig.icon} {secConfig.title_ar}
+              {secConfig.icon} {isRtl ? secConfig.title_ar : secConfig.title_en}
             </span>
           </div>
           <div className="flex items-center justify-between border-b pb-2">
@@ -435,20 +536,20 @@ export function IntakeWizard({
         <div className="flex items-center gap-2">
           <Link href="/" className="hover:opacity-90 transition flex items-center gap-1.5">
             <MurafiqLogo size="sm" showText={false} />
-            <span className="text-sky-950 font-black">مُرافِق</span>
+            <span className="text-sky-950 font-black">{isRtl ? "مُرافِق" : "Murafiq"}</span>
           </Link>
           <span className="text-slate-300">/</span>
           <Link href="/directory" className="hover:text-sky-800 transition">
-            🌐 الدليل الوطني للجهات
+            🌐 {isRtl ? "الدليل الوطني للجهات" : "National Entity Directory"}
           </Link>
           <span className="text-slate-300">/</span>
-          <span className="text-sky-800">{secConfig.title_ar}</span>
+          <span className="text-sky-800">{isRtl ? secConfig.title_ar : secConfig.title_en}</span>
         </div>
         <Link
           href="/portal/dashboard"
           className="text-slate-500 hover:text-sky-800 transition hidden sm:inline"
         >
-          بوابة الجهات والمؤسسات
+          {isRtl ? "بوابة الجهات والمؤسسات" : "Institutional Portal"}
         </Link>
       </div>
 
@@ -460,7 +561,7 @@ export function IntakeWizard({
           </span>
           <h1 className="text-2xl font-bold text-slate-900">
             {isRtl ? "تسجيل شكوى أو طلب حل" : "Submit Case / Resolution Request"} —{" "}
-            <span className="text-sky-800">{selectedEntity.name}</span>
+            <span className="text-sky-800">{formatEntityName(selectedEntity.name, isRtl)}</span>
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             {isRtl
@@ -471,7 +572,7 @@ export function IntakeWizard({
 
         <button
           type="button"
-          onClick={() => setLang(lang === "ar" ? "en" : "ar")}
+          onClick={handleToggleLang}
           className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition"
         >
           {lang === "ar" ? "English" : "عربي"}
@@ -556,7 +657,7 @@ export function IntakeWizard({
                     }`}
                   >
                     <span className="text-xl">{cfg.icon}</span>
-                    <span className="text-center line-clamp-1">{cfg.title_ar}</span>
+                    <span className="text-center line-clamp-1">{isRtl ? cfg.title_ar : cfg.title_en}</span>
                   </button>
                 );
               })}
@@ -567,14 +668,14 @@ export function IntakeWizard({
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="block text-sm font-semibold text-slate-700">
-                2. {secConfig.entityLabel_ar}:
+                2. {isRtl ? secConfig.entityLabel_ar : secConfig.entityLabel_en}:
               </label>
               <button
                 type="button"
                 onClick={() => setSelectedInstitutionId("OTHER")}
                 className="text-xs font-bold text-sky-700 hover:text-sky-900 transition flex items-center gap-1"
               >
-                <span>➕ جهة أخرى غير مدرجة؟ (إضافة يدوية)</span>
+                <span>{isRtl ? "➕ جهة أخرى غير مدرجة؟ (إضافة يدوية)" : "➕ Other unlisted entity? (Add manually)"}</span>
               </button>
             </div>
             <select
@@ -583,56 +684,66 @@ export function IntakeWizard({
               className="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-sky-800 focus:outline-none bg-white font-medium"
             >
               {sectorEntities.filter((e) => e.governorate === "القاهرة").length > 0 && (
-                <optgroup label="📍 محافظة القاهرة (Google Maps)">
+                <optgroup label={isRtl ? "📍 محافظة القاهرة (Google Maps)" : "📍 Cairo Governorate (Google Maps)"}>
                   {sectorEntities
                     .filter((e) => e.governorate === "القاهرة")
                     .map((ent) => (
                       <option key={ent.id} value={ent.id}>
-                        {ent.name} — ({ent.type})
+                        {isRtl
+                          ? `${ent.name} — (${ent.type})`
+                          : `${formatEntityName(ent.name, false)} — (${formatEntityType(ent.type, false)})`}
                       </option>
                     ))}
                 </optgroup>
               )}
 
               {sectorEntities.filter((e) => e.governorate === "الجيزة").length > 0 && (
-                <optgroup label="📍 محافظة الجيزة (Google Maps)">
+                <optgroup label={isRtl ? "📍 محافظة الجيزة (Google Maps)" : "📍 Giza Governorate (Google Maps)"}>
                   {sectorEntities
                     .filter((e) => e.governorate === "الجيزة")
                     .map((ent) => (
                       <option key={ent.id} value={ent.id}>
-                        {ent.name} — ({ent.type})
+                        {isRtl
+                          ? `${ent.name} — (${ent.type})`
+                          : `${formatEntityName(ent.name, false)} — (${formatEntityType(ent.type, false)})`}
                       </option>
                     ))}
                 </optgroup>
               )}
 
               {sectorEntities.filter((e) => e.governorate === "الإسكندرية").length > 0 && (
-                <optgroup label="📍 محافظة الإسكندرية (Google Maps)">
+                <optgroup label={isRtl ? "📍 محافظة الإسكندرية (Google Maps)" : "📍 Alexandria Governorate (Google Maps)"}>
                   {sectorEntities
                     .filter((e) => e.governorate === "الإسكندرية")
                     .map((ent) => (
                       <option key={ent.id} value={ent.id}>
-                        {ent.name} — ({ent.type})
+                        {isRtl
+                          ? `${ent.name} — (${ent.type})`
+                          : `${formatEntityName(ent.name, false)} — (${formatEntityType(ent.type, false)})`}
                       </option>
                     ))}
                 </optgroup>
               )}
 
               {sectorEntities.some((e) => !["القاهرة", "الجيزة", "الإسكندرية"].includes(e.governorate)) && (
-                <optgroup label="محافظات أخرى">
+                <optgroup label={isRtl ? "محافظات أخرى" : "Other Governorates"}>
                   {sectorEntities
                     .filter((e) => !["القاهرة", "الجيزة", "الإسكندرية"].includes(e.governorate))
                     .map((ent) => (
                       <option key={ent.id} value={ent.id}>
-                        {ent.name} — ({ent.type} - {ent.governorate})
+                        {isRtl
+                          ? `${ent.name} — (${ent.type} - ${ent.governorate})`
+                          : `${formatEntityName(ent.name, false)} — (${formatEntityType(ent.type, false)} - ${formatGovernorate(ent.governorate, false)})`}
                       </option>
                     ))}
                 </optgroup>
               )}
 
-              <optgroup label="➕ خيار إضافي / جهة غير مسجلة">
+              <optgroup label={isRtl ? "➕ خيار إضافي / جهة غير مسجلة" : "➕ Additional Option / Unlisted Entity"}>
                 <option value="OTHER">
-                  ➕ جهة أو مؤسسة أخرى غير مدرجة (كتابة الاسم يدوياً)...
+                  {isRtl
+                    ? "➕ جهة أو مؤسسة أخرى غير مدرجة (كتابة الاسم يدوياً)..."
+                    : "➕ Other unlisted entity or institution (enter manually)..."}
                 </option>
               </optgroup>
             </select>
@@ -679,31 +790,31 @@ export function IntakeWizard({
                       onChange={(e) => setCustomGovernorate(e.target.value)}
                       className="w-full rounded-xl border border-sky-300 p-2.5 text-xs bg-white focus:outline-none focus:border-sky-800 font-medium"
                     >
-                      <optgroup label="📍 إقليم القاهرة الكبرى">
+                      <optgroup label={isRtl ? "📍 إقليم القاهرة الكبرى" : "📍 Greater Cairo"}>
                         {EGYPTIAN_GOVERNORATES.filter((g) => g.region === "GREATER_CAIRO").map((g) => (
                           <option key={g.key} value={g.name_ar}>
-                            {g.name_ar} ({g.name_en})
+                            {isRtl ? `${g.name_ar} (${g.name_en})` : `${g.name_en} (${g.name_ar})`}
                           </option>
                         ))}
                       </optgroup>
-                      <optgroup label="📍 الإسكندرية والدلتا والوجه البحري">
+                      <optgroup label={isRtl ? "📍 الإسكندرية والدلتا والوجه البحري" : "📍 Alexandria & Delta"}>
                         {EGYPTIAN_GOVERNORATES.filter((g) => g.region === "ALEXANDRIA_DELTA").map((g) => (
                           <option key={g.key} value={g.name_ar}>
-                            {g.name_ar} ({g.name_en})
+                            {isRtl ? `${g.name_ar} (${g.name_en})` : `${g.name_en} (${g.name_ar})`}
                           </option>
                         ))}
                       </optgroup>
-                      <optgroup label="📍 مدن القناة وسيناء والبحر الأحمر">
+                      <optgroup label={isRtl ? "📍 مدن القناة وسيناء والبحر الأحمر" : "📍 Canal, Sinai & Red Sea"}>
                         {EGYPTIAN_GOVERNORATES.filter((g) => g.region === "CANAL_SINAI").map((g) => (
                           <option key={g.key} value={g.name_ar}>
-                            {g.name_ar} ({g.name_en})
+                            {isRtl ? `${g.name_ar} (${g.name_en})` : `${g.name_en} (${g.name_ar})`}
                           </option>
                         ))}
                       </optgroup>
-                      <optgroup label="📍 محافظات الصعيد والمحافظات الحدودية">
+                      <optgroup label={isRtl ? "📍 محافظات الصعيد والمحافظات الحدودية" : "📍 Upper Egypt & Border"}>
                         {EGYPTIAN_GOVERNORATES.filter((g) => g.region === "UPPER_EGYPT" || g.region === "BORDER").map((g) => (
                           <option key={g.key} value={g.name_ar}>
-                            {g.name_ar} ({g.name_en})
+                            {isRtl ? `${g.name_ar} (${g.name_en})` : `${g.name_en} (${g.name_ar})`}
                           </option>
                         ))}
                       </optgroup>
@@ -733,20 +844,25 @@ export function IntakeWizard({
               {isRtl ? "3. صفة مقدم الطلب في هذا القطاع:" : "3. Applicant Capacity:"}
             </label>
             <div className="flex flex-wrap gap-2">
-              {secConfig.userRoles_ar.map((r) => (
-                <button
-                  key={r}
-                  type="button"
-                  onClick={() => setUserRole(r)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
-                    userRole === r
-                      ? "bg-slate-800 text-white"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                  }`}
-                >
-                  {r}
-                </button>
-              ))}
+              {secConfig.userRoles_ar.map((rAr, idx) => {
+                const rEn = secConfig.userRoles_en[idx] || rAr;
+                const roleLabel = isRtl ? rAr : rEn;
+                const isSelected = userRole === rAr || userRole === rEn;
+                return (
+                  <button
+                    key={rAr}
+                    type="button"
+                    onClick={() => setUserRole(isRtl ? rAr : rEn)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                      isSelected
+                        ? "bg-slate-800 text-white"
+                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    }`}
+                  >
+                    {roleLabel}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -769,7 +885,7 @@ export function IntakeWizard({
             >
               {taxonomy.map((c) => (
                 <option key={c.key} value={c.key}>
-                  {c.label_ar} ({c.label_en})
+                  {isRtl ? `${c.label_ar} (${c.label_en})` : c.label_en}
                 </option>
               ))}
             </select>
@@ -789,7 +905,7 @@ export function IntakeWizard({
                 >
                   {activeCategoryObj.subcategories.map((sub) => (
                     <option key={sub.key} value={sub.label_ar}>
-                      {sub.label_ar} — {sub.label_en}
+                      {isRtl ? `${sub.label_ar} — ${sub.label_en}` : sub.label_en}
                     </option>
                   ))}
                 </select>
@@ -844,23 +960,51 @@ export function IntakeWizard({
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               {[
-                { id: "LOW", label_ar: "عادية (Low)", label_en: "Low", desc_ar: "استفسار أو معاملة روتينية", color: "border-slate-200" },
-                { id: "MEDIUM", label_ar: "متوسطة (Medium)", label_en: "Medium", desc_ar: "مسألة تتطلب معالجة اعتيادية", color: "border-sky-300" },
-                { id: "HIGH", label_ar: "عاجلة (High)", label_en: "High", desc_ar: "تعطيل خدمة أو أثر مباشر", color: "border-amber-300" },
-                { id: "CRITICAL", label_ar: "طارئة (Critical)", label_en: "Critical", desc_ar: "ضرر بالغ أو نزاع فوري", color: "border-red-300" },
+                {
+                  id: "LOW",
+                  label_ar: "عادية (Low)",
+                  label_en: "Low",
+                  desc_ar: "استفسار أو معاملة روتينية",
+                  desc_en: "Routine inquiry or general request",
+                  color: "border-slate-200",
+                },
+                {
+                  id: "MEDIUM",
+                  label_ar: "متوسطة (Medium)",
+                  label_en: "Medium",
+                  desc_ar: "مسألة تتطلب معالجة اعتيادية",
+                  desc_en: "Standard administrative processing",
+                  color: "border-sky-300",
+                },
+                {
+                  id: "HIGH",
+                  label_ar: "عاجلة (High)",
+                  label_en: "High",
+                  desc_ar: "تعطيل خدمة أو أثر مباشر",
+                  desc_en: "Direct service disruption",
+                  color: "border-amber-300",
+                },
+                {
+                  id: "CRITICAL",
+                  label_ar: "طارئة (Critical)",
+                  label_en: "Critical",
+                  desc_ar: "ضرر بالغ أو نزاع فوري",
+                  desc_en: "Severe harm or urgent escalation",
+                  color: "border-red-300",
+                },
               ].map((p) => (
                 <button
                   key={p.id}
                   type="button"
                   onClick={() => setPriority(p.id as any)}
-                  className={`rounded-xl border-2 p-3 text-right transition flex flex-col justify-between ${
+                  className={`rounded-xl border-2 p-3 ${isRtl ? "text-right" : "text-left"} transition flex flex-col justify-between ${
                     priority === p.id
                       ? "border-sky-800 bg-sky-50/70 shadow-xs"
                       : `${p.color} bg-white hover:bg-slate-50`
                   }`}
                 >
                   <span className="font-bold text-xs text-slate-900">{isRtl ? p.label_ar : p.label_en}</span>
-                  <span className="text-[10px] text-slate-500 mt-1">{p.desc_ar}</span>
+                  <span className="text-[10px] text-slate-500 mt-1">{isRtl ? p.desc_ar : p.desc_en}</span>
                 </button>
               ))}
             </div>
@@ -883,7 +1027,7 @@ export function IntakeWizard({
         <div className="space-y-6">
           {/* PII Defense Warning Banner */}
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 text-xs text-amber-900 leading-relaxed">
-            <strong>{isRtl ? "إرشادات حماية الخصوصية والأمان (قانون 151 لسنة 2020):" : "Privacy & Safety Guidance:"}</strong>
+            <strong>{isRtl ? "إرشادات حماية الخصوصية والأمان (قانون 151 لسنة 2020):" : "Privacy & Safety Guidance (Law 151 of 2020):"}</strong>
             <p className="mt-1">
               {isRtl
                 ? "يُحظر كتابة أرقام بطاقات الرقم القومي أو أرقام الحسابات البنكية السرية في نص الشكوى. يقوم نظام مُرافِق تلقائياً بتنقيح أي أرقام هواتف أو بيانات وطنية كطبقة حماية أولى لضمان سرية البيانات."
@@ -894,7 +1038,7 @@ export function IntakeWizard({
           {/* Description */}
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-2">
-              {isRtl ? "سرد وقائع المشكلة أو الشكوى بالتفصيل (50 حرفاً كحد أدنى):" : "Description of Issue (min 50 characters):"}
+              {isRtl ? "سرد وقائع المشكلة أو الشكوى بالتفصيل (50 حرفاً كحد أدنى):" : "Factual Narrative of the Issue (min 50 characters):"}
             </label>
             <textarea
               rows={6}
@@ -903,12 +1047,12 @@ export function IntakeWizard({
               placeholder={
                 isRtl
                   ? `يرجى كتابة تسلسل الوقائع بوضوح وموضوعية، مع ذكر التواريخ وأي تفاصيل مهمة تخص تعاملك مع ${selectedEntity.name}...`
-                  : "Provide a clear chronological factual description..."
+                  : `Please describe the chronological events clearly and objectively, noting dates and key details regarding your case with ${formatEntityName(selectedEntity.name, false)}...`
               }
               className="w-full rounded-xl border border-slate-300 p-3.5 text-sm focus:border-sky-800 focus:outline-none"
             />
             <div className="mt-1 flex justify-between text-xs text-slate-400">
-              <span>{description.length} / 50 حرفاً على الأقل</span>
+              <span>{isRtl ? `${description.length} / 50 حرفاً على الأقل` : `${description.length} / min 50 characters`}</span>
               {description.length < 50 && (
                 <span className="text-amber-700 font-medium">
                   {isRtl ? `متبقي ${50 - description.length} حرفاً` : `${50 - description.length} chars remaining`}
@@ -929,7 +1073,8 @@ export function IntakeWizard({
                 category={category}
                 subcategory={subcategory}
                 description={description}
-                entityName={selectedEntity.name}
+                entityName={formatEntityName(selectedEntity.name, isRtl)}
+                locale={lang}
                 onApplyOutcome={(outcomeText) => setDesiredOutcome(outcomeText)}
               />
             </div>
@@ -940,7 +1085,7 @@ export function IntakeWizard({
               placeholder={
                 isRtl
                   ? "ما هو الإجراء أو التعويض أو التعديل الذي تطلبه من إدارة الجهة لإنهاء الشكوى ودياً؟"
-                  : "What action or remedy would successfully resolve this issue?"
+                  : "What specific action, remedy, or adjustment are you requesting from the entity to resolve this matter amicably?"
               }
               className="w-full rounded-xl border border-slate-300 p-3.5 text-sm focus:border-sky-800 focus:outline-none"
             />
@@ -972,14 +1117,14 @@ export function IntakeWizard({
           {/* 3.1 Sector-Tailored Sensitive Reference Identifier */}
           <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
             <label className="block text-sm font-bold text-slate-800 mb-1">
-              {secConfig.identifierLabel_ar}
+              {isRtl ? secConfig.identifierLabel_ar : secConfig.identifierLabel_en}
             </label>
-            <p className="text-xs text-slate-500 mb-2.5">{secConfig.guidance_ar}</p>
+            <p className="text-xs text-slate-500 mb-2.5">{isRtl ? secConfig.guidance_ar : secConfig.guidance_en}</p>
             <input
               type="text"
               value={identifierValue}
               onChange={(e) => handleIdentifierChange(e.target.value)}
-              placeholder={secConfig.identifierPlaceholder_ar}
+              placeholder={isRtl ? secConfig.identifierPlaceholder_ar : secConfig.identifierPlaceholder_en}
               className={`w-full rounded-xl border p-3 text-sm focus:outline-none bg-white font-mono ${
                 identifierError
                   ? "border-red-500 focus:border-red-600 bg-red-50/30"
@@ -994,7 +1139,7 @@ export function IntakeWizard({
             <span className="text-[10px] text-slate-400 block mt-1">
               {isRtl
                 ? "🔒 يُحفظ هذا الرقم في طبقة مشفرة منفصلة ومعزولة (AES-256) ولا يُعرض إلا في شكل رمز محجوب (Masked Token)."
-                : "🔒 This identifier is physically isolated and encrypted (AES-256-GCM)."}
+                : "🔒 This identifier is physically isolated and encrypted (AES-256-GCM) and only displayed as a masked token."}
             </span>
           </div>
 
@@ -1023,7 +1168,7 @@ export function IntakeWizard({
                   <div className="text-xs text-slate-500 mt-1 leading-relaxed">
                     {isRtl
                       ? `لا تظهر القضية إلا للمسؤول المصرح له في ${selectedEntity.name} ومقدم الطلب. تُمنح الجهة مهلة 7 أيام لحل المشكلة ودياً قبل أي إجراء آخر.`
-                      : "Visible solely to the authorized leadership and applicant. A 7-day private window is granted to resolve amicably."}
+                      : `Visible solely to authorized leadership at ${formatEntityName(selectedEntity.name, false)} and the applicant. A 7-day private window is granted to resolve amicably before any further action.`}
                   </div>
                 </div>
               </label>
