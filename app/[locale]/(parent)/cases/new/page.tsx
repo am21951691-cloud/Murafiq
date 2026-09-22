@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { IntakeWizard } from "@/components/cases/IntakeWizard";
 
 interface PageProps {
@@ -12,7 +12,15 @@ export default async function NewCasePage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-civic-canvas py-10 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
-        <IntakeWizard locale={validLocale} />
+        <Suspense
+          fallback={
+            <div className="p-8 text-center text-slate-500 font-arabic">
+              جاري تحميل معالج تسجيل الحالات...
+            </div>
+          }
+        >
+          <IntakeWizard locale={validLocale} />
+        </Suspense>
       </div>
     </main>
   );

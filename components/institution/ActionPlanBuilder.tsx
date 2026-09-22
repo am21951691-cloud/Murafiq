@@ -2,11 +2,16 @@
 
 import React, { useState } from "react";
 import { calculateRQS, type ActionPlanPayload } from "@/lib/ai/scoring";
+import { SolutionAdvisorWidget } from "@/components/ai/SolutionAdvisorModal";
+import { SectorType } from "@/types/database";
 
 interface ActionPlanBuilderProps {
   caseId: string;
   caseReference: string;
   caseCategory?: string;
+  sector?: SectorType;
+  caseDescription?: string;
+  entityName?: string;
   userRole?: "ADMIN" | "OPS_LEAD" | "STAFF" | "OBSERVER";
   onSuccess?: (plan: any) => void;
   onCancel?: () => void;
@@ -34,6 +39,10 @@ const COMMON_ROLES = [
 export function ActionPlanBuilder({
   caseId,
   caseReference,
+  caseCategory,
+  sector = "EDUCATION_SCHOOLS",
+  caseDescription,
+  entityName,
   userRole = "OPS_LEAD",
   onSuccess,
   onCancel,
@@ -157,9 +166,31 @@ export function ActionPlanBuilder({
 
       {/* Official Statement */}
       <div className="space-y-2">
-        <label className="block text-sm font-semibold text-slate-700">
-          البيان المؤسسي الرسمي (Statement)
-        </label>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <label className="block text-sm font-semibold text-slate-700">
+            البيان المؤسسي الرسمي (Statement)
+          </label>
+          <SolutionAdvisorWidget
+            mode="INSTITUTION_ACTION_PLAN"
+            sector={sector}
+            category={caseCategory || "GENERAL"}
+            caseReference={caseReference}
+            description={caseDescription || statement}
+            entityName={entityName}
+            onApplyActionPlan={(plan) => {
+              setStatement(plan.officialStatement);
+              setMilestones(
+                plan.milestones.map((m, idx) => ({
+                  id: `ai-m-${idx}-${Date.now()}`,
+                  title: m.title,
+                  owner_role: m.owner_role,
+                  due_date: m.due_date,
+                  deliverable: m.deliverable,
+                }))
+              );
+            }}
+          />
+        </div>
         <p className="text-xs text-slate-400">
           رد الإدارة المباشر على الشكوى موضحاً الإجراءات المتخذة أو المخططة بمهنية ووضوح (20–3000 حرف).
         </p>

@@ -13,6 +13,7 @@ import {
 } from "@/lib/validators/sensitive-identifiers";
 import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
 import { EGYPTIAN_GOVERNORATES } from "@/lib/config/governorates";
+import { SolutionAdvisorWidget } from "@/components/ai/SolutionAdvisorModal";
 
 interface IntakeWizardProps {
   initialInstitutionId?: string;
@@ -876,11 +877,22 @@ export function IntakeWizard({
             </div>
           </div>
 
-          {/* Desired Outcome */}
+          {/* Desired Outcome with AI Solution Advisor */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              {isRtl ? "المطلب المرجو أو النتيجة المرجوة لحل النزاع:" : "Desired Resolution Outcome:"}
-            </label>
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <label className="block text-sm font-semibold text-slate-700">
+                {isRtl ? "المطلب المرجو أو النتيجة المرجوة لحل النزاع:" : "Desired Resolution Outcome:"}
+              </label>
+              <SolutionAdvisorWidget
+                mode="CITIZEN_OUTCOME"
+                sector={selectedSector}
+                category={category}
+                subcategory={subcategory}
+                description={description}
+                entityName={selectedEntity.name}
+                onApplyOutcome={(outcomeText) => setDesiredOutcome(outcomeText)}
+              />
+            </div>
             <textarea
               rows={3}
               value={desiredOutcome}
