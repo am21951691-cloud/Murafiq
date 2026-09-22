@@ -44,7 +44,7 @@ export interface SolutionAdvisorResponse {
   mode: AdvisorMode;
   sector: SectorType;
   advice: CitizenOutcomeAdvice | InstitutionActionPlanAdvice;
-  sourceEngine: "OPENAI_LLM" | "DETERMINISTIC_STATUTORY_ENGINE";
+  sourceEngine: "OPENAI_LLM" | "NVIDIA_NIM_LLM" | "DETERMINISTIC_STATUTORY_ENGINE";
 }
 
 /**
@@ -411,7 +411,108 @@ export async function getSolutionAdvice(
 ): Promise<SolutionAdvisorResponse> {
   const { mode, sector } = input;
 
-  // If OpenAI API key is configured, invoke LLM with structured output contract
+  // 1. Check for NVIDIA NIM API Configuration (Prioritized for Solution Advisor)
+  const nvidiaKey =
+    process.env.NVIDIA_ADVISOR_API_KEY ||
+    process.env.NVIDIA_API_KEY;
+
+  if (nvidiaKey && !nvidiaKey.includes("your-advisor-key")) {
+    try {
+      const baseUrl = process.env.NVIDIA_BASE_URL || "https://integrate.api.nvidia.com/v1";
+      const model = process.env.NVIDIA_ADVISOR_MODEL || "meta/llama-3.2-11b-vision-instruct";
+
+      const isCitizen = mode === "CITIZEN_OUTCOME";
+      const systemPrompt = isCitizen
+        ? `You are Murafiq Legal & Outcome Advisor for Egyptian citizens.
+Analyze the user's issue in sector: ${sector}.
+Generate a strictly JSON object with:
+- outcomeSuggestion: Assertive, dignified, realistic, legally sound desired outcome in Arabic.
+- statutoryGrounds: { lawName, articleNumber, issuingAuthority, summary }
+- recommendedSteps: 3 actionable steps in Arabic.
+- suggestedRemedyType: short Arabic title (e.g. استرداد مالي / تحقيق محايد).
+Output pure JSON only, without any markdown formatting or commentary.`
+        : `You are Murafiq Institutional Resolution Advisor for Egyptian organizations.
+Generate an Action Plan that complies with Murafiq RQS (Response Quality Score >= 90).
+Sector: ${sector}.
+Generate a strictly JSON object with:
+- officialStatement: formal institutional statement in Arabic acknowledging the case and promising corrective steps.
+- milestones: array of 3 distinct milestones with { title, owner_role, due_date (YYYY-MM-DD), deliverable } in Arabic.
+- statutoryBasis: Egyptian regulation reference in Arabic.
+Output pure JSON only, without any markdown formatting or commentary.`;
+
+      const userContent = JSON.stringify({
+        sector: input.sector,
+        category: input.category,
+        subcategory: input.subcategory,
+        entityName: input.entityName,
+        caseReference: input.caseReference,
+        description: input.description,
+      });
+
+      const res = await fetch(`${baseUrl}/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${nvidiaKey}`,
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userContent },
+          ],
+          temperature: 0.2,
+          max_tokens: 1500,
+        }),
+        signal: AbortSignal.timeout(15000),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const contentStr = data.choices?.[0]?.message?.content;
+        if (contentStr) {
+          const jsonMatch = contentStr.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            const parsed = JSON.parse(jsonMatch[0]);
+            if (isCitizen && parsed.outcomeSuggestion) {
+              return {
+                success: true,
+                mode,
+                sector,
+                advice: parsed as CitizenOutcomeAdvice,
+                sourceEngine: "NVIDIA_NIM_LLM",
+              };
+            } else if (!isCitizen && parsed.officialStatement && Array.isArray(parsed.milestones)) {
+              const rqsScore = calculateRQS({
+                officialStatement: parsed.officialStatement,
+                milestones: parsed.milestones.map((m: any) => ({
+                  title: m.title,
+                  ownerRole: m.owner_role || m.ownerRole,
+                  dueDate: m.due_date || m.dueDate,
+                  deliverable: m.deliverable,
+                })),
+              }).rqsScore;
+
+              return {
+                success: true,
+                mode,
+                sector,
+                advice: {
+                  ...parsed,
+                  estimatedRqs: rqsScore,
+                } as InstitutionActionPlanAdvice,
+                sourceEngine: "NVIDIA_NIM_LLM",
+              };
+            }
+          }
+        }
+      }
+    } catch (err) {
+      console.warn("Solution Advisor NVIDIA call failed or timed out, using deterministic engine:", err);
+    }
+  }
+
+  // 2. If OpenAI API key is configured, invoke LLM with structured output contract
   if (process.env.OPENAI_API_KEY && !process.env.OPENAI_API_KEY.includes("your-openai")) {
     try {
       const apiKey = process.env.OPENAI_API_KEY;

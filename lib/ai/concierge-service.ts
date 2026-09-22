@@ -286,7 +286,72 @@ export async function askConcierge(
 ): Promise<ConciergeResponse> {
   const lastUserMsg = [...messages].reverse().find((m) => m.role === "user")?.content || "";
 
-  // If OpenAI API Key is present, attempt LLM generation with strict system grounding
+  // 1. Check for NVIDIA NIM API Configuration (Prioritized for Concierge Chatbot)
+  const nvidiaKey =
+    process.env.NVIDIA_CONCIERGE_API_KEY ||
+    process.env.NVIDIA_API_KEY;
+
+  if (nvidiaKey && !nvidiaKey.includes("your-concierge-key")) {
+    try {
+      const baseUrl = process.env.NVIDIA_BASE_URL || "https://integrate.api.nvidia.com/v1";
+      const model = process.env.NVIDIA_CONCIERGE_MODEL || "nvidia/nemotron-3.5-lightning-30b-a3b";
+
+      const systemPrompt = `You are Murafiq Concierge (مُساعد مُرافِق الذكي), an expert Egyptian civic resolution advisor.
+Murafiq is Egypt's neutral resolution platform covering 5 sectors:
+1. EDUCATION_SCHOOLS (Decree 187/2023 bans corporal punishment/abuse; Decree 420/2014 regulates tuition & uniforms).
+2. HIGHER_EDUCATION (Law 49/1972 on Universities Organization).
+3. GOVERNMENT_PUBLIC (Services, documentation, no National IDs).
+4. COMMERCIAL_COMPANIES (CPA Law 181/2018 grants 14-day refund/warranty rights).
+5. HEALTHCARE_MEDICAL (GAHAR accreditation, Patient Rights Charter).
+
+Core Mechanics:
+- 7-day private grace window (PRIVATE_GRACE): Case is shared only with the institution to create a professional action plan before any escalation or public score impact.
+- Privacy: Law 151/2020. 14-digit National IDs are STRICTLY PROHIBITED. Sensitive IDs are AES-256 encrypted.
+- Tone: Extremely polite, objective, helpful, reassuring, fluent Egyptian civic Arabic (or English if queried in English).
+Keep answers concise (2-4 paragraphs max). Offer practical next steps.`;
+
+      const formattedMessages = [
+        { role: "system", content: systemPrompt },
+        ...messages.slice(-6).map((m) => ({ role: m.role, content: m.content })),
+      ];
+
+      const res = await fetch(`${baseUrl}/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${nvidiaKey}`,
+        },
+        body: JSON.stringify({
+          model,
+          messages: formattedMessages,
+          temperature: 0.6,
+          top_p: 0.95,
+          max_tokens: 1024,
+          chat_template_kwargs: { enable_thinking: false },
+          reasoning_budget: 0,
+        }),
+        signal: AbortSignal.timeout(15000),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const reply = data.choices?.[0]?.message?.content;
+        if (reply) {
+          const deterministic = getDeterministicConciergeReply(lastUserMsg, locale);
+          return {
+            reply,
+            suggestions: deterministic.suggestions,
+            sectorHint: deterministic.sectorHint,
+            directLink: deterministic.directLink,
+          };
+        }
+      }
+    } catch (err) {
+      console.warn("Concierge NVIDIA call failed or timed out, using deterministic engine:", err);
+    }
+  }
+
+  // 2. If OpenAI API Key is present, attempt LLM generation with strict system grounding
   if (process.env.OPENAI_API_KEY && !process.env.OPENAI_API_KEY.includes("your-openai")) {
     try {
       const apiKey = process.env.OPENAI_API_KEY;
