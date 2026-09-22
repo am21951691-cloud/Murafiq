@@ -419,7 +419,7 @@ export async function getSolutionAdvice(
   if (nvidiaKey && !nvidiaKey.includes("your-advisor-key")) {
     try {
       const baseUrl = process.env.NVIDIA_BASE_URL || "https://integrate.api.nvidia.com/v1";
-      const model = process.env.NVIDIA_ADVISOR_MODEL || "meta/llama-3.2-11b-vision-instruct";
+      const model = process.env.NVIDIA_ADVISOR_MODEL || "meta/muse-glimmer-30b";
 
       const isCitizen = mode === "CITIZEN_OUTCOME";
       const systemPrompt = isCitizen
@@ -461,15 +461,17 @@ Output pure JSON only, without any markdown formatting or commentary.`;
             { role: "system", content: systemPrompt },
             { role: "user", content: userContent },
           ],
-          temperature: 0.2,
-          max_tokens: 1500,
+          temperature: 0.7,
+          top_p: 0.95,
+          max_tokens: 4096,
         }),
-        signal: AbortSignal.timeout(15000),
+        signal: AbortSignal.timeout(25000),
       });
 
       if (res.ok) {
         const data = await res.json();
-        const contentStr = data.choices?.[0]?.message?.content;
+        const msg = data.choices?.[0]?.message;
+        const contentStr = msg?.content || msg?.reasoning_content;
         if (contentStr) {
           const jsonMatch = contentStr.match(/\{[\s\S]*\}/);
           if (jsonMatch) {
