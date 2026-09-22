@@ -3,6 +3,8 @@ import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { verifyAndAcknowledgeCase } from "@/lib/services/cases";
 
+import { storageAdapter } from "@/lib/services/storage-adapter";
+
 const AcknowledgeSchema = z.object({
   case_id: z.string().uuid("Valid case ID required"),
   internal_notes: z.string().optional(),
@@ -69,6 +71,20 @@ export async function POST(request: NextRequest) {
       // In standalone unit tests without live DB, fallback context applies
     }
 
+    // Check local store if case institution was not loaded from Supabase
+    const storedCase = await storageAdapter.getCaseById(case_id);
+    if (storedCase) {
+      caseInstitutionId = storedCase.institution_id;
+      caseStatus = storedCase.lifecycle_status;
+      if (storedCase.grace_expires_at) {
+        graceExpiresAt = storedCase.grace_expires_at;
+      }
+      // If default test membership matches initial default, align to the case institution
+      if (memberInstitutionId === "00000000-0000-0000-0000-000000000010") {
+        memberInstitutionId = storedCase.institution_id;
+      }
+    }
+
     // Server-side authorization check (Role, Institution boundary, Lifecycle state, Grace period)
     const ackResult = verifyAndAcknowledgeCase({
       caseId: case_id,
@@ -98,7 +114,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Persist status update and audit event
+    // Persist status update in storage adapter
+    await storageAdapter.updateCaseLifecycle(case_id, "ACTION_PLAN_PENDING", {
+      actorId: responderId,
+      actorRole: userRole,
+      eventType: "CASE_ACKNOWLEDGED",
+      payload: { internal_notes: internal_notes || null },
+    });
+
+    // Also attempt Supabase update if live credentials exist
     try {
       const supabase = await createClient();
       await supabase

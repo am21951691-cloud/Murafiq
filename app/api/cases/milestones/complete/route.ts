@@ -6,6 +6,7 @@ import {
   checkAllMilestonesCompleted,
 } from "@/lib/services/milestones";
 import { createClient } from "@/lib/supabase/server";
+import { storageAdapter } from "@/lib/services/storage-adapter";
 
 export async function POST(request: NextRequest) {
   try {
@@ -45,7 +46,27 @@ export async function POST(request: NextRequest) {
     let allCompleted = request.headers.get("x-all-completed") === "true";
     let newLifecycleStatus = allCompleted ? "AWAITING_EVALUATION" : "IN_PROGRESS";
 
-    if (process.env.NODE_ENV !== "test" && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    // Complete milestone in storageAdapter
+    const completedMs = await storageAdapter.completeMilestone(validated.milestone_id, actorId);
+    const plan = await storageAdapter.getActionPlanByCaseId(validated.case_id);
+    if (plan && plan.milestones.length > 0 && plan.milestones.every((m) => m.is_completed)) {
+      allCompleted = true;
+      newLifecycleStatus = "AWAITING_EVALUATION";
+      await storageAdapter.updateCaseLifecycle(validated.case_id, "AWAITING_EVALUATION", {
+        actorId,
+        actorRole: "INSTITUTION_OPS",
+        eventType: "ALL_MILESTONES_COMPLETED",
+        payload: {
+          evaluation_timeout_at: new Date(Date.now() + 14 * 86400000).toISOString(),
+        },
+      });
+    }
+
+    if (
+      process.env.NODE_ENV !== "test" &&
+      process.env.SUPABASE_SERVICE_ROLE_KEY &&
+      !process.env.SUPABASE_SERVICE_ROLE_KEY.includes("dummy")
+    ) {
       try {
         const supabase = await createClient();
 

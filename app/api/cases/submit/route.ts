@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CaseIntakeSchema, processCaseIntake } from "@/lib/services/cases";
 import { createClient } from "@/lib/supabase/server";
+import { storageAdapter } from "@/lib/services/storage-adapter";
+import { SAMPLE_ENTITIES } from "@/lib/services/entities";
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,16 +26,25 @@ export async function POST(request: NextRequest) {
     const forwardedFor = request.headers.get("x-forwarded-for") || "127.0.0.1";
     const processed = processCaseIntake(validatedInput, userId, forwardedFor);
 
-    // Persist to database
-    try {
-      const supabase = await createClient();
-      await supabase.from("cases").insert(processed.caseRecord);
-      await supabase.from("case_sensitive_data").insert(processed.sensitiveData);
-      await supabase.from("consent_records").insert(processed.consentRecord);
-      await supabase.from("case_events").insert(processed.eventRecord);
-    } catch (dbError) {
-      console.warn("Database persistence note (mock/test fallback):", dbError);
-    }
+    // Derive sector and entity name for unified indexing
+    const matchedEntity = SAMPLE_ENTITIES.find((e) => e.id === validatedInput.institution_id);
+    const sector = matchedEntity?.sector || "EDUCATION_SCHOOLS";
+    const institutionName =
+      validatedInput.custom_entity_name ||
+      matchedEntity?.name ||
+      "جهة مسجلة";
+
+    // Persist via unified storage adapter (dual persistence: Supabase + atomic local store)
+    await storageAdapter.saveCase(
+      {
+        ...processed.caseRecord,
+        institution_name: institutionName,
+        sector,
+      },
+      processed.sensitiveData,
+      processed.consentRecord,
+      processed.eventRecord
+    );
 
     // Gate 1 Compliance: Never return raw_description_encrypted, raw phone, or student identifiers
     return NextResponse.json(

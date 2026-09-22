@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { EvaluationSchema } from "@/lib/services/evaluations";
 import { createClient } from "@/lib/supabase/server";
+import { storageAdapter, type StoredEvaluation } from "@/lib/services/storage-adapter";
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,7 +35,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (process.env.NODE_ENV !== "test" && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    if (
+      process.env.NODE_ENV !== "test" &&
+      process.env.SUPABASE_SERVICE_ROLE_KEY &&
+      !process.env.SUPABASE_SERVICE_ROLE_KEY.includes("dummy")
+    ) {
       try {
         const supabase = await createClient();
         const { data: caseRow } = await supabase
@@ -85,7 +90,23 @@ export async function POST(request: NextRequest) {
       created_at: now,
     };
 
-    if (process.env.NODE_ENV !== "test" && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    // Save evaluation and transition case to CLOSED in storage adapter
+    const storedEval: StoredEvaluation = {
+      id: evaluationId,
+      case_id: validated.case_id,
+      user_id: userId,
+      responsiveness_rating: validated.response_rating,
+      resolution_satisfaction_rating: validated.resolution_rating,
+      feedback_notes: validated.closing_comment || null,
+      created_at: now,
+    };
+    await storageAdapter.saveEvaluation(storedEval);
+
+    if (
+      process.env.NODE_ENV !== "test" &&
+      process.env.SUPABASE_SERVICE_ROLE_KEY &&
+      !process.env.SUPABASE_SERVICE_ROLE_KEY.includes("dummy")
+    ) {
       try {
         const supabase = await createClient();
 

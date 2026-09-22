@@ -381,6 +381,12 @@ export function IntakeWizard({
 
         <div className="flex flex-wrap gap-3">
           <Link
+            href={`/cases/${submissionResult.reference_number || submissionResult.id}`}
+            className="inline-block rounded-xl bg-emerald-700 px-6 py-2.5 font-bold text-white hover:bg-emerald-800 transition shadow-sm"
+          >
+            {isRtl ? "متابعة الحالة الآن ←" : "Track Case Now →"}
+          </Link>
+          <Link
             href="/"
             className="inline-block rounded-xl bg-sky-800 px-6 py-2.5 font-bold text-white hover:bg-sky-900 transition"
           >

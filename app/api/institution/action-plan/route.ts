@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { calculateRQS, type ActionPlanPayload } from "@/lib/ai/scoring";
 import { createClient } from "@/lib/supabase/server";
 import { ActionPlanSubmissionSchema } from "@/lib/services/action-plans";
+import { storageAdapter } from "@/lib/services/storage-adapter";
 
 export async function POST(request: NextRequest) {
   try {
@@ -112,26 +113,46 @@ export async function POST(request: NextRequest) {
       created_at: now,
     };
 
+    // Save to unified storage adapter
+    await storageAdapter.saveActionPlan(planRecord, actionItemsRecords);
+    await storageAdapter.updateCaseLifecycle(validated.case_id, "IN_PROGRESS", {
+      actorId: submitterId,
+      actorRole: validated.user_role,
+      eventType: "ACTION_PLAN_POSTED",
+      payload: {
+        action_plan_id: actionPlanId,
+        rqs_score: rqsResult.rqsScore,
+        grade: rqsResult.grade,
+        milestones_count: validated.milestones.length,
+      },
+    });
+
     // Database updates (with try/catch for test/mock environments)
-    try {
-      const supabase = await createClient();
-      await supabase.from("action_plans").insert(planRecord);
-      await supabase.from("action_items").insert(actionItemsRecords);
-      await supabase.from("ai_analyses").insert(aiAnalysisRecord);
+    if (
+      process.env.NODE_ENV !== "test" &&
+      process.env.SUPABASE_SERVICE_ROLE_KEY &&
+      !process.env.SUPABASE_SERVICE_ROLE_KEY.includes("dummy")
+    ) {
+      try {
+        const supabase = await createClient();
+        await supabase.from("action_plans").insert(planRecord);
+        await supabase.from("action_items").insert(actionItemsRecords);
+        await supabase.from("ai_analyses").insert(aiAnalysisRecord);
 
-      // Advance case lifecycle status to IN_PROGRESS
-      await supabase
-        .from("cases")
-        .update({
-          lifecycle_status: "IN_PROGRESS",
-          updated_at: now,
-        })
-        .eq("id", validated.case_id);
+        // Advance case lifecycle status to IN_PROGRESS
+        await supabase
+          .from("cases")
+          .update({
+            lifecycle_status: "IN_PROGRESS",
+            updated_at: now,
+          })
+          .eq("id", validated.case_id);
 
-      // Append to immutable audit log
-      await supabase.from("case_events").insert(eventRecord);
-    } catch (dbErr) {
-      console.warn("Database note during action plan submission:", dbErr);
+        // Append to immutable audit log
+        await supabase.from("case_events").insert(eventRecord);
+      } catch (dbErr) {
+        console.warn("Database note during action plan submission:", dbErr);
+      }
     }
 
     return NextResponse.json(
