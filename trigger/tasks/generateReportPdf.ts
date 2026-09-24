@@ -126,7 +126,7 @@ export async function generateReportPdf(
     },
   ];
 
-  const referenceNumber =
+  let referenceNumber =
     input.mockCaseData?.referenceNumber ||
     `MRF-${new Date().getFullYear()}-${caseId.slice(0, 6).toUpperCase()}`;
 
@@ -187,6 +187,37 @@ export async function generateReportPdf(
     } catch (err) {
       console.warn("[GenerateReportPdf] Could not load live DB records, using input/fallback snapshot:", err);
     }
+  }
+
+  // Check local storageAdapter for records
+  try {
+    const { storageAdapter } = await import("@/lib/services/storage-adapter");
+    const storedCase = await storageAdapter.getCaseById(caseId);
+    if (storedCase) {
+      institutionName = input.mockCaseData?.institutionName || storedCase.institution_name || institutionName;
+      category = input.mockCaseData?.category || storedCase.category || category;
+      sanitizedDescription = input.mockCaseData?.sanitizedSummary || storedCase.sanitized_description || sanitizedDescription;
+      referenceNumber = input.mockCaseData?.referenceNumber || storedCase.reference_number || referenceNumber;
+      if ((storedCase.metadata as any)?.desired_outcome) {
+        desiredOutcome = input.mockCaseData?.desiredOutcome || (storedCase.metadata as any)?.desired_outcome || desiredOutcome;
+      }
+    }
+    const storedPlan = await storageAdapter.getActionPlanByCaseId(caseId);
+    if (storedPlan) {
+      officialStatement = input.mockCaseData?.officialStatement || storedPlan.official_statement || officialStatement;
+      rqsScore = input.mockCaseData?.rqsScore ?? storedPlan.rqs_score ?? rqsScore;
+      if (!input.mockCaseData?.milestones && storedPlan.milestones && storedPlan.milestones.length > 0) {
+        milestones = storedPlan.milestones.map((m) => ({
+          title: m.title,
+          ownerRole: m.owner_role,
+          dueDate: m.due_date,
+          isCompleted: m.is_completed,
+          deliverable: m.deliverable,
+        }));
+      }
+    }
+  } catch (err) {
+    // fallback
   }
 
   // 1. Build Frozen Sanitized Snapshot
@@ -295,6 +326,18 @@ export async function generateReportPdf(
       console.warn("[GenerateReportPdf] Remote persistence skipped in offline/test mode:", err);
     }
   }
+
+  try {
+    const { storageAdapter } = await import("@/lib/services/storage-adapter");
+    await storageAdapter.saveReport({
+      case_id: caseId,
+      version,
+      report_payload_snapshot: snapshot,
+      pdf_storage_path: storagePath,
+      sha256_digest: sha256Digest,
+      created_at: now,
+    });
+  } catch {}
 
   return {
     success: true,

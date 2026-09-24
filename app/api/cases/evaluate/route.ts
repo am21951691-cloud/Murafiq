@@ -131,6 +131,31 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Trigger automated final PDF generation & WhatsApp dispatch upon case closure asynchronously
+    if (process.env.NODE_ENV !== "test") {
+      void (async () => {
+        try {
+          const { generateReportPdf } = await import("@/trigger/tasks/generateReportPdf");
+          const { sendWhatsAppResolutionReport } = await import("@/trigger/tasks/sendWhatsAppReport");
+          await generateReportPdf({
+            caseId: validated.case_id,
+            version: 2,
+            mockCaseData: {
+              rResp: validated.response_rating,
+              rRes: validated.resolution_rating,
+              closingFeedback: validated.closing_comment || undefined,
+            },
+          });
+          await sendWhatsAppResolutionReport({
+            caseId: validated.case_id,
+            version: 2,
+          });
+        } catch (autoErr) {
+          console.warn("Automation note after evaluation:", autoErr);
+        }
+      })();
+    }
+
     return NextResponse.json(
       {
         success: true,

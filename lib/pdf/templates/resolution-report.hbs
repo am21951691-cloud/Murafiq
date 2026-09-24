@@ -2,9 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>تقرير تسوية حالة — مُرافِق (Murafiq)</title>
+  <title>تقرير فحص وتسوية حالة — مُرافِق Enterprise</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+
+    @page {
+      size: A4 landscape;
+      margin: 8mm 10mm;
+    }
 
     * {
       box-sizing: border-box;
@@ -16,46 +21,77 @@
       font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background-color: #ffffff;
       color: #0f172a;
-      line-height: 1.6;
-      padding: 24px;
-      font-size: 13px;
+      line-height: 1.5;
+      padding: 16px 20px;
+      font-size: 12px;
+      direction: rtl;
+    }
+
+    /* TOP HEADER & DATE BAR */
+    .top-bar {
+      display: table;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .top-bar-right {
+      display: table-cell;
+      vertical-align: top;
+      text-align: right;
+    }
+
+    .top-bar-left {
+      display: table-cell;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .date-label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .header-box {
+      border: 2px solid #0f172a;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      background-color: #fafafa;
     }
 
     .header-table {
       width: 100%;
-      border-bottom: 2px solid #0284c7;
-      padding-bottom: 16px;
-      margin-bottom: 20px;
+      border-collapse: collapse;
     }
 
     .brand-title {
-      font-size: 24px;
-      font-weight: 800;
+      font-size: 20px;
+      font-weight: 900;
       color: #0369a1;
       letter-spacing: -0.5px;
     }
 
     .brand-subtitle {
-      font-size: 12px;
-      color: #64748b;
-      margin-top: 2px;
+      font-size: 11px;
+      color: #475569;
+      font-weight: 600;
     }
 
     .doc-meta {
-      text-align: left;
       font-size: 11px;
-      color: #475569;
+      color: #334155;
+      line-height: 1.6;
     }
 
+    /* ATTRIBUTION BADGES */
     .badge {
       display: inline-block;
-      padding: 2px 8px;
+      padding: 2px 7px;
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 800;
       border-radius: 4px;
-      margin-left: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-left: 4px;
     }
 
     .badge-user {
@@ -82,139 +118,177 @@
       border: 1px solid #ddd6fe;
     }
 
-    .section {
-      margin-bottom: 20px;
-      border: 1px solid #e2e8f0;
+    /* SUMMARY CARDS ROW */
+    .summary-grid {
+      display: table;
+      width: 100%;
+      margin-bottom: 10px;
+      table-layout: fixed;
+    }
+
+    .summary-card {
+      display: table-cell;
+      vertical-align: top;
+      padding: 6px 10px;
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .summary-card:not(:last-child) {
+      margin-left: 8px;
+    }
+
+    /* REAL LIFE SAMPLE MATRIX TABLE */
+    .sample-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      font-size: 11px;
+      border: 1.5px solid #1e293b;
+    }
+
+    .sample-matrix-table th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      border: 1.5px solid #1e293b;
+      padding: 8px 6px;
+      font-weight: 800;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 1.4;
+    }
+
+    .sample-matrix-table td {
+      border: 1.5px solid #1e293b;
+      padding: 8px 6px;
+      vertical-align: top;
+      color: #0f172a;
+      line-height: 1.5;
+    }
+
+    .empty-row td {
+      height: 28px;
+    }
+
+    /* 3D EVALUATION SCORES BOX */
+    .scores-section {
+      display: table;
+      width: 100%;
+      margin-bottom: 12px;
+      border: 1px solid #cbd5e1;
       border-radius: 6px;
-      padding: 14px 16px;
+      background-color: #f8fafc;
+      padding: 6px 10px;
+    }
+
+    .scores-left {
+      display: table-cell;
+      width: 55%;
+      vertical-align: middle;
+      font-size: 11px;
+      color: #334155;
+    }
+
+    .scores-right {
+      display: table-cell;
+      width: 45%;
+      vertical-align: middle;
+      text-align: left;
+    }
+
+    .score-pill {
+      display: inline-block;
+      padding: 4px 10px;
       background-color: #ffffff;
+      border: 1px solid #94a3b8;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-left: 6px;
+    }
+
+    /* SIGNATURES BLOCK */
+    .signatures-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1.5px solid #1e293b;
+      margin-top: 10px;
+      margin-bottom: 12px;
       page-break-inside: avoid;
     }
 
-    .section-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #f1f5f9;
-      padding-bottom: 6px;
-    }
-
-    .grid-2 {
-      display: table;
-      width: 100%;
-      margin-top: 6px;
-    }
-
-    .col {
-      display: table-cell;
-      width: 50%;
-      vertical-align: top;
-      padding: 0 4px;
-    }
-
-    .meta-label {
-      font-size: 11px;
-      color: #64748b;
-      font-weight: 600;
-    }
-
-    .meta-value {
-      font-size: 12px;
-      color: #0f172a;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .milestone-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 11px;
-    }
-
-    .milestone-table th {
+    .signatures-table th {
       background-color: #f8fafc;
-      color: #475569;
-      text-align: right;
-      padding: 8px;
-      border: 1px solid #e2e8f0;
-      font-weight: 700;
-    }
-
-    .milestone-table td {
-      padding: 8px;
-      border: 1px solid #e2e8f0;
-      color: #1e293b;
-    }
-
-    .scores-container {
-      display: table;
-      width: 100%;
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    .score-box {
-      display: table-cell;
-      width: 33.33%;
-      padding: 10px;
-      background-color: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 6px;
-    }
-
-    .score-box-middle {
-      margin: 0 6px;
-    }
-
-    .score-num {
-      font-size: 20px;
+      border: 1.5px solid #1e293b;
+      padding: 6px;
+      font-size: 11px;
       font-weight: 800;
-      color: #0284c7;
-      margin-top: 4px;
+      text-align: center;
+      width: 25%;
     }
 
-    .score-title {
+    .signatures-table td {
+      border: 1.5px solid #1e293b;
+      padding: 10px 8px;
+      height: 52px;
+      text-align: center;
+      vertical-align: middle;
       font-size: 11px;
-      color: #64748b;
-      font-weight: 600;
     }
 
+    .stamp-seal {
+      display: inline-block;
+      width: 52px;
+      height: 52px;
+      border: 2px dashed #0284c7;
+      border-radius: 50%;
+      line-height: 48px;
+      text-align: center;
+      color: #0284c7;
+      font-size: 8px;
+      font-weight: 900;
+      transform: rotate(-8deg);
+    }
+
+    /* DISCLAIMER & HASH FOOTER */
     .disclaimer-box {
-      margin-top: 24px;
-      padding: 12px 14px;
-      background-color: #f8fafc;
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 10px;
+      background-color: #f8fafc;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 9.5px;
       color: #475569;
+      line-height: 1.4;
       text-align: justify;
+      margin-top: 8px;
       page-break-inside: avoid;
     }
 
     .disclaimer-title {
       font-weight: 800;
-      color: #334155;
-      margin-bottom: 4px;
+      color: #1e293b;
+      margin-bottom: 2px;
     }
 
     .integrity-footer {
-      margin-top: 16px;
+      margin-top: 8px;
       font-size: 9px;
-      color: #94a3b8;
+      color: #64748b;
       display: table;
       width: 100%;
       border-top: 1px dashed #cbd5e1;
-      padding-top: 8px;
+      padding-top: 4px;
     }
 
     .integrity-left {
       display: table-cell;
       text-align: left;
       font-family: monospace;
+      font-size: 9px;
     }
 
     .integrity-right {
@@ -225,169 +299,183 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <table class="header-table">
+  <!-- TOP BAR: DATE & STATUS -->
+  <div class="top-bar">
+    <div class="top-bar-right">
+      <div class="date-label">التاريخ : <span style="font-family: Cairo; font-weight: 700;">{{generatedDate}}</span></div>
+    </div>
+    <div class="top-bar-left">
+      <span class="badge badge-verified">منظومة مُرافِق Enterprise</span>
+      <span class="badge badge-confirmed">تسوية معتمدة ومقيمة (RESOLVED)</span>
+    </div>
+  </div>
+
+  <!-- HEADER BOX -->
+  <div class="header-box">
+    <table class="header-table">
+      <tr>
+        <td style="vertical-align: middle; width: 62%;">
+          <div class="brand-title">{{institutionName}}</div>
+          <div class="brand-subtitle">محضر فحص وتسوية حالة ومصفوفة الإجراءات التصحيحية المعتمدة — {{branchName}}</div>
+        </td>
+        <td style="vertical-align: middle; width: 38%; text-align: left;" class="doc-meta">
+          <div><strong>رقم المرجع:</strong> <span style="font-family: monospace; font-weight: 800; color: #0369a1;">{{referenceNumber}}</span></div>
+          <div><strong>تصنيف الحالة:</strong> {{category}}</div>
+          <div><strong>فترة المعالجة:</strong> من {{openedDate}} إلى {{closedDate}}</div>
+          <div><strong>الإصدار:</strong> v{{version}} (نسخة أرشيفية مجمدة)</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- CONTEXT & ATTRIBUTION SUMMARY -->
+  <table class="summary-grid">
     <tr>
-      <td style="vertical-align: middle;">
-        <div class="brand-title">مُرافِق | Murafiq</div>
-        <div class="brand-subtitle">منظومة تسوية الشكاوى التعليمية وحوكمة جودة المدارس — جمهورية مصر العربية</div>
+      <td class="summary-card" style="width: 50%; padding-left: 6px;">
+        <div style="font-weight: 800; color: #0369a1; margin-bottom: 4px;">
+          <span class="badge badge-user">[USER-REPORTED]</span> ملخص المشكلة ومطالب ولي الأمر / المستفيد:
+        </div>
+        <div style="color: #1e293b; font-size: 11px;">
+          {{sanitizedSummary}}
+        </div>
+        {{#if desiredOutcome}}
+        <div style="margin-top: 4px; font-size: 10.5px; color: #475569; border-top: 1px dashed #cbd5e1; padding-top: 2px;">
+          <strong>النتيجة المرجوة:</strong> {{desiredOutcome}}
+        </div>
+        {{/if}}
       </td>
-      <td class="doc-meta" style="vertical-align: middle; width: 45%;">
-        <div><strong>رقم المرجع:</strong> {{referenceNumber}}</div>
-        <div><strong>تاريخ الإصدار:</strong> {{generatedDate}}</div>
-        <div><strong>حالة الوثيقة:</strong> تسوية مكتملة ومقيمة (COMPLETED)</div>
-        <div><strong>الإصدار:</strong> v{{version}} (نسخة أرشيفية مجمدة)</div>
+      <td class="summary-card" style="width: 50%; padding-right: 6px;">
+        <div style="font-weight: 800; color: #b45309; margin-bottom: 4px;">
+          <span class="badge badge-institution">[INSTITUTION-STATED]</span> إفادة وبيان إدارة المنشأة المعتمد:
+        </div>
+        <div style="color: #334155; font-size: 11px;">
+          {{officialStatement}}
+        </div>
+        {{#if rqsScore}}
+        <div style="margin-top: 4px; font-size: 10.5px; color: #6d28d9; border-top: 1px dashed #cbd5e1; padding-top: 2px;">
+          <span class="badge badge-verified">[VERIFIED]</span> مؤشر جودة الاستجابة المؤسسية (RQS): <strong>{{rqsScore}}/100 ({{rqsGrade}})</strong>
+        </div>
+        {{/if}}
       </td>
     </tr>
   </table>
 
-  <!-- CASE OVERVIEW -->
-  <div class="section">
-    <div class="section-title">
-      <span>1. بيانات الحالة والجهة التعليمية</span>
-    </div>
-    <div class="grid-2">
-      <div class="col">
-        <div class="meta-label">اسم المدرسة / المؤسسة:</div>
-        <div class="meta-value">{{institutionName}}</div>
+  <!-- REAL-LIFE SAMPLE MATRIX TABLE (8 COLUMNS RTL) -->
+  <table class="sample-matrix-table">
+    <thead>
+      <tr>
+        <th style="width: 4%;">م</th>
+        <th style="width: 11%;">البند</th>
+        <th style="width: 25%;">الملحوظة</th>
+        <th style="width: 14%;">التوصية</th>
+        <th style="width: 6%;">مكرر<br><span style="font-size: 9px; font-weight: normal;">(نعم / لا)</span></th>
+        <th style="width: 23%;">خطوات التنفيذ المقترحة</th>
+        <th style="width: 10%;">الإفادة / الرد</th>
+        <th style="width: 7%;">التاريخ<br>المتوقع للحل</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each auditItems}}
+      <tr>
+        <td style="text-align: center; font-weight: 800; vertical-align: middle;">{{this.seq}}</td>
+        <td style="font-weight: 800; color: #0f172a; vertical-align: middle;">{{this.item}}</td>
+        <td style="color: #1e293b;">{{this.observation}}</td>
+        <td style="color: #0369a1; font-weight: 700;">{{this.recommendation}}</td>
+        <td style="text-align: center; font-weight: 700; vertical-align: middle;">{{this.isRecurring}}</td>
+        <td style="color: #334155;">{{this.actionSteps}}</td>
+        <td style="font-size: 10.5px; color: #059669; font-weight: 700;">{{this.statement}}</td>
+        <td style="text-align: center; font-family: monospace; font-size: 10px; vertical-align: middle;">{{this.targetDate}}</td>
+      </tr>
+      {{/each}}
 
-        <div class="meta-label">الفرع / الإدارة التعليمية:</div>
-        <div class="meta-value">{{branchName}}</div>
-      </div>
-      <div class="col">
-        <div class="meta-label">تصنيف الحالة:</div>
-        <div class="meta-value">{{category}}</div>
+      {{#each emptyRows}}
+      <tr class="empty-row">
+        <td style="text-align: center; font-weight: 700; color: #64748b;">{{this.seq}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align: center; font-weight: 700;">{{#if this.isRecurring}}{{this.isRecurring}}{{/if}}</td>
+        <td></td>
+        <td style="text-align: center; color: #94a3b8;">{{#if this.statement}}{{this.statement}}{{/if}}</td>
+        <td></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 
-        <div class="meta-label">فترة التسوية:</div>
-        <div class="meta-value">من {{openedDate}} إلى {{closedDate}}</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SANITIZED ISSUE SUMMARY [USER-REPORTED] -->
-  <div class="section">
-    <div class="section-title">
-      <span>2. موضوع الحالة والآثار المبلغ عنها</span>
-      <span class="badge badge-user">[USER-REPORTED]</span>
-    </div>
-    <div style="font-size: 12px; color: #1e293b; margin-bottom: 8px; white-space: pre-line;">
-      {{sanitizedSummary}}
-    </div>
-    {{#if desiredOutcome}}
-    <div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed #e2e8f0;">
-      <span class="meta-label">النتيجة المرجوة من ولي الأمر: </span>
-      <span style="font-size: 11px; color: #334155;">{{desiredOutcome}}</span>
-    </div>
-    {{/if}}
-  </div>
-
-  <!-- INSTITUTION ACTION PLAN & MILESTONES [INSTITUTION-STATED] -->
-  <div class="section">
-    <div class="section-title">
-      <span>3. خطة العمل المعتمدة ومراحل التنفيذ</span>
-      <span class="badge badge-institution">[INSTITUTION-STATED]</span>
-      {{#if rqsScore}}
-      <span class="badge badge-verified" style="margin-right: auto; margin-left: 0;">جودة الاستجابة (RQS): {{rqsScore}}/100 ({{rqsGrade}})</span>
+  <!-- 3D EVALUATION SCORES & BENEFICIARY CSAT -->
+  <div class="scores-section">
+    <div class="scores-left">
+      <span class="badge badge-confirmed">[USER-CONFIRMED]</span>
+      <strong>التقييم النهائي ثلاثي الأبعاد لجودة الحل وتجربة المستفيد:</strong>
+      {{#if closingFeedback}}
+      <span style="display: block; margin-top: 3px; color: #475569; font-style: italic;">
+        "{{closingFeedback}}"
+      </span>
       {{/if}}
     </div>
-    <div style="font-size: 12px; color: #334155; margin-bottom: 10px; background-color: #fcfcfd; padding: 8px; border-radius: 4px; border: 1px solid #f1f5f9;">
-      <strong>بيان إدارة المدرسة الرسمي: </strong>{{officialStatement}}
+    <div class="scores-right">
+      <div class="score-pill">الأثر الأولي R<sub>exp</sub>: <strong style="color: #0284c7;">{{rExp}}/5</strong></div>
+      <div class="score-pill">تفاعل الإدارة R<sub>resp</sub>: <strong style="color: #0284c7;">{{rResp}}/5</strong></div>
+      <div class="score-pill">رضا الحل R<sub>res</sub>: <strong style="color: #16a34a;">{{rRes}}/5</strong></div>
     </div>
-
-    {{#if milestones}}
-    <table class="milestone-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>المرحلة الإجرائية (الإجراء التنفيذي)</th>
-          <th>المسؤول الإداري</th>
-          <th>الموعد المحدد</th>
-          <th>حالة الإنجاز</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each milestones}}
-        <tr>
-          <td style="text-align: center; width: 5%;">{{@index}}</td>
-          <td style="font-weight: 600;">{{this.title}}</td>
-          <td>{{this.ownerRole}}</td>
-          <td>{{this.dueDate}}</td>
-          <td style="text-align: center;">
-            {{#if this.isCompleted}}
-            <span class="badge badge-confirmed">[VERIFIED] مكتمل</span>
-            {{else}}
-            <span style="color: #64748b;">قيد التنفيذ</span>
-            {{/if}}
-          </td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
-  </div>
-
-  <!-- 3D EVALUATION SCORES [USER-CONFIRMED] -->
-  <div class="section">
-    <div class="section-title">
-      <span>4. التقييم النهائي ثلاثي الأبعاد</span>
-      <span class="badge badge-confirmed">[USER-CONFIRMED]</span>
-    </div>
-    <p style="font-size: 11px; color: #64748b; margin-bottom: 6px;">
-      يقيس نموذج التجربة الثلاثي الأبعاد تقييم ولي الأمر لأثر الحالة، واستجابة إدارة المدرسة، وجودة الحل النهائي:
-    </p>
-
-    <div class="scores-container">
-      <div class="score-box">
-        <div class="score-title">الأثر والتجربة الأولية (R<sub>exp</sub>)</div>
-        <div class="score-num">{{rExp}} / 5</div>
-        <div style="font-size: 9px; color: #94a3b8; margin-top: 2px;">سُجلت أثناء تقديم الحالة</div>
-      </div>
-      <div class="score-box" style="border-right: 0; border-left: 0;">
-        <div class="score-title">تفاعل واستجابة المدرسة (R<sub>resp</sub>)</div>
-        <div class="score-num">{{rResp}} / 5</div>
-        <div style="font-size: 9px; color: #94a3b8; margin-top: 2px;">سُجلت بعد استكمال الخطة</div>
-      </div>
-      <div class="score-box">
-        <div class="score-title">الرضا عن الحل النهائي (R<sub>res</sub>)</div>
-        <div class="score-num">{{rRes}} / 5</div>
-        <div style="font-size: 9px; color: #94a3b8; margin-top: 2px;">النتيجة الإجمالية للإغلاق</div>
-      </div>
-    </div>
-
-    {{#if closingFeedback}}
-    <div style="margin-top: 12px; font-size: 11px; color: #334155; background-color: #f8fafc; padding: 8px; border-radius: 4px;">
-      <strong>ملاحظات ولي الأمر الختامية: </strong>"{{closingFeedback}}"
-    </div>
-    {{/if}}
   </div>
 
   <!-- STATUTORY CITATIONS (IF ANY) -->
   {{#if statutoryCitations}}
-  <div class="section">
-    <div class="section-title">
-      <span>5. المرجعيات والقرارات الوزارية ذات الصلة</span>
-      <span class="badge badge-verified">[VERIFIED]</span>
-    </div>
-    <ul style="padding-right: 18px; font-size: 11px; color: #475569;">
-      {{#each statutoryCitations}}
-      <li style="margin-bottom: 4px;"><strong>{{this.reference}}:</strong> {{this.title}}</li>
-      {{/each}}
-    </ul>
+  <div style="margin-bottom: 8px; font-size: 10px; color: #475569;">
+    <strong>المرجعيات واللوائح التنظيمية المطبقة: </strong>
+    {{#each statutoryCitations}}
+    <span>{{this.reference}} ({{this.title}}) | </span>
+    {{/each}}
   </div>
   {{/if}}
+
+  <!-- OFFICIAL SIGNATURES & STAMPS BLOCK -->
+  <table class="signatures-table">
+    <thead>
+      <tr>
+        <th>مسؤول الفحص والمتابعة</th>
+        <th>وكيل المؤسسة / رئيس القسم</th>
+        <th>مدير المنشأة / المشرف العام</th>
+        <th>الختم المؤسسي المعتمد</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div style="font-weight: 700; color: #0f172a;">فريق تسوية الحالات</div>
+          <div style="font-size: 9px; color: #16a34a; margin-top: 2px;">معتمد ومطابق للإجراءات ✓</div>
+        </td>
+        <td>
+          <div style="font-weight: 700; color: #0f172a;">وكيل الشؤون الإدارية</div>
+          <div style="font-size: 9px; color: #16a34a; margin-top: 2px;">تم اعتماد خطة التنفيذ ✓</div>
+        </td>
+        <td>
+          <div style="font-weight: 800; color: #0284c7;">إدارة المنشأة الرسمية</div>
+          <div style="font-size: 9px; color: #475569; margin-top: 2px;">موافقة على الحل النهائي</div>
+        </td>
+        <td>
+          <div class="stamp-seal">
+            ختم معتمد
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <!-- MANDATORY NON-JUDICIAL DISCLAIMER -->
   <div class="disclaimer-box">
     <div class="disclaimer-title">إخلاء مسؤولية قانوني وميثاق النزاهة (Mandatory Statutory Disclaimer):</div>
     <div>
-      هذه الوثيقة هي سجل معلوماتي موثق لإجراءات تسوية النزاعات التعليمية طواعية عبر منصة مُرافِق، ولا تُعد حكماً قضائياً أو قراراً إدارياً ملزماً أو إثباتاً قضائياً للتقصير أو البراءة لأي طرف. كافة البيانات الواردة معزوة بحسب مصادرها المحددة في الوثيقة ([USER-REPORTED] للأقوال المبلغ عنها، و[INSTITUTION-STATED] لإفادات المدرسة، و[USER-CONFIRMED] لتقييمات ولي الأمر). تم إصدار هذه الوثيقة وفقاً لبيانات رقمية مجمدة ومشفرة ومحمية ببصمة تجزئة أمنية لا تقبل التعديل.
+      هذه الوثيقة هي سجل معلوماتي موثق لإجراءات تسوية النزاعات والحالات طواعية عبر منصة مُرافِق Enterprise، ولا تُعد حكماً قضائياً أو قراراً إدارياً ملزماً أو إثباتاً قضائياً للتقصير أو البراءة لأي طرف. كافة البيانات الواردة معزوة بحسب مصادرها المحددة في الوثيقة ([USER-REPORTED] للأقوال المبلغ عنها، و[INSTITUTION-STATED] لإفادات المنشأة، و[USER-CONFIRMED] لتقييمات المستفيد النهائي). تم إصدار هذه الوثيقة وفقاً لبيانات رقمية مجمدة ومشفرة ومحمية ببصمة تجزئة أمنية لا تقبل التعديل.
     </div>
   </div>
 
-  <!-- INTEGRITY HASH FOOTER -->
+  <!-- INTEGRITY FOOTER -->
   <div class="integrity-footer">
     <div class="integrity-right">
-      منصة مُرافِق — توثيق الشفافية وحل النزاعات التعليمية | Murafiq Resolution Platform
+      منظومة مُرافِق Enterprise — توثيق الشفافية وحل النزاعات والحوكمة المؤسسية | Murafiq Platform
     </div>
     <div class="integrity-left">
       SHA-256: {{sha256Digest}}

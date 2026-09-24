@@ -6,6 +6,7 @@ import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
 import { CaseTimeline, type TimelineEvent } from "@/components/institution/CaseTimeline";
 import { CommunicationThread } from "@/components/institution/CommunicationThread";
 import { ActionPlanBuilder } from "@/components/institution/ActionPlanBuilder";
+import { ResolutionReportModal } from "@/components/cases/ResolutionReportModal";
 import type { CasePriority, LifecycleStatus } from "@/types/database";
 
 interface PageProps {
@@ -41,10 +42,14 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
   // Action plan modal
   const [showPlanBuilder, setShowPlanBuilder] = useState(false);
 
-  // Resolve case modal
+  // Resolve case modal & report modal
   const [showResolveModal, setShowResolveModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
   const [resolutionStatement, setResolutionStatement] = useState("");
   const [isResolving, setIsResolving] = useState(false);
+  const [recipientPhone, setRecipientPhone] = useState<string>("");
+  const [lastDispatchInfo, setLastDispatchInfo] = useState<any>(null);
+  const [isSendingWhatsApp, setIsSendingWhatsApp] = useState(false);
 
   // AI draft response state
   const [generatedDraft, setGeneratedDraft] = useState<string | null>(null);
@@ -76,6 +81,20 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
       setDepartments(data.departments || []);
       setSelectedDept(data.case.assigned_department_id || "");
       setSelectedPriority(data.case.priority || "MEDIUM");
+
+      // Load preview info to get recipient phone and WhatsApp dispatch records
+      try {
+        const pRes = await fetch(`/api/cases/${caseId}/report/preview`);
+        const pData = await pRes.json();
+        if (pData.success) {
+          if (pData.recipientPhone) setRecipientPhone(pData.recipientPhone);
+          if (pData.dispatches && pData.dispatches.length > 0) {
+            setLastDispatchInfo(pData.dispatches[0]);
+          }
+        }
+      } catch {
+        // non-blocking
+      }
     } catch (err: any) {
       setError(err.message || "فشل تحميل تفاصيل الحالة");
     } finally {
@@ -171,28 +190,62 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
     if (!resolutionStatement.trim()) return;
     setIsResolving(true);
     try {
-      const res = await fetch("/api/institution/acknowledge", {
+      const res = await fetch(`/api/cases/${caseId}/resolve`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          caseId,
           officialStatement: resolutionStatement.trim(),
-          markResolved: true,
+          recipientPhone: recipientPhone || undefined,
         }),
       });
       const data = await res.json();
       if (data.success) {
         setCaseData((prev: any) => ({
           ...prev,
-          lifecycle_status: "AWAITING_EVALUATION" as LifecycleStatus,
+          lifecycle_status: data.lifecycle_status || ("AWAITING_EVALUATION" as LifecycleStatus),
         }));
         setShowResolveModal(false);
-        alert("تم حسم الحالة وإرسال إشعار للمستفيد لتقييم الحل ✅");
+        setLastDispatchInfo({
+          provider_message_id: data.whatsappMessageId,
+          recipient_phone_e164: data.recipientPhone,
+          delivery_status: "SENT",
+          created_at: new Date().toISOString(),
+        });
+        alert(`تم حسم الحالة رسميًا وتوليد التقرير وإرساله بنجاح عبر واتساب إلى الرقم ${data.recipientPhone} ✅`);
+      } else {
+        alert("تعذر حسم الحالة: " + (data.error || "خطأ غير معروف"));
       }
     } catch {
       alert("تعذر تسجيل حسم الحالة");
     } finally {
       setIsResolving(false);
+    }
+  };
+
+  const handleSendWhatsAppDirect = async () => {
+    setIsSendingWhatsApp(true);
+    try {
+      const res = await fetch(`/api/cases/${caseId}/automation/send-whatsapp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: recipientPhone || undefined }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setLastDispatchInfo({
+          provider_message_id: data.providerMessageId,
+          recipient_phone_e164: data.recipientPhone,
+          delivery_status: "SENT",
+          created_at: new Date().toISOString(),
+        });
+        alert(`تم إرسال تقرير التسوية عبر واتساب بنجاح إلى الرقم ${data.recipientPhone} ✅`);
+      } else {
+        alert("فشل إرسال التقرير عبر واتساب: " + (data.error || "خطأ غير معروف"));
+      }
+    } catch {
+      alert("حدث خطأ أثناء إرسال رسالة واتساب");
+    } finally {
+      setIsSendingWhatsApp(false);
     }
   };
 
@@ -307,6 +360,25 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
               <span>{slaRemainingText}</span>
             </div>
 
+            {/* Report Preview & Canvas Modal */}
+            <button
+              onClick={() => setShowReportModal(true)}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 transition flex items-center gap-1.5"
+            >
+              <span>📑</span>
+              <span>معاينة التقرير الرسمي (Canvas)</span>
+            </button>
+
+            {/* Direct WhatsApp Send */}
+            <button
+              onClick={handleSendWhatsAppDirect}
+              disabled={isSendingWhatsApp}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 transition flex items-center gap-1.5"
+            >
+              <span>💬</span>
+              <span>{isSendingWhatsApp ? "جاري الإرسال..." : "إرسال واتساب"}</span>
+            </button>
+
             {/* Resolve Button */}
             {caseData.lifecycle_status !== "CLOSED" && caseData.lifecycle_status !== "AWAITING_EVALUATION" && (
               <button
@@ -321,7 +393,7 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
               onClick={() => window.print()}
               className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition"
             >
-              🖨️ طباعة التقرير
+              🖨️ طباعة
             </button>
           </div>
         </div>
@@ -428,6 +500,72 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
                 <h3 className="text-sm font-bold text-slate-900 mb-3">نص ووصف الحالة المسجل</h3>
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs leading-relaxed whitespace-pre-wrap">
                   {caseData.sanitized_description}
+                </div>
+              </div>
+
+              {/* WhatsApp Report & Real-Life Matrix Inspection Card */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs overflow-hidden">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
+                  <div className="flex items-center gap-2.5">
+                    <span className="p-2 bg-emerald-50 text-emerald-700 rounded-xl text-base">📑</span>
+                    <div>
+                      <h3 className="text-sm font-black text-slate-900">
+                        محضر فحص وتسوية الحالة ومصفوفة الإجراءات التنفيذية (Real-Life Report)
+                      </h3>
+                      <p className="text-[11px] text-slate-500">
+                        النموذج الرسمي المعتمد (8 أعمدة: البند، الملحوظة، التوصية، مكرر، خطوات التنفيذ، الرد، التاريخ)
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setShowReportModal(true)}
+                      className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition flex items-center gap-1.5"
+                    >
+                      <span>🔍</span>
+                      <span>معاينة التقرير (Canvas / PDF)</span>
+                    </button>
+                    <a
+                      href={`/api/cases/${caseId}/report/pdf`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1.5"
+                    >
+                      <span>📥</span>
+                      <span>تنزيل PDF</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* WhatsApp Dispatch Status Banner */}
+                <div className="bg-slate-50 rounded-xl p-3.5 border border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">
+                      💬
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-800">
+                        إشعار تقرير واتساب (WhatsApp Resolution Dispatch):
+                      </div>
+                      <div className="text-[11px] text-slate-500 font-mono">
+                        رقم هاتف المستفيد: <span className="font-bold text-slate-700">{recipientPhone || "01012345678"}</span>
+                        {lastDispatchInfo && (
+                          <span className="mr-2 text-emerald-700 font-bold">
+                            — تم الإرسال بنجاح ✓ ({new Date(lastDispatchInfo.created_at || Date.now()).toLocaleTimeString("ar-EG")})
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleSendWhatsAppDirect}
+                    disabled={isSendingWhatsApp}
+                    className="px-4 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition"
+                  >
+                    {isSendingWhatsApp ? "جاري الإرسال..." : "إرسال التقرير للمستفيد عبر واتساب"}
+                  </button>
                 </div>
               </div>
             </div>
@@ -766,6 +904,22 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
           </div>
         </div>
       )}
+
+      {/* Modal: Resolution Report Canvas & WhatsApp Dispatch */}
+      <ResolutionReportModal
+        caseId={caseId}
+        referenceNumber={caseData.reference_number}
+        isOpen={showReportModal}
+        onClose={() => setShowReportModal(false)}
+        onWhatsAppSent={(res) => {
+          setLastDispatchInfo({
+            provider_message_id: res.providerMessageId,
+            recipient_phone_e164: res.recipientPhone,
+            delivery_status: "SENT",
+            created_at: new Date().toISOString(),
+          });
+        }}
+      />
     </div>
   );
 }

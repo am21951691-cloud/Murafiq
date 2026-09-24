@@ -46,20 +46,30 @@ export async function sendWhatsAppResolutionReport(
 
   // 1. Resolve Recipient Phone Number
   let recipientPhone = input.recipientPhone;
-  if (!recipientPhone && process.env.NODE_ENV !== "test" && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    try {
-      const adminClient = createAdminClient();
-      const { data: sensitiveRow } = await adminClient
-        .from("case_sensitive_data")
-        .select("parent_phone")
-        .eq("case_id", caseId)
-        .single();
+  if (!recipientPhone) {
+    if (process.env.NODE_ENV !== "test" && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      try {
+        const adminClient = createAdminClient();
+        const { data: sensitiveRow } = await adminClient
+          .from("case_sensitive_data")
+          .select("parent_phone")
+          .eq("case_id", caseId)
+          .single();
 
-      if (sensitiveRow?.parent_phone) {
-        recipientPhone = sensitiveRow.parent_phone;
+        if (sensitiveRow?.parent_phone) {
+          recipientPhone = sensitiveRow.parent_phone;
+        }
+      } catch {
+        // fallback
       }
-    } catch {
-      // fallback
+    }
+    if (!recipientPhone) {
+      try {
+        const { storageAdapter } = await import("@/lib/services/storage-adapter");
+        recipientPhone = await storageAdapter.getCaseRecipientPhone(caseId);
+      } catch {
+        // fallback
+      }
     }
   }
 
@@ -164,6 +174,25 @@ export async function sendWhatsAppResolutionReport(
     } catch (err) {
       console.warn("[SendWhatsAppReport] Database logging skipped:", err);
     }
+  }
+
+  try {
+    const { storageAdapter } = await import("@/lib/services/storage-adapter");
+    await storageAdapter.saveWhatsAppDispatch({
+      id: dispatchId,
+      case_id: caseId,
+      report_id: reportId,
+      recipient_phone_e164: normalizedPhone,
+      recipient_phone_hash: recipientPhoneHash,
+      template_name: DEFAULT_TEMPLATE_NAME,
+      idempotency_key: idempotencyKey,
+      provider_message_id: providerMessageId,
+      delivery_status: "SENT",
+      signed_url: signedUrl,
+      created_at: now,
+    });
+  } catch {
+    // ignore
   }
 
   return {

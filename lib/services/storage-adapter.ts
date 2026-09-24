@@ -116,6 +116,9 @@ interface StorageSchema {
   auditLogs?: AuditLogEntry[];
   caseTemplates?: Record<string, CaseTemplate[]>;
   branches?: Record<string, TenantBranch[]>;
+  sensitiveData?: Record<string, any>;
+  reports?: Record<string, any[]>;
+  whatsappDispatches?: any[];
 }
 
 const STORE_PATH = path.join(process.cwd(), "data", "cases-store.json");
@@ -599,6 +602,9 @@ class StorageAdapter {
           parsed.auditLogs = parsed.auditLogs || [];
           parsed.caseTemplates = parsed.caseTemplates || {};
           parsed.branches = parsed.branches || {};
+          parsed.sensitiveData = parsed.sensitiveData || {};
+          parsed.reports = parsed.reports || {};
+          parsed.whatsappDispatches = parsed.whatsappDispatches || [];
           return parsed;
         }
       }
@@ -624,6 +630,9 @@ class StorageAdapter {
       auditLogs: [],
       caseTemplates: {},
       branches: {},
+      sensitiveData: {},
+      reports: {},
+      whatsappDispatches: [],
     };
     this.persistStore(initialStore);
     return initialStore;
@@ -672,12 +681,73 @@ class StorageAdapter {
     // Prepend to cases
     this.inMemoryStore.cases.unshift(item);
 
+    if (sensitiveData) {
+      this.inMemoryStore.sensitiveData = this.inMemoryStore.sensitiveData || {};
+      this.inMemoryStore.sensitiveData[caseRecord.id] = sensitiveData;
+    }
+
     if (eventRecord) {
       this.inMemoryStore.events.push(eventRecord);
     }
 
     this.persistStore(this.inMemoryStore);
     return item;
+  }
+
+  public async getCaseSensitiveData(caseId: string): Promise<any | null> {
+    return this.inMemoryStore.sensitiveData?.[caseId] || null;
+  }
+
+  public async getCaseRecipientPhone(caseId: string): Promise<string> {
+    const sensitive = this.inMemoryStore.sensitiveData?.[caseId];
+    if (sensitive?.parent_contact_phone_encrypted) {
+      try {
+        const { decryptSensitiveData } = await import("@/lib/ai/sanitizer");
+        const dec = decryptSensitiveData(sensitive.parent_contact_phone_encrypted);
+        if (dec && dec.length >= 10) return dec;
+      } catch {}
+    }
+    if (sensitive?.parent_phone) {
+      return sensitive.parent_phone;
+    }
+
+    const caseItem = await this.getCaseById(caseId);
+    if (caseItem?.metadata) {
+      const meta = caseItem.metadata as any;
+      if (meta.recipient_phone) return meta.recipient_phone;
+      if (meta.contact_phone) return meta.contact_phone;
+      if (meta.parent_phone) return meta.parent_phone;
+    }
+
+    return "01012345678";
+  }
+
+  public async saveReport(report: any): Promise<any> {
+    this.inMemoryStore.reports = this.inMemoryStore.reports || {};
+    this.inMemoryStore.reports[report.case_id] = this.inMemoryStore.reports[report.case_id] || [];
+    this.inMemoryStore.reports[report.case_id].unshift(report);
+    this.persistStore(this.inMemoryStore);
+    return report;
+  }
+
+  public async getReportsByCaseId(caseId: string): Promise<any[]> {
+    return this.inMemoryStore.reports?.[caseId] || [];
+  }
+
+  public async saveWhatsAppDispatch(dispatch: any): Promise<any> {
+    this.inMemoryStore.whatsappDispatches = this.inMemoryStore.whatsappDispatches || [];
+    this.inMemoryStore.whatsappDispatches.unshift(dispatch);
+    this.persistStore(this.inMemoryStore);
+    return dispatch;
+  }
+
+  public async getWhatsAppDispatchesByCaseId(caseId: string): Promise<any[]> {
+    const list = this.inMemoryStore.whatsappDispatches || [];
+    return list.filter((d) => d.case_id === caseId);
+  }
+
+  public async logAudit(entry: Omit<AuditLogEntry, "id" | "created_at">): Promise<AuditLogEntry> {
+    return this.logAuditEvent(entry);
   }
 
   public async getCaseById(id: string): Promise<StoredCaseItem | null> {
