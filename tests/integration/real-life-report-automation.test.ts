@@ -6,6 +6,7 @@ import { storageAdapter } from "@/lib/services/storage-adapter";
 import { POST as resolveCaseHandler } from "@/app/api/cases/[id]/resolve/route";
 import { GET as getReportPreviewHandler } from "@/app/api/cases/[id]/report/preview/route";
 import { GET as getReportPdfHandler } from "@/app/api/cases/[id]/report/pdf/route";
+import { GET as getMatrixHandler, PUT as putMatrixHandler } from "@/app/api/cases/[id]/matrix/route";
 import { NextRequest } from "next/server";
 
 describe("Real-Life Audit Matrix Report & WhatsApp Dispatch Automation", () => {
@@ -214,4 +215,74 @@ describe("Real-Life Audit Matrix Report & WhatsApp Dispatch Automation", () => {
       expect(res.headers.get("X-Report-Digest")).toBeDefined();
     }, 25000);
   });
+
+  describe("6. Dynamic 8-Column Matrix Management API", () => {
+    it("retrieves and updates custom matrix items, persisting them in case metadata", async () => {
+      const caseId = "cccccccc-1111-2222-3333-444444444444";
+
+      // 1. GET matrix items
+      const getReq = new NextRequest(`http://localhost:3000/api/cases/${caseId}/matrix`);
+      const getRes = await getMatrixHandler(getReq, {
+        params: Promise.resolve({ id: caseId }),
+      });
+
+      expect(getRes.status).toBe(200);
+      const getJson = await getRes.json();
+      expect(getJson.success).toBe(true);
+      expect(Array.isArray(getJson.items)).toBe(true);
+
+      // 2. PUT custom matrix items
+      const customItems = [
+        {
+          seq: 15,
+          item: "إعلام",
+          observation: "ملاحظة تدقيق إعلامي معدلة.",
+          recommendation: "مراجعة المواد الإعلامية قبل النشر.",
+          isRecurring: "لا",
+          actionSteps: "تكليف مسؤول النشر بالمتابعة.",
+          statement: "تمت المعالجة الفورية.",
+          targetDate: "2026/09/25",
+        },
+        {
+          seq: 16,
+          item: "أخصائي نفسي",
+          observation: "طلب خطة محاضرات الدعم السلوكي.",
+          recommendation: "اعتماد خطة الندوات.",
+          isRecurring: "نعم",
+          actionSteps: "إعداد خطة الرعاية النفسية والتربوية.",
+          statement: "تم الاعتماد.",
+          targetDate: "2026/09/28",
+        },
+      ];
+
+      const putReq = new NextRequest(`http://localhost:3000/api/cases/${caseId}/matrix`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: customItems }),
+      });
+
+      const putRes = await putMatrixHandler(putReq, {
+        params: Promise.resolve({ id: caseId }),
+      });
+
+      expect(putRes.status).toBe(200);
+      const putJson = await putRes.json();
+      expect(putJson.success).toBe(true);
+      expect(putJson.items.length).toBe(2);
+      expect(putJson.items[0].item).toBe("إعلام");
+      expect(putJson.items[1].isRecurring).toBe("نعم");
+
+      // 3. Verify preview route now returns the updated custom matrix items
+      const prevReq = new NextRequest(`http://localhost:3000/api/cases/${caseId}/report/preview`);
+      const prevRes = await getReportPreviewHandler(prevReq, {
+        params: Promise.resolve({ id: caseId }),
+      });
+      const prevJson = await prevRes.json();
+
+      expect(prevJson.success).toBe(true);
+      expect(prevJson.reportData.auditItems.length).toBe(2);
+      expect(prevJson.reportData.auditItems[0].observation).toBe("ملاحظة تدقيق إعلامي معدلة.");
+    });
+  });
 });
+

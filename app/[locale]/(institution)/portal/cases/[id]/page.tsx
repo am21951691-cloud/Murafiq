@@ -32,7 +32,7 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
 
   // Tab state
   const [activeTab, setActiveTab] = useState<
-    "OVERVIEW" | "AI_ASSISTANT" | "TIMELINE" | "COMMUNICATION" | "PLAN" | "NOTES" | "DOCUMENTS"
+    "OVERVIEW" | "MATRIX" | "AI_ASSISTANT" | "TIMELINE" | "COMMUNICATION" | "PLAN" | "NOTES" | "DOCUMENTS"
   >("OVERVIEW");
 
   // Internal Note form
@@ -50,6 +50,10 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
   const [recipientPhone, setRecipientPhone] = useState<string>("");
   const [lastDispatchInfo, setLastDispatchInfo] = useState<any>(null);
   const [isSendingWhatsApp, setIsSendingWhatsApp] = useState(false);
+
+  // 8-Column Audit & Action Matrix State
+  const [matrixItems, setMatrixItems] = useState<any[]>([]);
+  const [isSavingMatrix, setIsSavingMatrix] = useState(false);
 
   // AI draft response state
   const [generatedDraft, setGeneratedDraft] = useState<string | null>(null);
@@ -91,6 +95,17 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
           if (pData.dispatches && pData.dispatches.length > 0) {
             setLastDispatchInfo(pData.dispatches[0]);
           }
+        }
+      } catch {
+        // non-blocking
+      }
+
+      // Load 8-column audit matrix items
+      try {
+        const mRes = await fetch(`/api/cases/${caseId}/matrix`);
+        const mData = await mRes.json();
+        if (mData.success && Array.isArray(mData.items)) {
+          setMatrixItems(mData.items);
         }
       } catch {
         // non-blocking
@@ -246,6 +261,51 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
       alert("حدث خطأ أثناء إرسال رسالة واتساب");
     } finally {
       setIsSendingWhatsApp(false);
+    }
+  };
+
+  const handleUpdateMatrixItem = (index: number, field: string, val: string) => {
+    const next = [...matrixItems];
+    next[index] = { ...next[index], [field]: val };
+    setMatrixItems(next);
+  };
+
+  const handleAddMatrixRow = () => {
+    const newRow = {
+      seq: matrixItems.length + 15,
+      item: "الشؤون الإدارية",
+      observation: "ملاحظة تدقيق جديدة...",
+      recommendation: "توجيه إداري بالمتابعة الفورية.",
+      isRecurring: "لا",
+      actionSteps: "تكليف المشرف بإعداد تقرير وإفادة الإدارة.",
+      statement: "قيد المتابعة والتنفيذ.",
+      targetDate: new Date(Date.now() + 3 * 86400000).toLocaleDateString("ar-EG"),
+    };
+    setMatrixItems([...matrixItems, newRow]);
+  };
+
+  const handleDeleteMatrixRow = (index: number) => {
+    setMatrixItems(matrixItems.filter((_, i) => i !== index));
+  };
+
+  const handleSaveMatrixItems = async () => {
+    setIsSavingMatrix(true);
+    try {
+      const res = await fetch(`/api/cases/${caseId}/matrix`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: matrixItems }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("تم حفظ بنود مصفوفة الفحص بنجاح في سجل الحالة ✅");
+      } else {
+        alert("فشل حفظ المصفوفة: " + (data.error || "خطأ"));
+      }
+    } catch {
+      alert("حدث خطأ أثناء حفظ المصفوفة");
+    } finally {
+      setIsSavingMatrix(false);
     }
   };
 
@@ -445,6 +505,7 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
         <div className="flex items-center gap-1.5 border-b border-slate-200 pb-3 mb-6 overflow-x-auto text-xs font-bold">
           {[
             { key: "OVERVIEW", label: "📄 تفاصيل ووصف الحالة" },
+            { key: "MATRIX", label: "📊 مصفوفة الفحص (8 أعمدة)", highlight: true, badge: matrixItems.length },
             { key: "AI_ASSISTANT", label: "🤖 مساعد الـ AI Resolution", highlight: true },
             { key: "PLAN", label: "☑️ خطة العمل والمراحل", badge: actionPlan?.milestones?.length },
             { key: "TIMELINE", label: "⏱️ الخط الزمني للتنفيذ", badge: events.length },
@@ -619,7 +680,205 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
           </div>
         )}
 
-        {/* Tab 2: AI RESOLUTION ASSISTANT (Repositioned) */}
+        {/* Tab: 8-COLUMN AUDIT & EXECUTIVE ACTION MATRIX */}
+        {activeTab === "MATRIX" && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="p-2 bg-amber-50 text-amber-700 rounded-xl text-sm">📋</span>
+                    <h3 className="text-base font-black text-slate-900">
+                      مصفوفة فحص الحالة ومتابعة الإجراءات التنفيذية (8 أعمدة)
+                    </h3>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">
+                    النموذج المؤسسي الميداني المعتمد المطابق لمحاضر التفتيش والرقابة الإدارية — يمكنك تعديل البنود والملاحظات وخطوات التنفيذ وحفظها مباشرة.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={handleAddMatrixRow}
+                    className="px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 transition flex items-center gap-1.5"
+                  >
+                    <span>+</span> إضافة بند تنفيذي
+                  </button>
+                  <button
+                    onClick={handleSaveMatrixItems}
+                    disabled={isSavingMatrix}
+                    className="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition flex items-center gap-1.5"
+                  >
+                    <span>💾</span> {isSavingMatrix ? "جاري الحفظ..." : "حفظ التعديلات في النظام"}
+                  </button>
+                  <button
+                    onClick={() => setShowReportModal(true)}
+                    className="px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition flex items-center gap-1.5"
+                  >
+                    <span>👁️</span> معاينة المحضر (Canvas)
+                  </button>
+                  <a
+                    href={`/api/cases/${caseId}/report/pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition flex items-center gap-1.5"
+                  >
+                    <span>📥</span> PDF معتمد
+                  </a>
+                  <button
+                    onClick={handleSendWhatsAppDirect}
+                    disabled={isSendingWhatsApp}
+                    className="px-4 py-2 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white shadow-xs transition flex items-center gap-1.5"
+                  >
+                    <span>💬</span> إرسال واتساب للمستفيد
+                  </button>
+                </div>
+              </div>
+
+              {/* 8-Column Responsive Interactive Table */}
+              <div className="overflow-x-auto rounded-2xl border border-slate-300 shadow-xs">
+                <table className="w-full text-right text-xs bg-white">
+                  <thead className="bg-slate-100 border-b-2 border-slate-800 text-slate-900 font-black">
+                    <tr>
+                      <th className="p-3 w-12 text-center border-l border-slate-300">م</th>
+                      <th className="p-3 w-32 border-l border-slate-300">البند</th>
+                      <th className="p-3 border-l border-slate-300">الملحوظة</th>
+                      <th className="p-3 w-48 border-l border-slate-300">التوصية</th>
+                      <th className="p-3 w-20 text-center border-l border-slate-300">مكرر (نعم/لا)</th>
+                      <th className="p-3 border-l border-slate-300">خطوات التنفيذ المقترحة</th>
+                      <th className="p-3 w-36 border-l border-slate-300">الإفادة / الرد</th>
+                      <th className="p-3 w-28 text-center border-l border-slate-300">التاريخ المتوقع للحل</th>
+                      <th className="p-3 w-14 text-center">إجراءات</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200">
+                    {matrixItems.length === 0 ? (
+                      <tr>
+                        <td colSpan={9} className="p-8 text-center text-slate-500">
+                          لا توجد بنود مسجلة بعد. انقر على «إضافة بند تنفيذي» للبدء في تدوين الملاحظات والتوصيات.
+                        </td>
+                      </tr>
+                    ) : (
+                      matrixItems.map((item, idx) => (
+                        <tr key={idx} className="hover:bg-slate-50/70 transition">
+                          <td className="p-2.5 text-center font-bold text-slate-800 border-l border-slate-200">
+                            <input
+                              type="text"
+                              value={item.seq}
+                              onChange={(e) => handleUpdateMatrixItem(idx, "seq", e.target.value)}
+                              className="w-10 text-center bg-slate-50 border border-slate-200 rounded-md p-1 font-bold"
+                            />
+                          </td>
+                          <td className="p-2.5 border-l border-slate-200">
+                            <input
+                              type="text"
+                              value={item.item}
+                              onChange={(e) => handleUpdateMatrixItem(idx, "item", e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-200 rounded-md p-1 font-bold text-sky-800"
+                              placeholder="مثال: إعلام / أخصائي نفسي"
+                            />
+                          </td>
+                          <td className="p-2.5 border-l border-slate-200">
+                            <textarea
+                              rows={3}
+                              value={item.observation}
+                              onChange={(e) => handleUpdateMatrixItem(idx, "observation", e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-200 rounded-md p-1.5 text-xs text-slate-800 leading-relaxed"
+                              placeholder="تفاصيل الملاحظة الميدانية..."
+                            />
+                          </td>
+                          <td className="p-2.5 border-l border-slate-200">
+                            <textarea
+                              rows={3}
+                              value={item.recommendation}
+                              onChange={(e) => handleUpdateMatrixItem(idx, "recommendation", e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-200 rounded-md p-1.5 text-xs text-sky-700 font-medium leading-relaxed"
+                              placeholder="التوصية الإدارية المقترحة..."
+                            />
+                          </td>
+                          <td className="p-2.5 text-center border-l border-slate-200">
+                            <select
+                              value={item.isRecurring}
+                              onChange={(e) => handleUpdateMatrixItem(idx, "isRecurring", e.target.value)}
+                              className={`rounded-lg px-2 py-1 text-xs font-bold border ${
+                                item.isRecurring === "نعم"
+                                  ? "bg-amber-100 text-amber-900 border-amber-300"
+                                  : "bg-emerald-50 text-emerald-800 border-emerald-300"
+                              }`}
+                            >
+                              <option value="لا">لا</option>
+                              <option value="نعم">نعم</option>
+                            </select>
+                          </td>
+                          <td className="p-2.5 border-l border-slate-200">
+                            <textarea
+                              rows={3}
+                              value={item.actionSteps}
+                              onChange={(e) => handleUpdateMatrixItem(idx, "actionSteps", e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-200 rounded-md p-1.5 text-xs text-slate-700 leading-relaxed"
+                              placeholder="الإجراءات والمهام المكلف بها فريق المتابعة..."
+                            />
+                          </td>
+                          <td className="p-2.5 border-l border-slate-200">
+                            <textarea
+                              rows={3}
+                              value={item.statement}
+                              onChange={(e) => handleUpdateMatrixItem(idx, "statement", e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-200 rounded-md p-1.5 text-xs text-emerald-800 font-bold leading-relaxed"
+                              placeholder="الرد والإفادة المعتمدة..."
+                            />
+                          </td>
+                          <td className="p-2.5 text-center border-l border-slate-200">
+                            <input
+                              type="text"
+                              value={item.targetDate}
+                              onChange={(e) => handleUpdateMatrixItem(idx, "targetDate", e.target.value)}
+                              className="w-24 text-center bg-slate-50 border border-slate-200 rounded-md p-1 text-xs font-mono"
+                              placeholder="YYYY/MM/DD"
+                            />
+                          </td>
+                          <td className="p-2.5 text-center">
+                            <button
+                              onClick={() => handleDeleteMatrixRow(idx)}
+                              className="w-7 h-7 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold flex items-center justify-center mx-auto transition"
+                              title="حذف البند"
+                            >
+                              ✕
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Informative Stats Strip */}
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs">
+                <div>
+                  <span className="text-slate-400 font-bold block mb-1">إجمالي البنود المسجلة:</span>
+                  <span className="text-sm font-bold text-slate-800 font-mono">{matrixItems.length} بنود</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 font-bold block mb-1">ملاحظات مكررة:</span>
+                  <span className="text-sm font-bold text-amber-700 font-mono">
+                    {matrixItems.filter((i) => i.isRecurring === "نعم").length} بنود
+                  </span>
+                </div>
+                <div>
+                  <span className="text-slate-400 font-bold block mb-1">المحضر الرسمي:</span>
+                  <span className="text-sm font-bold text-teal-700">مطابق للنموذج الميداني ✓</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 font-bold block mb-1">التوثيق والأتمتة:</span>
+                  <span className="text-sm font-bold text-indigo-700">تزامن تلقائي مع PDF والواتساب</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 3: AI RESOLUTION ASSISTANT (Repositioned) */}
         {activeTab === "AI_ASSISTANT" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Card 1: Missing Information & SLA Risk */}

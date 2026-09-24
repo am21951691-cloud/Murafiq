@@ -220,6 +220,18 @@ export async function generateReportPdf(
     // fallback
   }
 
+  const customAuditItems =
+    input.mockCaseData?.auditItems ||
+    (await (async () => {
+      try {
+        const { storageAdapter } = await import("@/lib/services/storage-adapter");
+        const sc = await storageAdapter.getCaseById(caseId);
+        return (sc?.metadata as any)?.audit_items;
+      } catch {
+        return undefined;
+      }
+    })());
+
   // 1. Build Frozen Sanitized Snapshot
   const snapshot: FrozenReportPayloadSnapshot = {
     case_id: caseId,
@@ -271,6 +283,7 @@ export async function generateReportPdf(
     rRes,
     closingFeedback,
     statutoryCitations,
+    auditItems: customAuditItems,
   });
 
   // 3. Render PDF Buffer via Headless Puppeteer

@@ -19,6 +19,139 @@
       "moderation_status": "APPROVED",
       "dispute_status": "NONE",
       "safety_status": "CLEAR",
+      "updated_at": "2026-09-24T10:24:48.670Z"
+    },
+    {
+      "id": "76e82f66-cd29-4b97-8af0-2bfbc2899a66",
+      "reference_number": "MRF-2026-87030",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "branch_id": null,
+      "category": "TEACHER_COMMUNICATION",
+      "subcategory": "التواصل الأسبوعي",
+      "priority": "MEDIUM",
+      "assigned_department_id": null,
+      "lifecycle_status": "PRIVATE_GRACE",
+      "moderation_status": "PENDING",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "تواصلت مع المعلم على هاتفه [PHONE_REDACTED] بخصوص بطاقة [NATIONAL_ID_REDACTED] ولكن لم يتم الرد علي لمدة أسبوعين متتاليين وتجاهل الإدارة مستمر.",
+      "initial_experience_rating": 2,
+      "grace_expires_at": "2026-10-01T10:24:39.568Z",
+      "metadata": {
+        "desired_outcome": "التواصل مع إدارة المرحلة لحل المشكلة ودياً ووضع خطة تعويضية.",
+        "phone_hash": "09d2153ee2d2eaf56149b2404fa041464d3323e18e45d0bdc0f5c9d2d246f414"
+      },
+      "sector_taxonomy_version": "2026.1",
+      "institution_name": "جهة مسجلة",
+      "sector": "EDUCATION_SCHOOLS"
+    },
+    {
+      "id": "cccccccc-1111-2222-3333-444444444444",
+      "reference_number": "MRF-2026-RESOLVE-998",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "institution_name": "مدرسة الأمل التجريبية",
+      "category": "ADMINISTRATION_DISCIPLINE",
+      "subcategory": "لائحة الانضباط",
+      "lifecycle_status": "AWAITING_EVALUATION",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار وملاحظة بشأن معايير النشر الإعلامي الداخلي.",
+      "initial_experience_rating": 3,
+      "metadata": {
+        "recipient_phone": "01099887766",
+        "audit_items": [
+          {
+            "seq": 15,
+            "item": "إعلام",
+            "observation": "ملاحظة تدقيق إعلامي معدلة.",
+            "recommendation": "مراجعة المواد الإعلامية قبل النشر.",
+            "isRecurring": "لا",
+            "actionSteps": "تكليف مسؤول النشر بالمتابعة.",
+            "statement": "تمت المعالجة الفورية.",
+            "targetDate": "2026/09/25"
+          },
+          {
+            "seq": 16,
+            "item": "أخصائي نفسي",
+            "observation": "طلب خطة محاضرات الدعم السلوكي.",
+            "recommendation": "اعتماد خطة الندوات.",
+            "isRecurring": "نعم",
+            "actionSteps": "إعداد خطة الرعاية النفسية والتربوية.",
+            "statement": "تم الاعتماد.",
+            "targetDate": "2026/09/28"
+          }
+        ],
+        "audit_items_updated_at": "2026-09-24T10:24:10.276Z"
+      },
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "updated_at": "2026-09-24T10:24:10.276Z"
+    },
+    {
+      "id": "cccccccc-1111-2222-3333-444444444444",
+      "reference_number": "MRF-2026-RESOLVE-998",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "institution_name": "مدرسة الأمل التجريبية",
+      "category": "ADMINISTRATION_DISCIPLINE",
+      "subcategory": "لائحة الانضباط",
+      "lifecycle_status": "AWAITING_EVALUATION",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار وملاحظة بشأن معايير النشر الإعلامي الداخلي.",
+      "initial_experience_rating": 3,
+      "metadata": {
+        "recipient_phone": "01099887766"
+      },
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "updated_at": "2026-09-24T10:24:00.383Z"
+    },
+    {
+      "id": "cccccccc-1111-2222-3333-444444444444",
+      "reference_number": "MRF-2026-RESOLVE-998",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "institution_name": "مدرسة الأمل التجريبية",
+      "category": "ADMINISTRATION_DISCIPLINE",
+      "subcategory": "لائحة الانضباط",
+      "lifecycle_status": "AWAITING_EVALUATION",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار وملاحظة بشأن معايير النشر الإعلامي الداخلي.",
+      "initial_experience_rating": 3,
+      "metadata": {
+        "recipient_phone": "01099887766"
+      },
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
+      "updated_at": "2026-09-24T10:22:52.286Z"
+    },
+    {
+      "id": "cccccccc-1111-2222-3333-444444444444",
+      "reference_number": "MRF-2026-RESOLVE-998",
+      "user_id": "00000000-0000-0000-0000-000000000001",
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "institution_name": "مدرسة الأمل التجريبية",
+      "category": "ADMINISTRATION_DISCIPLINE",
+      "subcategory": "لائحة الانضباط",
+      "lifecycle_status": "AWAITING_EVALUATION",
+      "visibility": "STRICTLY_PRIVATE",
+      "sanitized_description": "استفسار وملاحظة بشأن معايير النشر الإعلامي الداخلي.",
+      "initial_experience_rating": 3,
+      "metadata": {
+        "recipient_phone": "01099887766"
+      },
+      "sector": "COMMERCIAL_COMPANIES",
+      "moderation_status": "APPROVED",
+      "dispute_status": "NONE",
+      "safety_status": "CLEAR",
       "updated_at": "2026-09-24T09:55:35.486Z"
     },
     {
@@ -2177,7 +2310,7 @@
         "adherence": 90
       },
       "created_at": "2026-09-24T09:51:30.142Z",
-      "updated_at": "2026-09-24T09:55:35.479Z",
+      "updated_at": "2026-09-24T10:24:48.658Z",
       "milestones": [
         {
           "id": "999330b5-d96c-46c5-b368-f74b7ae5a2ce",
@@ -3928,6 +4061,95 @@
         "resolved_at": "2026-09-24T09:55:35.479Z"
       },
       "created_at": "2026-09-24T09:55:35.486Z"
+    },
+    {
+      "id": "ae8a4c72-b61b-4edd-8671-9be344351c9b",
+      "case_id": "cccccccc-1111-2222-3333-444444444444",
+      "event_type": "ACTION_PLAN_FORMULATED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_REP",
+      "payload": {
+        "rqs_score": 90
+      },
+      "created_at": "2026-09-24T10:22:52.280Z"
+    },
+    {
+      "id": "de2b073c-7d61-4bff-9c0f-4d0121f7945d",
+      "case_id": "cccccccc-1111-2222-3333-444444444444",
+      "event_type": "CASE_RESOLVED_BY_INSTITUTION",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "official_statement": "تم فحص الواقعة واعتماد خطة العمل التصحيحية وإخطار المشرفين بالمتابعة الأسبوعية.",
+        "resolved_by": "فريق تسوية الحالات",
+        "resolved_at": "2026-09-24T10:22:52.280Z"
+      },
+      "created_at": "2026-09-24T10:22:52.286Z"
+    },
+    {
+      "id": "0625c812-43af-4156-8748-8448ece8afa9",
+      "case_id": "cccccccc-1111-2222-3333-444444444444",
+      "event_type": "ACTION_PLAN_FORMULATED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_REP",
+      "payload": {
+        "rqs_score": 90
+      },
+      "created_at": "2026-09-24T10:24:00.360Z"
+    },
+    {
+      "id": "4d112680-30e4-48fd-8c61-332051c4652c",
+      "case_id": "cccccccc-1111-2222-3333-444444444444",
+      "event_type": "CASE_RESOLVED_BY_INSTITUTION",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "official_statement": "تم فحص الواقعة واعتماد خطة العمل التصحيحية وإخطار المشرفين بالمتابعة الأسبوعية.",
+        "resolved_by": "فريق تسوية الحالات",
+        "resolved_at": "2026-09-24T10:24:00.359Z"
+      },
+      "created_at": "2026-09-24T10:24:00.383Z"
+    },
+    {
+      "id": "230cb7ab-4094-4e7b-bcf0-e20ea99c0c8a",
+      "case_id": "76e82f66-cd29-4b97-8af0-2bfbc2899a66",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "event_type": "CASE_SUBMITTED",
+      "from_state": {
+        "lifecycle_status": "DRAFT"
+      },
+      "to_state": {
+        "lifecycle_status": "PRIVATE_GRACE"
+      },
+      "metadata": {
+        "reference_number": "MRF-2026-87030",
+        "visibility": "STRICTLY_PRIVATE",
+        "grace_expires_at": "2026-10-01T10:24:39.568Z"
+      }
+    },
+    {
+      "id": "2dbea01c-cb50-4897-be3f-1b73583a9640",
+      "case_id": "cccccccc-1111-2222-3333-444444444444",
+      "event_type": "ACTION_PLAN_FORMULATED",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "INSTITUTION_REP",
+      "payload": {
+        "rqs_score": 90
+      },
+      "created_at": "2026-09-24T10:24:48.659Z"
+    },
+    {
+      "id": "b681efb2-0706-4a21-9902-ad91cf013213",
+      "case_id": "cccccccc-1111-2222-3333-444444444444",
+      "event_type": "CASE_RESOLVED_BY_INSTITUTION",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_role": "OPS_LEAD",
+      "payload": {
+        "official_statement": "تم فحص الواقعة واعتماد خطة العمل التصحيحية وإخطار المشرفين بالمتابعة الأسبوعية.",
+        "resolved_by": "فريق تسوية الحالات",
+        "resolved_at": "2026-09-24T10:24:48.658Z"
+      },
+      "created_at": "2026-09-24T10:24:48.671Z"
     }
   ],
   "departments": [
@@ -4635,6 +4857,61 @@
   "auditLogs": [
     {
       "institution_id": "00000000-0000-0000-0000-000000000010",
+      "actor_id": "00000000-0000-0000-0000-000000000001",
+      "actor_name": "مدير النظام",
+      "actor_role": "ADMIN",
+      "action": "CASE_AUDIT_MATRIX_UPDATED",
+      "entity_type": "CASE",
+      "entity_id": "cccccccc-1111-2222-3333-444444444444",
+      "before_state": {
+        "count": 0
+      },
+      "after_state": {
+        "count": 2
+      },
+      "id": "dabdf30c-6cd8-4173-a2de-db5b491a1e5f",
+      "created_at": "2026-09-24T10:24:10.279Z"
+    },
+    {
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_name": "فريق تسوية الحالات",
+      "actor_role": "OPS_LEAD",
+      "action": "RESOLVE_CASE_AND_DISPATCH_WHATSAPP",
+      "entity_type": "CASE",
+      "entity_id": "cccccccc-1111-2222-3333-444444444444",
+      "before_state": {
+        "lifecycle_status": "AWAITING_EVALUATION"
+      },
+      "after_state": {
+        "lifecycle_status": "AWAITING_EVALUATION",
+        "whatsapp_message_id": "wamid.mock.9fc0140f-4f74-40f2-8136-308fe1e91d9c",
+        "sha256_digest": "e3dd474da3b6c4860633c0bcd4509b529cfe49fbbe163c6391056e0113ad051b"
+      },
+      "id": "4d4997e2-6bff-4cbe-910e-f6e5039ae761",
+      "created_at": "2026-09-24T10:24:05.570Z"
+    },
+    {
+      "institution_id": "00000000-0000-0000-0000-000000000010",
+      "actor_id": "00000000-0000-0000-0000-000000000002",
+      "actor_name": "فريق تسوية الحالات",
+      "actor_role": "OPS_LEAD",
+      "action": "RESOLVE_CASE_AND_DISPATCH_WHATSAPP",
+      "entity_type": "CASE",
+      "entity_id": "cccccccc-1111-2222-3333-444444444444",
+      "before_state": {
+        "lifecycle_status": "AWAITING_EVALUATION"
+      },
+      "after_state": {
+        "lifecycle_status": "AWAITING_EVALUATION",
+        "whatsapp_message_id": "wamid.mock.8a9577f0-8fe4-469c-9bad-b69b34b2426d",
+        "sha256_digest": "eb61e9469bc0de64b14e6832654c265f3ee5e137a5278281e362117322af1370"
+      },
+      "id": "21b6a1ad-82b6-4384-8f9b-f848818928d8",
+      "created_at": "2026-09-24T10:22:57.046Z"
+    },
+    {
+      "institution_id": "00000000-0000-0000-0000-000000000010",
       "actor_id": "00000000-0000-0000-0000-000000000002",
       "actor_name": "فريق تسوية الحالات",
       "actor_role": "OPS_LEAD",
@@ -4763,10 +5040,165 @@
       "student_identifiers_encrypted": null,
       "sensitive_identifiers_encrypted": null,
       "created_at": "2026-09-24T09:55:27.297Z"
+    },
+    "76e82f66-cd29-4b97-8af0-2bfbc2899a66": {
+      "case_id": "76e82f66-cd29-4b97-8af0-2bfbc2899a66",
+      "raw_description_encrypted": "b0ba24b1d95fdac7f82adc48:8579379d7d6246b5b5ae2cd7a55a3e84:3db394c5006ee4800cea5564296650588fff81d0b1707d81f7b348f08bc7a65c08b21e96b5a4f5a0af3f20d987c1381bd6b820b0118f3f8e5ccf634ebb6e72a3b0acdecc73eda6cc1bd2220aa12bdff609afa94d47f41b0ac6ebecd45a932a1cb4e2c8d7a48814eaa136058376743b5f25ee83a25121a02363292896814c3eb1848ceaf6db95e8fbf62d570031a0c14df17029eb44a3de8f123b3c6b3064f3b9fbb6fda3465b228f251bb06702c70c6ff8d54288d9b9705bd062b9e26a5a2b5ef49eb650fc8662d8e7b5a252c792bc24baf40a53346915",
+      "parent_contact_phone_encrypted": "26af8f045e1c382ed81cca4a:554ba941e7c1ad3176996134485a89da:8a50ef043fb5f25ddf634b1ca6",
+      "student_identifiers_encrypted": null,
+      "sensitive_identifiers_encrypted": null,
+      "created_at": "2026-09-24T10:24:39.568Z"
     }
   },
   "reports": {
     "aaaaaaaa-1111-2222-3333-444444444444": [
+      {
+        "case_id": "aaaaaaaa-1111-2222-3333-444444444444",
+        "version": 1,
+        "report_payload_snapshot": {
+          "case_id": "aaaaaaaa-1111-2222-3333-444444444444",
+          "reference_number": "MRF-2026-REAL-1516",
+          "institution_name": "مدرسة الأمل الحديثة للغات",
+          "branch_name": "فرع مدينة نصر",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "هناك فيديو تم نشره على جروب فريق عمل المدرسة به خطأ لغة عربية (بسيط) ومن المتوقع ان يكون قد تم نشره على جروبات اولياء الامور .",
+          "desired_outcome": "مراجعة اي مادة اعلامية قبل نشرها",
+          "official_statement": "تكليف اخصائية الاعلام بارسال الفيديوهات والمنشورات الاعلامية لاحد معلمي اللغة العربية للاطلاع قبل النشر وتكليف وكيل المدرسة بالمتابعة",
+          "rqs_score": 94,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "اجتماع لجنة الحماية المدرسية وبحث الحالة",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-10",
+              "is_completed": true,
+              "deliverable": "محضر اجتماع لجنة الحماية"
+            },
+            {
+              "title": "تقديم تقرير المتابعة التربوية لولي الأمر",
+              "owner_role": "COUNSELOR",
+              "due_date": "2026-09-15",
+              "is_completed": true,
+              "deliverable": "تقرير المتابعة المعتمد"
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 4,
+            "r_resp": 5,
+            "r_res": 5,
+            "feedback": "تم اتخاذ الإجراء السريع والمعالجة المهنية المحترمة."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "لائحة النظام والانضباط المدرسي (المادة 4 والمادة 18)"
+            }
+          ],
+          "snapshot_created_at": "2026-09-24T10:24:40.002Z",
+          "version": 1
+        },
+        "pdf_storage_path": "reports/case_aaaaaaaa-1111-2222-3333-444444444444_v1.pdf",
+        "sha256_digest": "bf79af9cd2f67932dcd7ddd92357ef18e6518c72294b09c3dc0157efd15ea1e0",
+        "created_at": "2026-09-24T10:24:40.002Z"
+      },
+      {
+        "case_id": "aaaaaaaa-1111-2222-3333-444444444444",
+        "version": 1,
+        "report_payload_snapshot": {
+          "case_id": "aaaaaaaa-1111-2222-3333-444444444444",
+          "reference_number": "MRF-2026-REAL-1516",
+          "institution_name": "مدرسة الأمل الحديثة للغات",
+          "branch_name": "فرع مدينة نصر",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "هناك فيديو تم نشره على جروب فريق عمل المدرسة به خطأ لغة عربية (بسيط) ومن المتوقع ان يكون قد تم نشره على جروبات اولياء الامور .",
+          "desired_outcome": "مراجعة اي مادة اعلامية قبل نشرها",
+          "official_statement": "تكليف اخصائية الاعلام بارسال الفيديوهات والمنشورات الاعلامية لاحد معلمي اللغة العربية للاطلاع قبل النشر وتكليف وكيل المدرسة بالمتابعة",
+          "rqs_score": 94,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "اجتماع لجنة الحماية المدرسية وبحث الحالة",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-10",
+              "is_completed": true,
+              "deliverable": "محضر اجتماع لجنة الحماية"
+            },
+            {
+              "title": "تقديم تقرير المتابعة التربوية لولي الأمر",
+              "owner_role": "COUNSELOR",
+              "due_date": "2026-09-15",
+              "is_completed": true,
+              "deliverable": "تقرير المتابعة المعتمد"
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 4,
+            "r_resp": 5,
+            "r_res": 5,
+            "feedback": "تم اتخاذ الإجراء السريع والمعالجة المهنية المحترمة."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "لائحة النظام والانضباط المدرسي (المادة 4 والمادة 18)"
+            }
+          ],
+          "snapshot_created_at": "2026-09-24T10:23:52.350Z",
+          "version": 1
+        },
+        "pdf_storage_path": "reports/case_aaaaaaaa-1111-2222-3333-444444444444_v1.pdf",
+        "sha256_digest": "d686bdec91cf3e29c6354a7cd615e927b4062a1f73ad59768c1dae0677e8ed5e",
+        "created_at": "2026-09-24T10:23:52.350Z"
+      },
+      {
+        "case_id": "aaaaaaaa-1111-2222-3333-444444444444",
+        "version": 1,
+        "report_payload_snapshot": {
+          "case_id": "aaaaaaaa-1111-2222-3333-444444444444",
+          "reference_number": "MRF-2026-REAL-1516",
+          "institution_name": "مدرسة الأمل الحديثة للغات",
+          "branch_name": "فرع مدينة نصر",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "هناك فيديو تم نشره على جروب فريق عمل المدرسة به خطأ لغة عربية (بسيط) ومن المتوقع ان يكون قد تم نشره على جروبات اولياء الامور .",
+          "desired_outcome": "مراجعة اي مادة اعلامية قبل نشرها",
+          "official_statement": "تكليف اخصائية الاعلام بارسال الفيديوهات والمنشورات الاعلامية لاحد معلمي اللغة العربية للاطلاع قبل النشر وتكليف وكيل المدرسة بالمتابعة",
+          "rqs_score": 94,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "اجتماع لجنة الحماية المدرسية وبحث الحالة",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-10",
+              "is_completed": true,
+              "deliverable": "محضر اجتماع لجنة الحماية"
+            },
+            {
+              "title": "تقديم تقرير المتابعة التربوية لولي الأمر",
+              "owner_role": "COUNSELOR",
+              "due_date": "2026-09-15",
+              "is_completed": true,
+              "deliverable": "تقرير المتابعة المعتمد"
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 4,
+            "r_resp": 5,
+            "r_res": 5,
+            "feedback": "تم اتخاذ الإجراء السريع والمعالجة المهنية المحترمة."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "لائحة النظام والانضباط المدرسي (المادة 4 والمادة 18)"
+            }
+          ],
+          "snapshot_created_at": "2026-09-24T10:22:46.390Z",
+          "version": 1
+        },
+        "pdf_storage_path": "reports/case_aaaaaaaa-1111-2222-3333-444444444444_v1.pdf",
+        "sha256_digest": "814f31e1a670592293de989038caa08602a8cab922e157c8c56073d6d7b46012",
+        "created_at": "2026-09-24T10:22:46.390Z"
+      },
       {
         "case_id": "aaaaaaaa-1111-2222-3333-444444444444",
         "version": 1,
@@ -5063,6 +5495,174 @@
       }
     ],
     "cccccccc-1111-2222-3333-444444444444": [
+      {
+        "case_id": "cccccccc-1111-2222-3333-444444444444",
+        "version": 1,
+        "report_payload_snapshot": {
+          "case_id": "cccccccc-1111-2222-3333-444444444444",
+          "reference_number": "MRF-2026-RESOLVE-998",
+          "institution_name": "مدرسة الأمل التجريبية",
+          "branch_name": "فرع القاهرة الجديدة",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "استفسار وملاحظة بشأن معايير النشر الإعلامي الداخلي.",
+          "desired_outcome": "الاعتذار وتفعيل لائحة الانضباط المدرسي",
+          "official_statement": "تم فحص الواقعة واعتماد خطة العمل التصحيحية وإخطار المشرفين بالمتابعة الأسبوعية.",
+          "rqs_score": 90,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "فحص أسباب الحالة وتطبيق الإجراءات التصحيحية المعتمدة",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-25",
+              "is_completed": false,
+              "deliverable": "محضر التسوية وتطبيق اللائحة"
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 3,
+            "r_resp": 4,
+            "r_res": 5,
+            "feedback": "ممتن لسرعة استجابة الإدارة والحل التربوي المحترم."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "لائحة النظام والانضباط المدرسي (المادة 4 والمادة 18)"
+            }
+          ],
+          "snapshot_created_at": "2026-09-24T10:24:05.585Z",
+          "version": 1
+        },
+        "pdf_storage_path": "reports/case_cccccccc-1111-2222-3333-444444444444_v1.pdf",
+        "sha256_digest": "00e14ad1519fbe5fef70ca9ccd49583c958f7b386abc5e5e83e8064a3d067481",
+        "created_at": "2026-09-24T10:24:05.585Z"
+      },
+      {
+        "case_id": "cccccccc-1111-2222-3333-444444444444",
+        "version": 1,
+        "report_payload_snapshot": {
+          "case_id": "cccccccc-1111-2222-3333-444444444444",
+          "reference_number": "MRF-2026-RESOLVE-998",
+          "institution_name": "مدرسة الأمل التجريبية",
+          "branch_name": "فرع القاهرة الجديدة",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "استفسار وملاحظة بشأن معايير النشر الإعلامي الداخلي.",
+          "desired_outcome": "الاعتذار وتفعيل لائحة الانضباط المدرسي",
+          "official_statement": "تم فحص الواقعة واعتماد خطة العمل التصحيحية وإخطار المشرفين بالمتابعة الأسبوعية.",
+          "rqs_score": 90,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "فحص أسباب الحالة وتطبيق الإجراءات التصحيحية المعتمدة",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-25",
+              "is_completed": false,
+              "deliverable": "محضر التسوية وتطبيق اللائحة"
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 3,
+            "r_resp": 4,
+            "r_res": 5,
+            "feedback": "ممتن لسرعة استجابة الإدارة والحل التربوي المحترم."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "لائحة النظام والانضباط المدرسي (المادة 4 والمادة 18)"
+            }
+          ],
+          "snapshot_created_at": "2026-09-24T10:24:00.389Z",
+          "version": 1
+        },
+        "pdf_storage_path": "reports/case_cccccccc-1111-2222-3333-444444444444_v1.pdf",
+        "sha256_digest": "e3dd474da3b6c4860633c0bcd4509b529cfe49fbbe163c6391056e0113ad051b",
+        "created_at": "2026-09-24T10:24:00.389Z"
+      },
+      {
+        "case_id": "cccccccc-1111-2222-3333-444444444444",
+        "version": 1,
+        "report_payload_snapshot": {
+          "case_id": "cccccccc-1111-2222-3333-444444444444",
+          "reference_number": "MRF-2026-RESOLVE-998",
+          "institution_name": "مدرسة الأمل التجريبية",
+          "branch_name": "فرع القاهرة الجديدة",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "استفسار وملاحظة بشأن معايير النشر الإعلامي الداخلي.",
+          "desired_outcome": "الاعتذار وتفعيل لائحة الانضباط المدرسي",
+          "official_statement": "تم فحص الواقعة واعتماد خطة العمل التصحيحية وإخطار المشرفين بالمتابعة الأسبوعية.",
+          "rqs_score": 90,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "فحص أسباب الحالة وتطبيق الإجراءات التصحيحية المعتمدة",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-25",
+              "is_completed": false,
+              "deliverable": "محضر التسوية وتطبيق اللائحة"
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 3,
+            "r_resp": 4,
+            "r_res": 5,
+            "feedback": "ممتن لسرعة استجابة الإدارة والحل التربوي المحترم."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "لائحة النظام والانضباط المدرسي (المادة 4 والمادة 18)"
+            }
+          ],
+          "snapshot_created_at": "2026-09-24T10:22:57.060Z",
+          "version": 1
+        },
+        "pdf_storage_path": "reports/case_cccccccc-1111-2222-3333-444444444444_v1.pdf",
+        "sha256_digest": "ca7003d97154006defea15c53315f175085e81edf2bd2cd4bee1428dd304d0e7",
+        "created_at": "2026-09-24T10:22:57.060Z"
+      },
+      {
+        "case_id": "cccccccc-1111-2222-3333-444444444444",
+        "version": 1,
+        "report_payload_snapshot": {
+          "case_id": "cccccccc-1111-2222-3333-444444444444",
+          "reference_number": "MRF-2026-RESOLVE-998",
+          "institution_name": "مدرسة الأمل التجريبية",
+          "branch_name": "فرع القاهرة الجديدة",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "استفسار وملاحظة بشأن معايير النشر الإعلامي الداخلي.",
+          "desired_outcome": "الاعتذار وتفعيل لائحة الانضباط المدرسي",
+          "official_statement": "تم فحص الواقعة واعتماد خطة العمل التصحيحية وإخطار المشرفين بالمتابعة الأسبوعية.",
+          "rqs_score": 90,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "فحص أسباب الحالة وتطبيق الإجراءات التصحيحية المعتمدة",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-25",
+              "is_completed": false,
+              "deliverable": "محضر التسوية وتطبيق اللائحة"
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 3,
+            "r_resp": 4,
+            "r_res": 5,
+            "feedback": "ممتن لسرعة استجابة الإدارة والحل التربوي المحترم."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "لائحة النظام والانضباط المدرسي (المادة 4 والمادة 18)"
+            }
+          ],
+          "snapshot_created_at": "2026-09-24T10:22:52.294Z",
+          "version": 1
+        },
+        "pdf_storage_path": "reports/case_cccccccc-1111-2222-3333-444444444444_v1.pdf",
+        "sha256_digest": "eb61e9469bc0de64b14e6832654c265f3ee5e137a5278281e362117322af1370",
+        "created_at": "2026-09-24T10:22:52.294Z"
+      },
       {
         "case_id": "cccccccc-1111-2222-3333-444444444444",
         "version": 1,
@@ -5441,6 +6041,53 @@
               "title": "حظر العقاب البدني والنفسي بكافة أشكاله"
             }
           ],
+          "snapshot_created_at": "2026-09-24T10:24:53.716Z",
+          "version": 1
+        },
+        "pdf_storage_path": "reports/case_11111111-2222-3333-4444-555555555555_v1.pdf",
+        "sha256_digest": "e4392464dd52e4e91712b3cd3062b35f18685d58ed09a8de6b0c5c7a2a21b642",
+        "created_at": "2026-09-24T10:24:53.716Z"
+      },
+      {
+        "case_id": "11111111-2222-3333-4444-555555555555",
+        "version": 1,
+        "report_payload_snapshot": {
+          "case_id": "11111111-2222-3333-4444-555555555555",
+          "reference_number": "MRF-2026-0941",
+          "institution_name": "St. George Language School",
+          "branch_name": "Heliopolis Branch",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "شكوى بخصوص مخالفة انضباط صفي واستخدام توبيخ محقر أمام الزملاء.",
+          "desired_outcome": "تقديم اعتذار رسمي للطالب ونقل المشكلة للجنة الحماية المدرسية",
+          "official_statement": "تؤكد إدارة المدرسة على سياسة الحظر القاطع للعقاب النفسي وتفعيل إجراءات لجنة الحماية.",
+          "rqs_score": 92,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "انعقاد لجنة الحماية المدرسية",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-12",
+              "is_completed": true
+            },
+            {
+              "title": "جلسة إرشاد ودعم نفسي للطالب",
+              "owner_role": "COUNSELOR",
+              "due_date": "2026-09-15",
+              "is_completed": true
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 4,
+            "r_resp": 5,
+            "r_res": 5,
+            "feedback": "تم حل المشكلة بمهنية عالية وتم استعادة ثقة الطالب بنفسه."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "حظر العقاب البدني والنفسي بكافة أشكاله"
+            }
+          ],
           "snapshot_created_at": "2026-09-24T09:55:37.920Z",
           "version": 1
         },
@@ -5544,6 +6191,100 @@
       }
     ],
     "99999999-8888-7777-6666-555555555555": [
+      {
+        "case_id": "99999999-8888-7777-6666-555555555555",
+        "version": 2,
+        "report_payload_snapshot": {
+          "case_id": "99999999-8888-7777-6666-555555555555",
+          "reference_number": "MRF-2026-0941",
+          "institution_name": "St. George Language School",
+          "branch_name": "Heliopolis Branch",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "شكوى بخصوص مخالفة انضباط صفي واستخدام توبيخ محقر أمام الزملاء.",
+          "desired_outcome": "تقديم اعتذار رسمي للطالب ونقل المشكلة للجنة الحماية المدرسية",
+          "official_statement": "إفادة المدرسة المعدلة للإصدار الثاني",
+          "rqs_score": 92,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "انعقاد لجنة الحماية المدرسية",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-12",
+              "is_completed": true
+            },
+            {
+              "title": "جلسة إرشاد ودعم نفسي للطالب",
+              "owner_role": "COUNSELOR",
+              "due_date": "2026-09-15",
+              "is_completed": true
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 4,
+            "r_resp": 5,
+            "r_res": 5,
+            "feedback": "تم حل المشكلة بمهنية عالية وتم استعادة ثقة الطالب بنفسه."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "حظر العقاب البدني والنفسي بكافة أشكاله"
+            }
+          ],
+          "snapshot_created_at": "2026-09-24T10:25:07.352Z",
+          "version": 2
+        },
+        "pdf_storage_path": "reports/case_99999999-8888-7777-6666-555555555555_v2.pdf",
+        "sha256_digest": "6572532bcc9fe4ab2414b7a34c4e1a460d4d83c0ba163cf88797c7702f8f5175",
+        "created_at": "2026-09-24T10:25:07.352Z"
+      },
+      {
+        "case_id": "99999999-8888-7777-6666-555555555555",
+        "version": 1,
+        "report_payload_snapshot": {
+          "case_id": "99999999-8888-7777-6666-555555555555",
+          "reference_number": "MRF-2026-0941",
+          "institution_name": "St. George Language School",
+          "branch_name": "Heliopolis Branch",
+          "category": "ADMINISTRATION_DISCIPLINE",
+          "sanitized_description": "شكوى بخصوص مخالفة انضباط صفي واستخدام توبيخ محقر أمام الزملاء.",
+          "desired_outcome": "تقديم اعتذار رسمي للطالب ونقل المشكلة للجنة الحماية المدرسية",
+          "official_statement": "تؤكد إدارة المدرسة على سياسة الحظر القاطع للعقاب النفسي وتفعيل إجراءات لجنة الحماية.",
+          "rqs_score": 92,
+          "rqs_grade": "EXEMPLARY",
+          "milestones": [
+            {
+              "title": "انعقاد لجنة الحماية المدرسية",
+              "owner_role": "OPS_LEAD",
+              "due_date": "2026-09-12",
+              "is_completed": true
+            },
+            {
+              "title": "جلسة إرشاد ودعم نفسي للطالب",
+              "owner_role": "COUNSELOR",
+              "due_date": "2026-09-15",
+              "is_completed": true
+            }
+          ],
+          "evaluations_3d": {
+            "r_exp": 4,
+            "r_resp": 5,
+            "r_res": 5,
+            "feedback": "تم حل المشكلة بمهنية عالية وتم استعادة ثقة الطالب بنفسه."
+          },
+          "statutory_citations": [
+            {
+              "reference": "القرار الوزاري رقم 187 لسنة 2023",
+              "title": "حظر العقاب البدني والنفسي بكافة أشكاله"
+            }
+          ],
+          "snapshot_created_at": "2026-09-24T10:25:01.103Z",
+          "version": 1
+        },
+        "pdf_storage_path": "reports/case_99999999-8888-7777-6666-555555555555_v1.pdf",
+        "sha256_digest": "b5fc1ae7ec636e150a44d7ff382a074c2c0adefcac7c753a20507d897607431c",
+        "created_at": "2026-09-24T10:25:01.103Z"
+      },
       {
         "case_id": "99999999-8888-7777-6666-555555555555",
         "version": 2,
@@ -5829,6 +6570,71 @@
     ]
   },
   "whatsappDispatches": [
+    {
+      "id": "f92e7506-94fd-4582-bff5-77dd954022ba",
+      "case_id": "bbbbbbbb-1111-2222-3333-444444444444",
+      "report_id": "0fb595b4-e4ab-4634-b8bb-ddeebe79d12d",
+      "recipient_phone_e164": "+201012345678",
+      "recipient_phone_hash": "0895f44c7a43ae484d10b8509021516091079927afc18baa37fad1a70f35c01d",
+      "template_name": "case_resolution_document_ar",
+      "idempotency_key": "wa_msg_bbbbbbbb-1111-2222-3333-444444444444_v1",
+      "provider_message_id": "wamid.mock.cf2930d4-25ca-4cf1-909f-f90dedbecada",
+      "delivery_status": "SENT",
+      "signed_url": "https://murafiq.edu.eg/api/cases/bbbbbbbb-1111-2222-3333-444444444444/report/download?token=mock_signed_72h_bbbbbbbb-1111-2222-3333-444444444444_v1",
+      "created_at": "2026-09-24T10:24:48.628Z"
+    },
+    {
+      "id": "63f20fd1-4a0c-42e6-ab11-9ed8df23cab7",
+      "case_id": "cccccccc-1111-2222-3333-444444444444",
+      "report_id": "7d45979b-c943-49be-be51-9afc3201dcc8",
+      "recipient_phone_e164": "+201099887766",
+      "recipient_phone_hash": "09d2153ee2d2eaf56149b2404fa041464d3323e18e45d0bdc0f5c9d2d246f414",
+      "template_name": "case_resolution_document_ar",
+      "idempotency_key": "wa_msg_cccccccc-1111-2222-3333-444444444444_v1",
+      "provider_message_id": "wamid.mock.9fc0140f-4f74-40f2-8136-308fe1e91d9c",
+      "delivery_status": "SENT",
+      "signed_url": "https://murafiq.edu.eg/api/cases/cccccccc-1111-2222-3333-444444444444/report/download?token=mock_signed_72h_cccccccc-1111-2222-3333-444444444444_v1",
+      "created_at": "2026-09-24T10:24:05.563Z"
+    },
+    {
+      "id": "020c8d10-d11e-499e-b692-ee35488b4f87",
+      "case_id": "bbbbbbbb-1111-2222-3333-444444444444",
+      "report_id": "df13b579-d39e-4b3a-b554-10b1731875a9",
+      "recipient_phone_e164": "+201012345678",
+      "recipient_phone_hash": "0895f44c7a43ae484d10b8509021516091079927afc18baa37fad1a70f35c01d",
+      "template_name": "case_resolution_document_ar",
+      "idempotency_key": "wa_msg_bbbbbbbb-1111-2222-3333-444444444444_v1",
+      "provider_message_id": "wamid.mock.310b036c-132e-49b5-bbbd-86ff5a514fe7",
+      "delivery_status": "SENT",
+      "signed_url": "https://murafiq.edu.eg/api/cases/bbbbbbbb-1111-2222-3333-444444444444/report/download?token=mock_signed_72h_bbbbbbbb-1111-2222-3333-444444444444_v1",
+      "created_at": "2026-09-24T10:24:00.320Z"
+    },
+    {
+      "id": "f899c633-e1e7-422d-a29a-36308d99f40b",
+      "case_id": "cccccccc-1111-2222-3333-444444444444",
+      "report_id": "58d41dad-3846-4869-925c-9c6e02517c43",
+      "recipient_phone_e164": "+201099887766",
+      "recipient_phone_hash": "09d2153ee2d2eaf56149b2404fa041464d3323e18e45d0bdc0f5c9d2d246f414",
+      "template_name": "case_resolution_document_ar",
+      "idempotency_key": "wa_msg_cccccccc-1111-2222-3333-444444444444_v1",
+      "provider_message_id": "wamid.mock.8a9577f0-8fe4-469c-9bad-b69b34b2426d",
+      "delivery_status": "SENT",
+      "signed_url": "https://murafiq.edu.eg/api/cases/cccccccc-1111-2222-3333-444444444444/report/download?token=mock_signed_72h_cccccccc-1111-2222-3333-444444444444_v1",
+      "created_at": "2026-09-24T10:22:57.043Z"
+    },
+    {
+      "id": "26ead08c-7e08-4831-8fc1-24ce40edf28d",
+      "case_id": "bbbbbbbb-1111-2222-3333-444444444444",
+      "report_id": "b8161458-c0fa-41ac-ab4b-9f2011e69be8",
+      "recipient_phone_e164": "+201012345678",
+      "recipient_phone_hash": "0895f44c7a43ae484d10b8509021516091079927afc18baa37fad1a70f35c01d",
+      "template_name": "case_resolution_document_ar",
+      "idempotency_key": "wa_msg_bbbbbbbb-1111-2222-3333-444444444444_v1",
+      "provider_message_id": "wamid.mock.81dae7da-9599-47e4-8537-f7e440cb1b15",
+      "delivery_status": "SENT",
+      "signed_url": "https://murafiq.edu.eg/api/cases/bbbbbbbb-1111-2222-3333-444444444444/report/download?token=mock_signed_72h_bbbbbbbb-1111-2222-3333-444444444444_v1",
+      "created_at": "2026-09-24T10:22:52.261Z"
+    },
     {
       "id": "2cce4e13-3a12-4a86-865a-cdafea232279",
       "case_id": "bbbbbbbb-1111-2222-3333-444444444444",

@@ -2,13 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>تقرير فحص وتسوية حالة — مُرافِق Enterprise</title>
+  <title>تقرير فحص وتسوية حالة ومصفوفة المتابعة — مُرافِق Enterprise</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
 
     @page {
       size: A4 landscape;
-      margin: 8mm 10mm;
+      margin: 6mm 8mm;
     }
 
     * {
@@ -21,77 +21,144 @@
       font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background-color: #ffffff;
       color: #0f172a;
-      line-height: 1.5;
-      padding: 16px 20px;
-      font-size: 12px;
+      line-height: 1.45;
+      padding: 12px 16px;
+      font-size: 11px;
       direction: rtl;
     }
 
-    /* TOP HEADER & DATE BAR */
-    .top-bar {
-      display: table;
+    /* TOP HEADER: DUAL BRANDING & OFFICIAL EMBLEM */
+    .top-official-header {
       width: 100%;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 6px;
       margin-bottom: 8px;
     }
 
-    .top-bar-right {
-      display: table-cell;
-      vertical-align: top;
-      text-align: right;
-    }
-
-    .top-bar-left {
-      display: table-cell;
-      vertical-align: top;
-      text-align: left;
-    }
-
-    .date-label {
-      font-size: 14px;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    .header-box {
-      border: 2px solid #0f172a;
-      border-radius: 6px;
-      padding: 10px 14px;
-      margin-bottom: 12px;
-      background-color: #fafafa;
-    }
-
-    .header-table {
+    .top-table {
       width: 100%;
       border-collapse: collapse;
     }
 
-    .brand-title {
-      font-size: 20px;
+    .top-col-right {
+      width: 32%;
+      vertical-align: top;
+      text-align: right;
+    }
+
+    .top-col-center {
+      width: 42%;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .top-col-left {
+      width: 26%;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .institution-name {
+      font-size: 17px;
       font-weight: 900;
       color: #0369a1;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
     }
 
-    .brand-subtitle {
-      font-size: 11px;
-      color: #475569;
+    .institution-sub {
+      font-size: 10.5px;
       font-weight: 600;
+      color: #475569;
+      margin-top: 2px;
     }
 
-    .doc-meta {
-      font-size: 11px;
+    .official-seal-badge {
+      display: inline-block;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 9px;
+      font-weight: 700;
       color: #334155;
-      line-height: 1.6;
+      margin-top: 3px;
+    }
+
+    .doc-main-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .doc-sub-title {
+      font-size: 10px;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .date-box {
+      background-color: #f8fafc;
+      border: 1.5px solid #0f172a;
+      border-radius: 6px;
+      padding: 5px 8px;
+      text-align: right;
+      display: inline-block;
+      min-width: 190px;
+    }
+
+    .date-label {
+      font-size: 12px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .ref-label {
+      font-size: 10px;
+      color: #334155;
+      font-family: monospace;
+      margin-top: 2px;
+    }
+
+    /* EXECUTIVE KPI STRIP */
+    .kpi-strip {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+    }
+
+    .kpi-box {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 4px;
+      padding: 4px 8px;
+      text-align: center;
+      font-size: 10px;
+    }
+
+    .kpi-title {
+      color: #64748b;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .kpi-value {
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 10.5px;
+      margin-top: 1px;
     }
 
     /* ATTRIBUTION BADGES */
     .badge {
       display: inline-block;
-      padding: 2px 7px;
-      font-size: 10px;
+      padding: 1px 6px;
+      font-size: 9.5px;
       font-weight: 800;
       border-radius: 4px;
-      margin-left: 4px;
+      margin-left: 3px;
     }
 
     .badge-user {
@@ -118,35 +185,29 @@
       border: 1px solid #ddd6fe;
     }
 
-    /* SUMMARY CARDS ROW */
+    /* CONTEXT SUMMARY CARDS */
     .summary-grid {
-      display: table;
       width: 100%;
-      margin-bottom: 10px;
-      table-layout: fixed;
+      border-collapse: collapse;
+      margin-bottom: 8px;
     }
 
     .summary-card {
-      display: table-cell;
-      vertical-align: top;
-      padding: 6px 10px;
-      background-color: #f8fafc;
       border: 1px solid #cbd5e1;
       border-radius: 4px;
-      font-size: 11px;
+      padding: 5px 8px;
+      background-color: #fafafa;
+      vertical-align: top;
+      font-size: 10.5px;
     }
 
-    .summary-card:not(:last-child) {
-      margin-left: 8px;
-    }
-
-    /* REAL LIFE SAMPLE MATRIX TABLE */
+    /* REAL LIFE SAMPLE MATRIX TABLE (8 COLUMNS RTL) */
     .sample-matrix-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 6px;
-      margin-bottom: 12px;
-      font-size: 11px;
+      margin-top: 4px;
+      margin-bottom: 8px;
+      font-size: 10.5px;
       border: 1.5px solid #1e293b;
     }
 
@@ -154,61 +215,77 @@
       background-color: #f1f5f9;
       color: #0f172a;
       border: 1.5px solid #1e293b;
-      padding: 8px 6px;
+      padding: 6px 4px;
       font-weight: 800;
       text-align: center;
       vertical-align: middle;
-      line-height: 1.4;
+      line-height: 1.3;
     }
 
     .sample-matrix-table td {
       border: 1.5px solid #1e293b;
-      padding: 8px 6px;
+      padding: 6px 5px;
       vertical-align: top;
       color: #0f172a;
-      line-height: 1.5;
+      line-height: 1.45;
+    }
+
+    .sample-matrix-table tbody tr:nth-child(even) {
+      background-color: #fcfcfd;
     }
 
     .empty-row td {
-      height: 28px;
+      height: 24px;
+      padding: 2px 4px;
     }
 
-    /* 3D EVALUATION SCORES BOX */
+    /* 3D EVALUATION SCORES & BENEFICIARY CSAT */
     .scores-section {
-      display: table;
       width: 100%;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
+      border-radius: 4px;
       background-color: #f8fafc;
-      padding: 6px 10px;
+      padding: 4px 8px;
+      display: table;
     }
 
     .scores-left {
       display: table-cell;
-      width: 55%;
+      width: 58%;
       vertical-align: middle;
-      font-size: 11px;
+      font-size: 10.5px;
       color: #334155;
     }
 
     .scores-right {
       display: table-cell;
-      width: 45%;
+      width: 42%;
       vertical-align: middle;
       text-align: left;
     }
 
     .score-pill {
       display: inline-block;
-      padding: 4px 10px;
+      padding: 2px 7px;
       background-color: #ffffff;
       border: 1px solid #94a3b8;
-      border-radius: 6px;
-      font-size: 11px;
+      border-radius: 4px;
+      font-size: 10.5px;
       font-weight: 700;
       color: #0f172a;
-      margin-left: 6px;
+      margin-left: 4px;
+    }
+
+    /* STATUTORY CITATIONS */
+    .statutory-strip {
+      margin-bottom: 6px;
+      font-size: 9.5px;
+      color: #475569;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      padding: 3px 6px;
+      border-radius: 4px;
     }
 
     /* SIGNATURES BLOCK */
@@ -216,16 +293,16 @@
       width: 100%;
       border-collapse: collapse;
       border: 1.5px solid #1e293b;
-      margin-top: 10px;
-      margin-bottom: 12px;
+      margin-top: 6px;
+      margin-bottom: 8px;
       page-break-inside: avoid;
     }
 
     .signatures-table th {
       background-color: #f8fafc;
       border: 1.5px solid #1e293b;
-      padding: 6px;
-      font-size: 11px;
+      padding: 4px;
+      font-size: 10px;
       font-weight: 800;
       text-align: center;
       width: 25%;
@@ -233,25 +310,25 @@
 
     .signatures-table td {
       border: 1.5px solid #1e293b;
-      padding: 10px 8px;
-      height: 52px;
+      padding: 6px;
+      height: 44px;
       text-align: center;
       vertical-align: middle;
-      font-size: 11px;
+      font-size: 10px;
     }
 
     .stamp-seal {
       display: inline-block;
-      width: 52px;
-      height: 52px;
-      border: 2px dashed #0284c7;
+      width: 46px;
+      height: 46px;
+      border: 1.5px dashed #0284c7;
       border-radius: 50%;
-      line-height: 48px;
+      line-height: 42px;
       text-align: center;
       color: #0284c7;
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 900;
-      transform: rotate(-8deg);
+      transform: rotate(-6deg);
     }
 
     /* DISCLAIMER & HASH FOOTER */
@@ -259,36 +336,36 @@
       border: 1px solid #cbd5e1;
       background-color: #f8fafc;
       border-radius: 4px;
-      padding: 6px 10px;
-      font-size: 9.5px;
+      padding: 5px 8px;
+      font-size: 9px;
       color: #475569;
-      line-height: 1.4;
+      line-height: 1.35;
       text-align: justify;
-      margin-top: 8px;
+      margin-top: 6px;
       page-break-inside: avoid;
     }
 
     .disclaimer-title {
       font-weight: 800;
       color: #1e293b;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
     }
 
     .integrity-footer {
-      margin-top: 8px;
-      font-size: 9px;
+      margin-top: 6px;
+      font-size: 8.5px;
       color: #64748b;
       display: table;
       width: 100%;
       border-top: 1px dashed #cbd5e1;
-      padding-top: 4px;
+      padding-top: 3px;
     }
 
     .integrity-left {
       display: table-cell;
       text-align: left;
       font-family: monospace;
-      font-size: 9px;
+      font-size: 8.5px;
     }
 
     .integrity-right {
@@ -299,61 +376,94 @@
 </head>
 <body>
 
-  <!-- TOP BAR: DATE & STATUS -->
-  <div class="top-bar">
-    <div class="top-bar-right">
-      <div class="date-label">التاريخ : <span style="font-family: Cairo; font-weight: 700;">{{generatedDate}}</span></div>
-    </div>
-    <div class="top-bar-left">
-      <span class="badge badge-verified">منظومة مُرافِق Enterprise</span>
-      <span class="badge badge-confirmed">تسوية معتمدة ومقيمة (RESOLVED)</span>
-    </div>
-  </div>
-
-  <!-- HEADER BOX -->
-  <div class="header-box">
-    <table class="header-table">
+  <!-- TOP HEADER: DUAL BRANDING & OFFICIAL EMBLEM -->
+  <div class="top-official-header">
+    <table class="top-table">
       <tr>
-        <td style="vertical-align: middle; width: 62%;">
-          <div class="brand-title">{{institutionName}}</div>
-          <div class="brand-subtitle">محضر فحص وتسوية حالة ومصفوفة الإجراءات التصحيحية المعتمدة — {{branchName}}</div>
+        <!-- RIGHT: ENTITY & BRANCH INFO -->
+        <td class="top-col-right">
+          <div class="institution-name">{{institutionName}}</div>
+          <div class="institution-sub">{{branchName}} — قطاع {{category}}</div>
+          <div class="official-seal-badge">إدارة المتابعة وتقويم الأداء المؤسسي ✓</div>
         </td>
-        <td style="vertical-align: middle; width: 38%; text-align: left;" class="doc-meta">
-          <div><strong>رقم المرجع:</strong> <span style="font-family: monospace; font-weight: 800; color: #0369a1;">{{referenceNumber}}</span></div>
-          <div><strong>تصنيف الحالة:</strong> {{category}}</div>
-          <div><strong>فترة المعالجة:</strong> من {{openedDate}} إلى {{closedDate}}</div>
-          <div><strong>الإصدار:</strong> v{{version}} (نسخة أرشيفية مجمدة)</div>
+
+        <!-- CENTER: OFFICIAL CASE AUDIT TITLE -->
+        <td class="top-col-center">
+          <div style="font-size: 10px; color: #475569; font-weight: 700; margin-bottom: 2px;">
+            جمهورية مصر العربية — منظومة الحوكمة وتسوية الحالات
+          </div>
+          <div class="doc-main-title">
+            محضر فحص وتسوية حالة ومصفوفة الإجراءات التنفيذية
+          </div>
+          <div class="doc-sub-title">
+            سجل توثيق التدقيق الميداني وخطة المعالجة المعتمدة — منصة مُرافِق Enterprise
+          </div>
+        </td>
+
+        <!-- LEFT: DATE, REFERENCE, & VERIFICATION BADGE -->
+        <td class="top-col-left">
+          <div class="date-box">
+            <div class="date-label">التاريخ : <span>{{generatedDate}}</span></div>
+            <div class="ref-label">المرجع: <strong>{{referenceNumber}}</strong> (v{{version}})</div>
+            <div style="font-size: 8.5px; color: #0284c7; margin-top: 1px;">
+              التحقق الرقمي: <span>murafiq.edu.eg/track</span>
+            </div>
+          </div>
         </td>
       </tr>
     </table>
   </div>
 
+  <!-- EXECUTIVE KPI STRIP -->
+  <table class="kpi-strip">
+    <tr>
+      <td class="kpi-box" style="width: 25%;">
+        <div class="kpi-title">حالة المحضر التنفيذي</div>
+        <div class="kpi-value" style="color: #059669;">منجز ومسوى نهائياً (RESOLVED)</div>
+      </td>
+      <td class="kpi-box" style="width: 25%;">
+        <div class="kpi-title">مؤشر جودة الاستجابة (RQS)</div>
+        <div class="kpi-value" style="color: #0284c7;">{{rqsScore}}/100 ({{rqsGrade}})</div>
+      </td>
+      <td class="kpi-box" style="width: 25%;">
+        <div class="kpi-title">معدل رضا المستفيد (3D CSAT)</div>
+        <div class="kpi-value" style="color: #7c3aed;">
+          R<sub>exp</sub>: {{rExp}}/5 | R<sub>resp</sub>: {{rResp}}/5 | R<sub>res</sub>: {{rRes}}/5
+        </div>
+      </td>
+      <td class="kpi-box" style="width: 25%;">
+        <div class="kpi-title">فترة التسوية والامتثال للائحة</div>
+        <div class="kpi-value">من {{openedDate}} إلى {{closedDate}}</div>
+      </td>
+    </tr>
+  </table>
+
   <!-- CONTEXT & ATTRIBUTION SUMMARY -->
   <table class="summary-grid">
     <tr>
-      <td class="summary-card" style="width: 50%; padding-left: 6px;">
-        <div style="font-weight: 800; color: #0369a1; margin-bottom: 4px;">
-          <span class="badge badge-user">[USER-REPORTED]</span> ملخص المشكلة ومطالب ولي الأمر / المستفيد:
+      <td class="summary-card" style="width: 50%; padding-left: 8px;">
+        <div style="font-weight: 800; color: #0369a1; margin-bottom: 2px;">
+          <span class="badge badge-user">[USER-REPORTED]</span> ملخص الواقعة ومطالب ولي الأمر / المستفيد:
         </div>
-        <div style="color: #1e293b; font-size: 11px;">
+        <div style="color: #1e293b; font-size: 10.5px;">
           {{sanitizedSummary}}
         </div>
         {{#if desiredOutcome}}
-        <div style="margin-top: 4px; font-size: 10.5px; color: #475569; border-top: 1px dashed #cbd5e1; padding-top: 2px;">
+        <div style="margin-top: 3px; font-size: 10px; color: #475569; border-top: 1px dashed #cbd5e1; padding-top: 2px;">
           <strong>النتيجة المرجوة:</strong> {{desiredOutcome}}
         </div>
         {{/if}}
       </td>
-      <td class="summary-card" style="width: 50%; padding-right: 6px;">
-        <div style="font-weight: 800; color: #b45309; margin-bottom: 4px;">
+      <td class="summary-card" style="width: 50%; padding-right: 8px;">
+        <div style="font-weight: 800; color: #b45309; margin-bottom: 2px;">
           <span class="badge badge-institution">[INSTITUTION-STATED]</span> إفادة وبيان إدارة المنشأة المعتمد:
         </div>
-        <div style="color: #334155; font-size: 11px;">
+        <div style="color: #334155; font-size: 10.5px;">
           {{officialStatement}}
         </div>
         {{#if rqsScore}}
-        <div style="margin-top: 4px; font-size: 10.5px; color: #6d28d9; border-top: 1px dashed #cbd5e1; padding-top: 2px;">
-          <span class="badge badge-verified">[VERIFIED]</span> مؤشر جودة الاستجابة المؤسسية (RQS): <strong>{{rqsScore}}/100 ({{rqsGrade}})</strong>
+        <div style="margin-top: 3px; font-size: 10px; color: #6d28d9; border-top: 1px dashed #cbd5e1; padding-top: 2px;">
+          <span class="badge badge-verified">[VERIFIED]</span> اعتماد لجنة الانضباط والحماية المدرسية المشتركة.
         </div>
         {{/if}}
       </td>
@@ -368,7 +478,7 @@
         <th style="width: 11%;">البند</th>
         <th style="width: 25%;">الملحوظة</th>
         <th style="width: 14%;">التوصية</th>
-        <th style="width: 6%;">مكرر<br><span style="font-size: 9px; font-weight: normal;">(نعم / لا)</span></th>
+        <th style="width: 6%;">مكرر<br><span style="font-size: 8.5px; font-weight: normal;">(نعم / لا)</span></th>
         <th style="width: 23%;">خطوات التنفيذ المقترحة</th>
         <th style="width: 10%;">الإفادة / الرد</th>
         <th style="width: 7%;">التاريخ<br>المتوقع للحل</th>
@@ -383,8 +493,8 @@
         <td style="color: #0369a1; font-weight: 700;">{{this.recommendation}}</td>
         <td style="text-align: center; font-weight: 700; vertical-align: middle;">{{this.isRecurring}}</td>
         <td style="color: #334155;">{{this.actionSteps}}</td>
-        <td style="font-size: 10.5px; color: #059669; font-weight: 700;">{{this.statement}}</td>
-        <td style="text-align: center; font-family: monospace; font-size: 10px; vertical-align: middle;">{{this.targetDate}}</td>
+        <td style="font-size: 10px; color: #059669; font-weight: 700;">{{this.statement}}</td>
+        <td style="text-align: center; font-family: monospace; font-size: 9.5px; vertical-align: middle;">{{this.targetDate}}</td>
       </tr>
       {{/each}}
 
@@ -409,7 +519,7 @@
       <span class="badge badge-confirmed">[USER-CONFIRMED]</span>
       <strong>التقييم النهائي ثلاثي الأبعاد لجودة الحل وتجربة المستفيد:</strong>
       {{#if closingFeedback}}
-      <span style="display: block; margin-top: 3px; color: #475569; font-style: italic;">
+      <span style="display: block; margin-top: 2px; color: #475569; font-style: italic;">
         "{{closingFeedback}}"
       </span>
       {{/if}}
@@ -421,9 +531,9 @@
     </div>
   </div>
 
-  <!-- STATUTORY CITATIONS (IF ANY) -->
+  <!-- STATUTORY CITATIONS -->
   {{#if statutoryCitations}}
-  <div style="margin-bottom: 8px; font-size: 10px; color: #475569;">
+  <div class="statutory-strip">
     <strong>المرجعيات واللوائح التنظيمية المطبقة: </strong>
     {{#each statutoryCitations}}
     <span>{{this.reference}} ({{this.title}}) | </span>
@@ -445,15 +555,15 @@
       <tr>
         <td>
           <div style="font-weight: 700; color: #0f172a;">فريق تسوية الحالات</div>
-          <div style="font-size: 9px; color: #16a34a; margin-top: 2px;">معتمد ومطابق للإجراءات ✓</div>
+          <div style="font-size: 8.5px; color: #16a34a; margin-top: 1px;">معتمد ومطابق للإجراءات ✓</div>
         </td>
         <td>
           <div style="font-weight: 700; color: #0f172a;">وكيل الشؤون الإدارية</div>
-          <div style="font-size: 9px; color: #16a34a; margin-top: 2px;">تم اعتماد خطة التنفيذ ✓</div>
+          <div style="font-size: 8.5px; color: #16a34a; margin-top: 1px;">تم اعتماد خطة التنفيذ ✓</div>
         </td>
         <td>
           <div style="font-weight: 800; color: #0284c7;">إدارة المنشأة الرسمية</div>
-          <div style="font-size: 9px; color: #475569; margin-top: 2px;">موافقة على الحل النهائي</div>
+          <div style="font-size: 8.5px; color: #475569; margin-top: 1px;">موافقة على الحل النهائي</div>
         </td>
         <td>
           <div class="stamp-seal">

@@ -36,8 +36,11 @@ export async function GET(
 
     const milestones = actionPlan?.milestones || [];
 
-    // Construct 8-column audit matrix rows matching user sample
-    const auditItems: ReportAuditMatrixItem[] = milestones.length > 0
+    // Construct 8-column audit matrix rows matching user sample (prioritizing custom saved items)
+    const customMatrixItems: ReportAuditMatrixItem[] | undefined = (caseItem.metadata as any)?.audit_items;
+    const auditItems: ReportAuditMatrixItem[] = (customMatrixItems && customMatrixItems.length > 0)
+      ? customMatrixItems
+      : milestones.length > 0
       ? milestones.map((m, idx) => ({
           seq: idx + 15,
           item: m.owner_role === "OPS_LEAD"
