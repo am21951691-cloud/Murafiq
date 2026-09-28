@@ -1,0 +1,7 @@
+# Allow search engines to index public landing and tracking portals
+User-agent: *
+Allow: /
+Allow: /track
+Allow: /cases/new
+Disallow: /api/
+Disallow: /portal/

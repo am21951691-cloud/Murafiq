@@ -1,0 +1,20 @@
+# Cloudflare Edge Headers for Murafiq Platform
+
+# Static assets with long-term immutable caching
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Standard assets
+/images/*
+  Cache-Control: public, max-age=86400
+
+/favicon.ico
+  Cache-Control: public, max-age=86400
+
+# Global Security & Privacy Headers
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-XSS-Protection: 1; mode=block
