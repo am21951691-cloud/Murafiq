@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { MurafiqLogo } from "@/components/brand/MurafiqLogo";
 import { EvaluationModal } from "@/components/cases/EvaluationModal";
+import { SimpleResolutionSummary } from "@/components/cases/SimpleResolutionSummary";
 import type { SectorType, LifecycleStatus } from "@/types/database";
 
 const SAMPLE_REFS = [
@@ -103,6 +104,20 @@ function TrackContent() {
     }
   };
 
+  const mapLifecycleToSimpleStatus = (status: LifecycleStatus): "OPEN" | "IN_PROGRESS" | "RESOLVED" | "CLOSED" => {
+    switch (status) {
+      case "CLOSED":
+        return "CLOSED";
+      case "AWAITING_EVALUATION":
+        return "RESOLVED";
+      case "IN_PROGRESS":
+      case "ACTION_PLAN_PENDING":
+        return "IN_PROGRESS";
+      default:
+        return "OPEN";
+    }
+  };
+
   const currentStep = caseData ? getStepProgress(caseData.lifecycle_status) : 0;
 
   return (
@@ -187,6 +202,27 @@ function TrackContent() {
       {/* Case Details when loaded */}
       {caseData && (
         <div className="space-y-6">
+          {/* Simple 3-Point Resolution Summary */}
+          <SimpleResolutionSummary
+            referenceNumber={caseData.reference_number}
+            institutionName={caseData.institution_name}
+            issue={caseData.sanitized_description || caseData.raw_description}
+            resolution={
+              actionPlan?.official_statement ||
+              (caseData.lifecycle_status === "CLOSED"
+                ? "تمت معالجة الحالة وإنجاز كافة التعهدات المطلوبة بنجاح."
+                : "قيد المتابعة والتنفيذ وفق جدول زمني محدد.")
+            }
+            status={mapLifecycleToSimpleStatus(caseData.lifecycle_status)}
+            targetDate={
+              caseData.grace_expires_at
+                ? new Date(caseData.grace_expires_at).toLocaleDateString("ar-EG")
+                : undefined
+            }
+            actionSteps={actionPlan?.milestones?.map((m: any) => m.title) || []}
+            isRtl={true}
+          />
+
           {/* Stepper Card */}
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-5">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">

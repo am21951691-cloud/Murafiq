@@ -7,6 +7,7 @@ import { CaseTimeline, type TimelineEvent } from "@/components/institution/CaseT
 import { CommunicationThread } from "@/components/institution/CommunicationThread";
 import { ActionPlanBuilder } from "@/components/institution/ActionPlanBuilder";
 import { ResolutionReportModal } from "@/components/cases/ResolutionReportModal";
+import { SimpleResolutionSummary } from "@/components/cases/SimpleResolutionSummary";
 import type { CasePriority, LifecycleStatus } from "@/types/database";
 
 interface PageProps {
@@ -32,8 +33,8 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
 
   // Tab state
   const [activeTab, setActiveTab] = useState<
-    "OVERVIEW" | "MATRIX" | "AI_ASSISTANT" | "TIMELINE" | "COMMUNICATION" | "PLAN" | "NOTES" | "DOCUMENTS"
-  >("OVERVIEW");
+    "SIMPLE" | "OVERVIEW" | "MATRIX" | "AI_ASSISTANT" | "TIMELINE" | "COMMUNICATION" | "PLAN" | "NOTES" | "DOCUMENTS"
+  >("SIMPLE");
 
   // Internal Note form
   const [newNoteText, setNewNoteText] = useState("");
@@ -504,9 +505,10 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
         {/* Navigation Tabs */}
         <div className="flex items-center gap-1.5 border-b border-slate-200 pb-3 mb-6 overflow-x-auto text-xs font-bold">
           {[
+            { key: "SIMPLE", label: "⚡ العرض المبسط السريع", highlight: true },
             { key: "OVERVIEW", label: "📄 تفاصيل ووصف الحالة" },
-            { key: "MATRIX", label: "📊 مصفوفة الفحص (8 أعمدة)", highlight: true, badge: matrixItems.length },
-            { key: "AI_ASSISTANT", label: "🤖 مساعد الـ AI Resolution", highlight: true },
+            { key: "MATRIX", label: "📊 مصفوفة الفحص (8 أعمدة)", badge: matrixItems.length },
+            { key: "AI_ASSISTANT", label: "🤖 مساعد الـ AI Resolution" },
             { key: "PLAN", label: "☑️ خطة العمل والمراحل", badge: actionPlan?.milestones?.length },
             { key: "TIMELINE", label: "⏱️ الخط الزمني للتنفيذ", badge: events.length },
             { key: "COMMUNICATION", label: "💬 التواصل المباشر مع المستفيد" },
@@ -535,6 +537,66 @@ export default function StaffCaseDetailPage({ params }: PageProps) {
             </button>
           ))}
         </div>
+
+        {/* Tab 0: SIMPLE VIEW */}
+        {activeTab === "SIMPLE" && (
+          <div className="space-y-6">
+            <SimpleResolutionSummary
+              referenceNumber={caseData.reference_number}
+              institutionName={caseData.institution_name || "المؤسسة المعنية"}
+              issue={caseData.sanitized_description || "لا يوجد وصف مدخل"}
+              resolution={
+                caseData.metadata?.official_statement ||
+                caseData.metadata?.desired_outcome ||
+                "جاري التعامل مع الشكوى وتنفيذ الإجراءات التصحيحية المعتمدة."
+              }
+              status={
+                caseData.lifecycle_status === "CLOSED" || caseData.lifecycle_status === "AWAITING_EVALUATION"
+                  ? "RESOLVED"
+                  : caseData.lifecycle_status === "IN_PROGRESS" || caseData.lifecycle_status === "ACTION_PLAN_PENDING"
+                  ? "IN_PROGRESS"
+                  : "OPEN"
+              }
+              targetDate={
+                caseData.target_resolution_date
+                  ? new Date(caseData.target_resolution_date).toLocaleDateString("ar-EG")
+                  : undefined
+              }
+              actionSteps={
+                actionPlan?.milestones?.map((m: any) => m.title) ||
+                matrixItems.map((m: any) => `${m.item}: ${m.actionSteps}`)
+              }
+            />
+
+            {/* Quick Action Center */}
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h4 className="text-sm font-bold text-slate-900">إجراءات الإنجاز السريع</h4>
+                <p className="text-xs text-slate-500 mt-0.5">يمكنك تحديث الحالة أو التواصل فوراً مع المستفيد</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setShowResolveModal(true)}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+                >
+                  <span>✓ إتمام حل الحالة رسميًا</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab("COMMUNICATION")}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+                >
+                  <span>💬 إرسال رسالة للمستفيد</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab("OVERVIEW")}
+                  className="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+                >
+                  <span>عرض التفاصيل الكاملة</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Tab 1: OVERVIEW */}
         {activeTab === "OVERVIEW" && (
