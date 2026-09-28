@@ -1,15 +1,16 @@
 # Cloudflare Deployment & Management Guide for Murafiq (مُرافِق)
 
-This document provides instructions for deploying, managing, and maintaining the **Murafiq Resolution Platform** on Cloudflare Pages and the Cloudflare Edge network.
+This document provides instructions for deploying, managing, and maintaining the **Murafiq Resolution Platform** on Cloudflare Workers & Pages Edge network.
 
 ---
 
 ## 1. Quick Overview
 
 - **Repository**: [https://github.com/am21951691-cloud/Murafiq](https://github.com/am21951691-cloud/Murafiq)
-- **Deployment Platform**: Cloudflare Pages
+- **Deployment Platform**: Cloudflare Workers + Static Assets / Pages
+- **Production URL**: [https://murafiq.am21951691.workers.dev](https://murafiq.am21951691.workers.dev)
 - **Framework**: Next.js 15 (App Router)
-- **Edge Adapter**: `@cloudflare/next-on-pages` / Cloudflare Workers runtime
+- **Edge Adapter**: `@opennextjs/cloudflare` (Official OpenNext Cloudflare adapter)
 - **Configuration File**: [`wrangler.jsonc`](../wrangler.jsonc)
 - **Edge Headers**: [`public/_headers`](../public/_headers)
 - **Node Version**: Node.js 20.x ([`.nvmrc`](../.nvmrc))
@@ -18,59 +19,32 @@ This document provides instructions for deploying, managing, and maintaining the
 
 ## 2. Deployment Methods
 
-### Method A: Cloudflare Dashboard Git Integration (Recommended)
-
-1. Log into your [Cloudflare Dashboard](https://dash.cloudflare.com/).
-2. In the left navigation, go to **Compute (Workers & Pages)** > **Create** > **Pages** > **Connect to Git**.
-3. Select your GitHub account and authorize access to `am21951691-cloud/Murafiq`.
-4. In the **Set up builds and deployments** screen, configure:
-   - **Project name**: `murafiq`
-   - **Production branch**: `main`
-   - **Framework preset**: `None` (or `Next.js`)
-   - **Build command**: `npx @cloudflare/next-on-pages`
-   - **Build output directory**: `.vercel/output/static`
-   - **Root directory**: `/`
-5. Under **Environment variables (Advanced)**, add:
-   | Variable | Value | Description |
-   |---|---|---|
-   | `NODE_VERSION` | `20.18.0` | Enforces modern Node.js build runtime |
-   | `NEXT_PUBLIC_SUPABASE_URL` | `https://your-project.supabase.co` | Your Supabase project URL |
-   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `your-anon-key` | Public anonymous key |
-   | `SUPABASE_SERVICE_ROLE_KEY` | `your-service-key` | Server-side elevated key (encrypted secret) |
-   | `APP_URL` | `https://murafiq.pages.dev` | Base application URL |
-6. Under **Settings** > **Functions** > **Compatibility flags**:
-   - Ensure `nodejs_compat` is enabled.
-   - Compatibility date: `2024-09-23` or newer.
-7. Click **Save and Deploy**. Cloudflare will automatically build and publish previews for pull requests and deploy production on pushes to `main`.
-
----
-
-### Method B: Automated GitHub Actions CI/CD
+### Method A: Automated GitHub Actions CI/CD (Configured)
 
 An automated workflow is configured at [`.github/workflows/cloudflare-deploy.yml`](../.github/workflows/cloudflare-deploy.yml).
 
 To activate automatic GitHub Action deployments:
 1. Go to your GitHub repository: `https://github.com/am21951691-cloud/Murafiq/settings/secrets/actions`
 2. Add the following repository secrets:
-   - `CLOUDFLARE_API_TOKEN`: Create a token with **Cloudflare Pages: Edit** permissions at [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens).
+   - `CLOUDFLARE_API_TOKEN`: Create a token with **Workers Scripts: Edit, Account Settings: Read** permissions at [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens).
    - `CLOUDFLARE_ACCOUNT_ID`: Found on your Cloudflare dashboard home page (right sidebar).
 3. Every push to the `main` branch will build and deploy the application.
 
 ---
 
-### Method C: Local Deployment via Wrangler CLI
+### Method B: Local Deployment via Wrangler CLI
 
-You can deploy directly from your local terminal using the provided npm scripts:
+You can build and deploy directly from your local terminal using the npm scripts:
 
 ```bash
-# 1. Log in to your Cloudflare account
+# 1. Log in to your Cloudflare account (one-time)
 npx wrangler login
 
-# 2. Build the project for Cloudflare Pages
-npm run pages:build
+# 2. Build the project with OpenNext
+npm run build:worker
 
-# 3. Deploy the generated build
-npm run pages:deploy
+# 3. Deploy worker and static assets to Cloudflare
+npm run deploy
 ```
 
 ---
